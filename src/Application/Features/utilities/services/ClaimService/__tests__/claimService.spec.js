@@ -7,7 +7,7 @@ describe('ClaimService Unit test', () => {
     const findAllFn = jest.spyOn(models.Claims, 'findAll').mockReturnValue('found all');
     const optionsFn = jest.spyOn(GenericHelpers, 'fetchPendingClaimsOptions').mockReturnValue('options');
 
-    const claims = ClaimService.fetchClaimsByTenantRef('tenantRef', 'reciepients', 'notificationType');
+    const claims = ClaimService.fetchPendingClaims('reciepients', 'notificationType');
 
     expect(findAllFn).toHaveBeenCalled();
     expect(optionsFn).toHaveBeenCalled();
@@ -17,7 +17,7 @@ describe('ClaimService Unit test', () => {
   it('should update chart statistics', () => {
     const findAllFn = jest.spyOn(models.ClaimsStatistics, 'update').mockReturnValue('updated');
 
-    const claims = ClaimService.updateChartStatistics('tenantRef', 'payload');
+    const claims = ClaimService.updateChartStatistics('payload');
 
     expect(findAllFn).toHaveBeenCalled();
     expect(claims).toBe('updated');

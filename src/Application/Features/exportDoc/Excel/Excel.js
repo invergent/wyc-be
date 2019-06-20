@@ -8,12 +8,11 @@ class Excel {
     return file.path;
   }
 
-  static async claimReport(req) {
-    const { tenantRef } = req;
+  static async claimReport() {
     try {
-      const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData(tenantRef);
+      const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData();
       const pathToDocument = await Excel.createExcelDocument(populatedWorkbook);
-      return [pathToDocument, `${tenantRef}ClaimReport.xlsx`];
+      return [pathToDocument, `VLAClaimReport.xlsx`];
     } catch (e) {
       return [500, 'An error occurred ERR500DWLEXL'];
     }

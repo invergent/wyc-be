@@ -5,46 +5,39 @@ import BasicQuerier from '../BasicQuerier';
 const { Staff } = models;
 
 class StaffService {
-  static async updateStaffInfo(tenantRef, staffId, payload) {
-    const queryOptions = { where: { tenantRef, staffId }, returning: true };
+  static async updateStaffInfo(staffId, payload) {
+    const queryOptions = { where: { staffId }, returning: true };
     const [updated] = await Staff.update(payload, queryOptions);
     return !!updated;
   }
 
-  static fetchStaffByPk(tenantRef, staffPk, includes, order) {
-    return BasicQuerier.findByPk(tenantRef, 'Staff', staffPk, includes, order);
+  static fetchStaffByPk(staffPk, includes, order) {
+    return BasicQuerier.findByPk('Staff', staffPk, includes, order);
   }
 
-  static findStaffByStaffIdOrEmail(tenantRef, identifier, includes) {
+  static findStaffByStaffIdOrEmail(identifier, includes) {
     const searchColumn = identifier.includes('.com') ? 'email' : 'staffId';
-    const options = { where: { tenantRef, [searchColumn]: identifier } };
+    const options = { where: { [searchColumn]: identifier } };
 
     if (includes && Array.isArray(includes)) options.include = includes;
 
     return Staff.findOne(options);
   }
 
-  static updateStaffsLineManager(tenantRef, data) {
-    const { id: lineManagerId, lineManagerIdColumn, staffId } = data;
-    return Staff.update(
-      { [lineManagerIdColumn]: lineManagerId }, { where: { tenantRef, staffId } }
-    );
-  }
-
   static bulkCreateStaff(listOfStaff) {
     return BasicQuerier.bulkCreate('Staff', listOfStaff);
   }
 
-  static findOrCreateSingleStaff(tenantRef, staff) {
+  static findOrCreateSingleStaff(staff) {
     return Staff.findOrCreate({
-      where: { tenantRef, staffId: staff.staffId },
+      where: { staffId: staff.staffId },
       defaults: staff,
       raw: true
     });
   }
 
-  static fetchStaff(tenantRef, attributes) {
-    const options = { where: { tenantRef, staffId: { [Op.notLike]: 'ADMIN%' } }, attributes };
+  static fetchStaff(attributes) {
+    const options = { where: { staffId: { [Op.notLike]: 'ADMIN%' } }, attributes };
     return Staff.findAll(options);
   }
 }

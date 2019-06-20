@@ -1,13 +1,5 @@
 const claims = (sequelize, DataTypes) => {
   const Claims = sequelize.define('Claims', {
-    tenantRef: {
-      type: DataTypes.STRING,
-      references: {
-        model: 'Tenants',
-        key: 'ref',
-        as: 'claimsCompany'
-      }
-    },
     monthOfClaim: {
       type: DataTypes.STRING
     },
@@ -40,7 +32,6 @@ const claims = (sequelize, DataTypes) => {
   }, { freezeTableName: true });
 
   Claims.associate = (models) => {
-    Claims.belongsTo(models.Tenants, { as: 'claimsCompany', foreignKey: 'tenantRef', targetKey: 'ref' });
     Claims.belongsTo(models.Staff, { foreignKey: 'requester' });
     Claims.hasMany(models.ClaimApprovalHistory, { as: 'approvalHistory', foreignKey: 'claimId' });
   };

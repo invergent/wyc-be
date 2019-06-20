@@ -1,7 +1,7 @@
 import EmailNotifications from '../EmailNotifications';
 import helpers from '../../helpers';
 import { templateNames } from '../../utils/types';
-import { tenantsInfo } from '../../utils/general';
+import { companyInfo } from '../../utils/general';
 import {
   mockReq, mockStaff
 } from '../../../../../__tests__/__mocks__';
@@ -18,12 +18,11 @@ jest.mock('../../helpers/Mailer', () => () => ({
 const { PasswordResetHelper, NotificationsHelpers } = helpers;
 
 describe('Notifications Unit tests', () => {
-  tenantsInfo.INIT = { emailAddress: 'someEmailAddress' };
+  companyInfo.VLA = { emailAddress: 'someEmailAddress' };
 
   describe('EmailNotifications', () => {
     it('should send Reset password email', async () => {
       const passwordResetHash = 'passwordResetHash';
-      const { tenant } = mockReq;
       const { staffId } = mockStaff;
 
       const createHash = jest.spyOn(PasswordResetHelper, 'createAndSaveResetHash')
@@ -31,10 +30,10 @@ describe('Notifications Unit tests', () => {
       const sendEmail = jest.spyOn(EmailNotifications, 'sendNotificationEmail')
         .mockReturnValue(passwordResetHash);
 
-      const result = await EmailNotifications.sendPasswordResetEmail(tenant, mockStaff);
+      const result = await EmailNotifications.sendPasswordResetEmail(mockStaff);
 
-      expect(createHash).toHaveBeenCalledWith(tenant, staffId);
-      expect(sendEmail).toHaveBeenCalledWith(tenant, mockStaff, templateNames.Reset, passwordResetHash);
+      expect(createHash).toHaveBeenCalledWith(staffId);
+      expect(sendEmail).toHaveBeenCalledWith(mockStaff, templateNames.Reset, passwordResetHash);
       expect(result).toEqual(passwordResetHash);
     });
 
@@ -42,7 +41,7 @@ describe('Notifications Unit tests', () => {
       const { tenant } = mockReq;
       const email = 'email content';
 
-      const result = EmailNotifications.sender(tenant, email);
+      const result = EmailNotifications.sender(email);
 
       expect(result).toEqual(email);
     });
@@ -58,10 +57,9 @@ describe('Notifications Unit tests', () => {
     });
 
     it('should send multiple emails', async () => {
-      const { tenant } = mockReq;
       const emails = ['email content one', 'email content two'];
 
-      const result = EmailNotifications.sender(tenant, emails);
+      const result = EmailNotifications.sender(emails);
 
       expect(result).toEqual(emails);
     });
@@ -70,7 +68,7 @@ describe('Notifications Unit tests', () => {
       const createEmailsFn = jest.spyOn(NotificationsHelpers, 'createMultipleEmails').mockReturnValue('emails');
       const sendEmailFn = jest.spyOn(EmailNotifications, 'sender').mockReturnValue('email sent');
 
-      const result = await EmailNotifications.sendNotificationEmailToMany('tenantRef', 'reciepients', 'another');
+      const result = await EmailNotifications.sendNotificationEmailToMany('reciepients', 'another');
 
       expect(result).toEqual('email sent');
       expect(createEmailsFn).toHaveBeenCalled();
@@ -81,7 +79,7 @@ describe('Notifications Unit tests', () => {
       const sendEmailFn = jest.spyOn(EmailNotifications, 'sendNotificationEmailToMany')
         .mockReturnValue('email sent');
 
-      EmailNotifications.remindStaffOfPendingClaim('tenantRef', 'listOfStaff');
+      EmailNotifications.remindStaffOfPendingClaim('listOfStaff');
 
       expect(sendEmailFn).toHaveBeenCalled();
     });

@@ -1,6 +1,5 @@
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('Claims', [{
-    tenantRef: 'INIT',
     monthOfClaim: 'Oct, 2018',
     weekday: null,
     weekend: null,
@@ -12,7 +11,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Nov, 2018',
     weekday: 12,
     weekend: 7,
@@ -24,7 +22,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Dec, 2018',
     weekday: 17,
     weekend: 6,
@@ -36,7 +33,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Dec, 2018',
     weekday: 19,
     weekend: 5,
@@ -48,7 +44,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Jan, 2019',
     weekday: 14,
     weekend: 6,
@@ -60,7 +55,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Jan, 2019',
     weekday: 17,
     weekend: 4,
@@ -72,7 +66,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Jan, 2019',
     weekday: 9,
     weekend: 2,
@@ -84,7 +77,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Jan, 2019',
     weekday: 16,
     weekend: 5,
@@ -96,7 +88,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 12,
     weekend: 8,
@@ -108,7 +99,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'April, 2019',
     weekday: 20,
     weekend: 8,
@@ -120,7 +110,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 20,
     weekend: 8,
@@ -132,7 +121,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 20,
     weekend: 8,
@@ -144,7 +132,6 @@ module.exports = {
     updatedAt: new Date(2018, 10, 15)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 20,
     weekend: 8,
@@ -156,7 +143,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 20,
     weekend: 8,
@@ -168,7 +154,6 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Oct, 2018',
     weekday: 16,
     weekend: 8,
@@ -180,7 +165,6 @@ module.exports = {
     updatedAt: new Date(2018, 10, 15)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Oct, 2018',
     weekday: 18,
     weekend: 8,
@@ -192,7 +176,6 @@ module.exports = {
     updatedAt: new Date(2018, 10, 15)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Nov, 2018',
     weekday: 15,
     weekend: 5,
@@ -204,7 +187,6 @@ module.exports = {
     updatedAt: new Date(2018, 11, 15)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Dec, 2018',
     weekday: 21,
     weekend: 6,
@@ -216,7 +198,6 @@ module.exports = {
     updatedAt: new Date(2019, 0, 15)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Jan, 2019',
     weekday: 21,
     weekend: 6,
@@ -228,7 +209,6 @@ module.exports = {
     updatedAt: new Date(2019, 1, 15)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'Jan, 2019',
     weekday: 15,
     weekend: 4,
@@ -240,7 +220,6 @@ module.exports = {
     updatedAt: new Date(2019, 1, 17)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 22,
     weekend: 4,
@@ -252,7 +231,6 @@ module.exports = {
     updatedAt: new Date(2019, 2, 13)
   },
   {
-    tenantRef: 'INIT',
     monthOfClaim: 'March, 2019',
     weekday: 22,
     weekend: 6,

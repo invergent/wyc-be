@@ -1,6 +1,5 @@
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('ClaimsStatistics', [{
-    tenantRef: 'INIT',
     year: '2019',
     Jan: '200',
     Feb: '350',

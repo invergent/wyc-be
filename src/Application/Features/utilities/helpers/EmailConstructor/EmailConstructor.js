@@ -1,9 +1,9 @@
 import EmailService from '../../services/EmailService';
 
 class EmailConstructor {
-  static async create(tenantRef, emailDetails) {
+  static async create(emailDetails) {
     const { email: staffEmailAddress, lineManagerEmailAddress, emailTemplateName } = emailDetails;
-    const emailTemplate = await EmailService.fetchEmailTemplateByName(tenantRef, emailTemplateName);
+    const emailTemplate = await EmailService.fetchEmailTemplateByName(emailTemplateName);
     const { htmlMessage, subject } = emailTemplate;
 
     let toEmailAddress;
@@ -22,8 +22,8 @@ class EmailConstructor {
     };
   }
 
-  static async createForMany(tenantRef, reciepients, emailTemplateName) {
-    const emailTemplate = await EmailService.fetchEmailTemplateByName(tenantRef, emailTemplateName);
+  static async createForMany(reciepients, emailTemplateName) {
+    const emailTemplate = await EmailService.fetchEmailTemplateByName(emailTemplateName);
     const { htmlMessage, subject } = emailTemplate;
 
     const personalizedEmails = reciepients.map((reciepient) => {
@@ -46,7 +46,6 @@ class EmailConstructor {
       lastname: staffLastName,
       supervisor,
       BSM,
-      company,
       hash,
       monthOfClaim,
       amount
@@ -55,7 +54,6 @@ class EmailConstructor {
     let supervisorLastName;
     let bsmFirstName;
     let bsmLastName;
-    let url;
 
     if (supervisor) {
       const { firstname, lastname } = supervisor;
@@ -65,9 +63,6 @@ class EmailConstructor {
       const { firstname, lastname } = BSM;
       [bsmFirstName, bsmFirstName] = [firstname, lastname];
     }
-    if (company) {
-      url = company.url; // eslint-disable-line
-    }
 
     return htmlMessage
       .replace(/{{staffFirstName}}/g, staffFirstName)
@@ -76,7 +71,7 @@ class EmailConstructor {
       .replace(/{{supervisorLastName}}/g, supervisorLastName)
       .replace(/{{bsmFirstName}}/g, bsmFirstName)
       .replace(/{{bsmLastName}}/g, bsmLastName)
-      .replace(/{{url}}/g, url)
+      .replace(/{{url}}/g, 'overtime.invergent-technologies.com')
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amount)
       .replace(/{{monthOfClaim}}/g, monthOfClaim);

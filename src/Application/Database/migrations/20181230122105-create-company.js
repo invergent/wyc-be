@@ -1,17 +1,12 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Tenants', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Company', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    ref: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
-    },
-    businessName: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -37,5 +32,5 @@ module.exports = {
       type: Sequelize.DATE
     }
   }, { freezeTableName: true }),
-  down: queryInterface => queryInterface.dropTable('Tenants')
+  down: queryInterface => queryInterface.dropTable('Company')
 };

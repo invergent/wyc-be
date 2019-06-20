@@ -10,44 +10,40 @@ const {
 
 class Administration {
   static async createStaff(req) {
-    const { tenantRef, worksheet } = req;
+    const { worksheet } = req;
     const worksheetConverter = AdministrationHelpers.convertStaffWorksheetToObjectsArray;
 
     try {
-      const staffArray = worksheetConverter(tenantRef, worksheet);
+      const staffArray = worksheetConverter(worksheet);
       const results = await StaffService.bulkCreateStaff(staffArray);
       const createdStaff = results.map(result => result.dataValues);
       return [201, `${createdStaff.length} staff created successfully.`, createdStaff];
     } catch (e) {
-      if (e.name) {
-        return [409, e.errors[0].message];
-      }
+      if (e.name) return [409, e.errors[0].message];
       return [500, 'There was an error creating staff ERR500CRTSTF.', e];
     }
   }
 
   static async createSingleBranchOrStaff(req) {
-    const { tenantRef, body } = req;
+    const { body } = req;
     const resource = req.path.includes('branch') ? 'Branch' : 'Staff';
     try {
       const [created] = req.path.includes('branch')
         ? await BranchService.findOrCreateSingleBranch(body)
-        : await StaffService.findOrCreateSingleStaff(tenantRef, body);
+        : await StaffService.findOrCreateSingleStaff(body);
       return [201, `${resource} created successfully.`, created];
     } catch (e) {
-      if (e.name) {
-        return [409, e.errors[0].message];
-      }
+      if (e.name) return [409, e.errors[0].message];
       return [500, 'There was an error while creating resource.', e];
     }
   }
 
   static async createBranches(req) {
-    const { tenantRef, worksheet } = req;
+    const { worksheet } = req;
     const worksheetConverter = AdministrationHelpers.convertBranchWorksheetToObjectsArray;
 
     try {
-      const branchesArray = worksheetConverter(tenantRef, worksheet);
+      const branchesArray = worksheetConverter(worksheet);
       const results = await BranchService.bulkCreateBranches(branchesArray);
       const createdBranches = results.map(result => result.dataValues);
       return [201, `${createdBranches.length} branches created successfully.`, createdBranches];
@@ -56,10 +52,9 @@ class Administration {
     }
   }
 
-  static async submittedClaims(req) {
-    const { tenantRef } = req;
+  static async submittedClaims() {
     try {
-      const submittedClaims = await AdministrationHelpers.submittedClaimsForAdmin(tenantRef);
+      const submittedClaims = await AdministrationHelpers.submittedClaimsForAdmin();
       const statistics = await AdministrationHelpers.getClaimStatistics(submittedClaims);
       return [200, 'Request successful', { submittedClaims, statistics }];
     } catch (e) {
@@ -67,35 +62,30 @@ class Administration {
     }
   }
 
-  static async chartStatistics(req) {
-    const { tenantRef } = req;
+  static async chartStatistics() {
     try {
-      const stats = await AdministrationHelpers.getChartStatistics(tenantRef);
+      const stats = await AdministrationHelpers.getChartStatistics();
       return [200, 'Request successful', stats];
     } catch (e) {
       return [500, 'There was a problem fetching claims ERR500CHRTST.'];
     }
   }
 
-  static async fetchStaff(req) {
-    const { tenantRef } = req;
+  static async fetchStaff() {
     const attributes = ['staffId', 'firstname', 'middlename', 'lastname', ['email', 'emailAddress'], 'image'];
     try {
-      const staffList = await AdministrationHelpers.fetchStaff(tenantRef, attributes);
+      const staffList = await AdministrationHelpers.fetchStaff(attributes);
       return [200, 'Request successful', staffList];
     } catch (e) {
       return [500, 'There was a problem fetching claims ERR500FETSTF.'];
     }
   }
 
-  static async markClaimsAsCompleted(req) {
-    const { tenantRef } = req;
+  static async markClaimsAsCompleted() {
     try {
-      const [updated] = await ClaimService.markClaimsAsCompleted(tenantRef);
-      
-      if (updated) {
-        notifications.emit(eventNames.Completed, [{ tenantRef }]);
-      }
+      const [updated] = await ClaimService.markClaimsAsCompleted();
+      if (updated) notifications.emit(eventNames.Completed, []);
+
       return [
         200,
         updated
@@ -107,11 +97,9 @@ class Administration {
     }
   }
 
-  static async fetchTenantSettings(req) {
-    const { tenantRef } = req;
-
+  static async fetchSettings() {
     try {
-      const settings = await SettingService.fetchAllSettings(tenantRef);
+      const settings = await SettingService.fetchSettings();
       return [200, 'Request successful!', settings];
     } catch (e) {
       return [500, 'An error occurred while fetching settings.', e];

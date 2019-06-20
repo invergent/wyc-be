@@ -5,101 +5,87 @@ import notifications from '../utilities/notifications';
 import { eventNames } from '../utilities/utils/types';
 import Dates from '../utilities/helpers/Dates';
 
-const { ClaimService, SettingService, TenantService } = services;
+const { ClaimService, SettingService } = services;
 
 const ScheduledJobs = {};
 
 class Scheduler {
-  static fetchAllSettings() {
-    return SettingService.fetchAllSettings();
+  static fetchSettings() {
+    return SettingService.fetchSettings();
   }
 
   static async scheduleJobs() {
-    const settings = await Scheduler.fetchAllSettings();
-
-    settings.forEach((setting) => {
-      const {
-        tenantRef, emailSchedule, overtimeWindowStart, overtimeWindowEnd
-      } = setting;
-      Scheduler.scheduleAJob(tenantRef, 'emailSchedule', emailSchedule);
-      Scheduler.scheduleAJob(tenantRef, 'overtimeWindowStart', overtimeWindowStart);
-      Scheduler.scheduleAJob(tenantRef, 'overtimeWindowEnd', overtimeWindowEnd);
-    });
+    const settings = await Scheduler.fetchSettings();
+    const { emailSchedule, overtimeWindowStart, overtimeWindowEnd } = settings;
+    
+    Scheduler.scheduleAJob('emailSchedule', emailSchedule);
+    Scheduler.scheduleAJob('overtimeWindowStart', overtimeWindowStart);
+    Scheduler.scheduleAJob('overtimeWindowEnd', overtimeWindowEnd);
   }
 
-  static async checkPendingClaims(tenantRef) {
-    const pendingClaims = await ClaimService.fetchClaimsByTenantRef(tenantRef[0], 'Awaiting');
+  static async checkPendingClaims() {
+    const pendingClaims = await ClaimService.fetchPendingClaims('Awaiting');
     if (pendingClaims.length) {
-      Scheduler.triggerEmailNotification(tenantRef[0], pendingClaims);
+      Scheduler.triggerEmailNotification(pendingClaims);
     }
   }
 
-  static triggerEmailNotification(tenantRef, staffWithPendingClaim) {
+  static triggerEmailNotification(staffWithPendingClaim) {
     const filteredStaff = ClaimHelpers.filterReminderPendingClaims(staffWithPendingClaim);
-    notifications.emit(eventNames.Reminder, [tenantRef, filteredStaff]);
+    notifications.emit(eventNames.Reminder, [filteredStaff]);
   }
 
-  static updateCronJob(tenantRef, scheduleType, schedule) {
-    Scheduler.stopJobIfRunning(tenantRef, scheduleType);
+  static updateCronJob(scheduleType, settings) {
+    Scheduler.stopJobIfRunning(scheduleType);
     if (scheduleType === 'emailSchedule') {
-      Scheduler.scheduleAJob(tenantRef, scheduleType, schedule.emailSchedule);
+      Scheduler.scheduleAJob(scheduleType, settings.emailSchedule);
     } else {
-      Scheduler.scheduleAJob(tenantRef, 'overtimeWindowStart', schedule.overtimeWindowStart);
-      Scheduler.scheduleAJob(tenantRef, 'overtimeWindowEnd', schedule.overtimeWindowEnd);
+      Scheduler.scheduleAJob('overtimeWindowStart', settings.overtimeWindowStart);
+      Scheduler.scheduleAJob('overtimeWindowEnd', settings.overtimeWindowEnd);
     }
   }
 
-  static scheduleAJob(tenantRef, scheduleType, cronTime) {
-    // initialise tenant property
-    if (!ScheduledJobs[tenantRef]) ScheduledJobs[tenantRef] = {};
-
+  static scheduleAJob(scheduleType, cronTime) {
     let job;
 
     if (scheduleType === 'emailSchedule') {
-      job = new CronJob(cronTime, Scheduler.checkPendingClaims, [tenantRef]);
+      job = new CronJob(cronTime, Scheduler.checkPendingClaims);
     } else {
-      job = new CronJob(cronTime, SettingService.updateOvertimeWindow, [tenantRef, scheduleType]);
+      job = new CronJob(cronTime, SettingService.updateOvertimeWindow, [scheduleType]);
     }
     job.start();
 
     // store jobs for future reference
-    ScheduledJobs[tenantRef][scheduleType] = job;
+    ScheduledJobs[scheduleType] = job;
   }
 
-  static stopJobIfRunning(tenantRef, scheduleType) {
-    const runningJobs = ScheduledJobs[tenantRef];
-    if (!runningJobs) return;
-
+  static stopJobIfRunning(scheduleType) {
     if (scheduleType === 'emailSchedule') {
-      runningJobs[scheduleType].stop();
+      ScheduledJobs[scheduleType].stop();
     } else {
-      runningJobs.overtimeWindowStart.stop();
-      runningJobs.overtimeWindowEnd.stop();
+      ScheduledJobs.overtimeWindowStart.stop();
+      ScheduledJobs.overtimeWindowEnd.stop();
     }
   }
 
-  static async updateTenantsStatistics() {
+  static async updateCompanyStatistics() {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const tenants = await TenantService.fetchAllTenants();
     const { year, month } = Dates.getCurrentYearMonth();
 
-    tenants.forEach(async (tenant) => {
-      const claims = await ClaimService.fetchCompletedClaim(tenant.ref);
-      const statPayload = { [months[month]]: claims.length };
-      
-      if (month === 0) {
-        // if it is a new year, create a new record
-        statPayload.tenantRef = tenant.ref;
-        statPayload.year = year;
-        return ClaimService.createChartStatistics(statPayload);
-      }
-      return ClaimService.updateChartStatistics(tenant.ref, statPayload);
-    });
+    const claims = await ClaimService.fetchCompletedClaim();
+    const statPayload = { [months[month]]: claims.length };
+    
+    if (month === 0) {
+      // if it is a new year, create a new record
+      statPayload.year = year;
+      return ClaimService.createChartStatistics(statPayload);
+    }
+    return ClaimService.updateChartStatistics(year, statPayload);
   }
 
   static scheduleStatsUpdateJob() {
     // run statistics update by 2:00 on the 27th of every month
-    const job = new CronJob('0 2 27 * *', Scheduler.updateTenantsStatistics);
+    const job = new CronJob('0 2 27 * *', Scheduler.updateCompanyStatistics);
     job.start();
   }
 }

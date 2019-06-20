@@ -1,9 +1,5 @@
 const claimsStatistics = (sequelize, DataTypes) => {
   const ClaimsStatistics = sequelize.define('ClaimsStatistics', {
-    tenantRef: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     year: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -57,10 +53,6 @@ const claimsStatistics = (sequelize, DataTypes) => {
       defaultValue: null
     }
   });
-
-  ClaimsStatistics.associate = (models) => {
-    ClaimsStatistics.belongsTo(models.Tenants, { as: 'companyStats', foreignKey: 'tenantRef', targetKey: 'ref' });
-  };
   return ClaimsStatistics;
 };
 

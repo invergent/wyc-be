@@ -10,12 +10,12 @@ export const mockReq = {
   currentStaff: { staffId: 'someId' },
   lineManager: {},
   params: { claimId: 'someClaim' },
-  tenantRef: 'INIT',
   worksheet: 'worksheet',
   path: ''
 };
 
 export const mockStaff = {
+  staffId: 'someId',
   password: 'password',
   role: { name: 'someRoleName' },
   email: {},
@@ -31,8 +31,7 @@ export const mockLoginCredentials = {
   body: {
     staffId: 'someId',
     password: 'password'
-  },
-  tenant: 'INIT'
+  }
 };
 
 export const mockEmail = {
@@ -43,7 +42,6 @@ export const mockEmail = {
 };
 
 export const mockSettings = [{
-  tenantRef: 'INIT',
   emailSchedule: '* * * * *'
 }];
 

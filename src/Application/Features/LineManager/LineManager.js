@@ -6,18 +6,17 @@ const { LineManagerService, StaffService } = services;
 
 class LineManager {
   static async addOrChangeLineManager(req) {
-    const { currentStaff: { staffId }, body: lineManagerDetails, tenantRef } = req;
+    const { currentStaff: { staffId }, body: lineManagerDetails } = req;
     
     const { lineManagerRole } = lineManagerDetails;
     const lineManagerIdColumn = lineManagerRole === 'Supervisor'
       ? 'supervisorId' : 'bsmId';
     
     try {
-      const [lineManager, created] = await LineManagerService
-        .findOrCreateLineManager(lineManagerDetails);
-        
-      const data = { ...lineManager.toJSON(), staffId, lineManagerIdColumn };
-      await StaffService.updateStaffsLineManager(tenantRef, data);
+      const [lineManagerData, created] = await LineManagerService.findOrCreateLineManager(lineManagerDetails);
+      const lineManager = lineManagerData.toJSON();
+      const payload = { [lineManagerIdColumn]: lineManager.id };
+      await StaffService.updateStaffInfo(staffId, payload);
     
       notifications.emit(
         eventNames.LogActivity, [`${created ? 'Added' : 'Updated'} lineManager`, staffId, lineManager]

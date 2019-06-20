@@ -7,7 +7,7 @@ describe('GenericHelpers Unit test', () => {
     jest.spyOn(sequelize, 'cast').mockReturnValue('sequelize cast');
     jest.spyOn(sequelize, 'col').mockReturnValue('sequelize col');
 
-    const options = GenericHelpers.fetchPendingClaimsOptions('tenantRef', 'status');
+    const options = GenericHelpers.fetchPendingClaimsOptions('status');
 
     expect(options.where.status).toBe('sequelize where');
   });

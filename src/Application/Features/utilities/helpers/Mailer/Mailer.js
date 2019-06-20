@@ -1,9 +1,9 @@
 import sendgrid from '@sendgrid/mail';
-import { tenantsInfo } from '../../utils/general';
+import { companyInfo } from '../../utils/general';
 
 class Mailer {
-  constructor(tenantRef) {
-    this.from = tenantsInfo[tenantRef].emailAddress;
+  constructor() {
+    this.from = companyInfo.emailAddress;
   }
 
   create(email) {

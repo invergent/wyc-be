@@ -3,9 +3,9 @@ import http from 'http';
 import app from '../../../app';
 import { supervisorHash, bsmHash } from '../testUtils';
 import EmailNotifications from '../../../Application/Features/utilities/notifications/EmailNotifications';
-import { tenantsInfo } from '../../../Application/Features/utilities/utils/general';
+import { companyInfo } from '../../../Application/Features/utilities/utils/general';
 
-tenantsInfo.INIT = { emailAddress: 'someEmailAddress' };
+companyInfo.VLA = { emailAddress: 'someEmailAddress' };
 
 jest.mock('@sendgrid/mail');
 

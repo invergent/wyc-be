@@ -1,3 +1,3 @@
 import ProfileUpdate from './ProfileUpdate';
 
-export default ProfileUpdate
+export default ProfileUpdate;

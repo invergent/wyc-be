@@ -1,8 +1,8 @@
 import models from '../../../../Database/models';
 
 class BasicQuerier {
-  static findByPk(tenantRef, model, pk, includes, order) {
-    const options = { where: { tenantRef } };
+  static findByPk(model, pk, includes, order) {
+    const options = {};
     if (includes) options.include = includes;
     if (order) options.order = order;
     return models[model].findByPk(pk, options);
@@ -15,8 +15,8 @@ class BasicQuerier {
     return models.PasswordResetRequest[method](options);
   }
 
-  static update(tenantRef, model, updatePayload, id) {
-    const options = { where: { tenantRef }, returning: true, raw: true };
+  static update(model, updatePayload, id) {
+    const options = { where: {}, returning: true, raw: true };
     if (id) options.where.id = id;
     return models[model].update(updatePayload, options);
   }

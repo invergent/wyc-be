@@ -17,7 +17,7 @@ const {
   markClaimsAsCompleted, staffClaimStats, staffActivities, staffProfileData, staffClaimHistory,
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
-  tenantSettings
+  companySettings
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, validateForgotPasswordRequest, checkOvertimeProps,
@@ -69,7 +69,7 @@ router.get('/admin/claims/chart-statistics', authenticateAdmin, chartStatistics)
 router.get('/admin/claims/export/:docType', authenticateAdmin, checkDocType, exportDoc);
 router.put('/admin/claims/completed', authenticateAdmin, markClaimsAsCompleted);
 
-router.get('/admin/settings', authenticateAdminOrStaff, tenantSettings);
+router.get('/admin/settings', authenticateAdminOrStaff, companySettings);
 router.put('/admin/settings/schedules', authenticateAdmin, checkScheduleProps, updateSchedules);
 
 router.get('/admin/staff', authenticateAdmin, fetchStaff);
@@ -78,7 +78,5 @@ router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, 
 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);
-
-router.get('/', (req, res) => res.status(200).json({ message: `${req.tenantRef} boarded` }));
 
 export default router;

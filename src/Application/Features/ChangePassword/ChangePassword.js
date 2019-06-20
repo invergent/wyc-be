@@ -7,14 +7,12 @@ const { StaffService } = services;
 
 class ChangePassword {
   static async processPasswordUpdate(req) {
-    const {
-      currentStaff, currentAdmin, body: { currentPassword, newPassword }, tenantRef
-    } = req;
+    const { currentStaff, currentAdmin, body: { currentPassword, newPassword } } = req;
     const requester = currentStaff || currentAdmin;
     const updatePayload = {};
 
     try {
-      const staff = await StaffService.findStaffByStaffIdOrEmail(tenantRef, requester.staffId);
+      const staff = await StaffService.findStaffByStaffIdOrEmail(requester.staffId);
       const isCorrect = await ChangePassword
         .currentPasswordIsCorrect(currentPassword, staff.password);
       if (!isCorrect) return [401, 'Password is incorrect'];
@@ -22,7 +20,7 @@ class ChangePassword {
       if (currentPassword === 'password') updatePayload.changedPassword = true;
       updatePayload.password = bcrypt.hashSync(newPassword, 8);
 
-      const updated = await StaffService.updateStaffInfo(tenantRef, requester.staffId, updatePayload);
+      const updated = await StaffService.updateStaffInfo(requester.staffId, updatePayload);
 
       if (updated) {
         notifications.emit(eventNames.LogActivity, [activityNames.ChangePassword, requester.staffId]);

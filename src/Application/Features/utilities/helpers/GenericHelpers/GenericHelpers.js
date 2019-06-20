@@ -16,11 +16,11 @@ class GenericHelpers {
     return payload;
   }
 
-  static createLineManagerQueryOptions(tenantRef, lineManager) {
+  static createLineManagerQueryOptions(lineManager) {
     const { id, lineManagerRole } = lineManager;
     const bsmOrSupervisorStaff = lineManagerRole === 'BSM' ? 'bsmStaff' : 'supervisorStaff';
 
-    const claimsWhereOptions = { tenantRef, status: 'Awaiting supervisor' };
+    const claimsWhereOptions = { status: 'Awaiting supervisor' };
     if (lineManagerRole === 'BSM') claimsWhereOptions.status = 'Awaiting BSM';
 
     const options = {
@@ -64,10 +64,9 @@ class GenericHelpers {
     return statusFilter;
   }
 
-  static adminFetchClaimOptions(tenantRef, statusType, period) {
+  static adminFetchClaimOptions(statusType, period) {
     const options = {
       where: {
-        tenantRef,
         createdAt: { [Op.gte]: GenericHelpers.periodToFetch(period) },
         ...GenericHelpers.claimStatusFilter(statusType)
       },
@@ -91,30 +90,29 @@ class GenericHelpers {
     return key;
   }
 
-  static fetchPendingClaimsOptions(tenantRef, statusType) {
+  static fetchPendingClaimsOptions(statusType) {
     return {
-      where: { tenantRef, ...GenericHelpers.claimStatusFilter(statusType) },
+      where: { ...GenericHelpers.claimStatusFilter(statusType) },
       include: [Staff],
       plain: false,
       raw: true
     };
   }
 
-  static claimsInProcessingOptions(tenantRef) {
-    const options = GenericHelpers.adminBulkSortQueryOptions(tenantRef, 'Processing');
+  static claimsInProcessingOptions() {
+    const options = GenericHelpers.adminBulkSortQueryOptions('Processing');
     return options;
   }
 
-  static fetchCompletedClaimsQueryOptions(tenantRef) {
-    const options = GenericHelpers.adminBulkSortQueryOptions(tenantRef, 'Completed');
+  static fetchCompletedClaimsQueryOptions() {
+    const options = GenericHelpers.adminBulkSortQueryOptions('Completed');
     options.include = [Staff];
     return options;
   }
 
-  static adminBulkSortQueryOptions(tenantRef, statusType) {
+  static adminBulkSortQueryOptions(statusType) {
     return {
       where: {
-        tenantRef,
         createdAt: { [Op.gte]: GenericHelpers.periodToFetch() },
         ...GenericHelpers.claimStatusFilter(statusType)
       },
@@ -123,9 +121,9 @@ class GenericHelpers {
     };
   }
 
-  static staffPendingClaimOptions(tenantRef, staffId, statusType) {
+  static staffPendingClaimOptions(staffId, statusType) {
     return {
-      where: { tenantRef, ...GenericHelpers.claimStatusFilter(statusType) },
+      where: { ...GenericHelpers.claimStatusFilter(statusType) },
       include: [{ model: Staff, where: { staffId } }, 'approvalHistory']
     };
   }

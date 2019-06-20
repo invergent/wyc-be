@@ -6,7 +6,7 @@ describe('NotificationsHelpers Unit test', () => {
     const emailConstructorFn = jest.spyOn(EmailConstructor, 'createForMany').mockReturnValue('emails created');
     const templateNameFn = jest.spyOn(NotificationsHelpers, 'staffEmailTemplateName').mockReturnValue('template');
 
-    const emails = NotificationsHelpers.createMultipleEmails('tenantRef', 'reciepients', 'notificationType');
+    const emails = NotificationsHelpers.createMultipleEmails('reciepients', 'notificationType');
 
     expect(emailConstructorFn).toHaveBeenCalled();
     expect(templateNameFn).toHaveBeenCalled();

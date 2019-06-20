@@ -6,14 +6,6 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    tenantRef: {
-      type: Sequelize.STRING,
-      references: {
-        model: 'Tenants',
-        key: 'ref',
-        as: 'tenant'
-      }
-    },
     emailSchedule: {
       type: Sequelize.STRING
     },
