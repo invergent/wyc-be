@@ -1,15 +1,15 @@
 import BasicQuerier from '../BasicQuerier';
 
 class PasswordResetService {
-  static fetchPasswordResetRequest(tenantRef, staffId) {
+  static fetchPasswordResetRequest(staffId) {
     return BasicQuerier.passwordResetQueries('findOne', staffId);
   }
 
-  static deletePasswordResetRequest(tenantRef, staffId) {
+  static deletePasswordResetRequest(staffId) {
     return BasicQuerier.passwordResetQueries('destroy', staffId);
   }
 
-  static updateOrInsertResetRequest(tenantRef, data) {
+  static updateOrInsertResetRequest(data) {
     return BasicQuerier.passwordResetQueries('upsert', undefined, data);
   }
 }

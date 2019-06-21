@@ -1,13 +1,13 @@
 import Claim from '../Claim';
 import ClaimService from '../../utilities/services/ClaimService';
 import ClaimHelpers from '../../utilities/helpers/ClaimHelpers';
-import { tenantsInfo } from '../../utilities/utils/general';
+import { companyInfo } from '../../utilities/utils/general';
 import { mockReq } from '../../../../__tests__/__mocks__';
 
 jest.mock('@sendgrid/mail');
 
 describe('Claim Unit Test', () => {
-  tenantsInfo.INIT = { emailAddress: 'someEmailAddress' };
+  companyInfo.VLA = { emailAddress: 'someEmailAddress' };
   describe('runClaimApproval', () => {
     it('should send a non-approval message if approval was not updated on the DB.', async () => {
       jest.spyOn(Claim, 'checkThatClaimIsAssignedToLineManager').mockResolvedValue([200, 'okay']);

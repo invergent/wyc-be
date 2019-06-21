@@ -10,7 +10,7 @@ import PasswordResetService from './PasswordResetService';
 import RoleService from './RoleService';
 import SettingService from './SettingService';
 import StaffService from './StaffService';
-import TenantService from './TenantService';
+import CompanyService from './CompanyService';
 
 export default {
   ActivityService,
@@ -25,5 +25,5 @@ export default {
   RoleService,
   SettingService,
   StaffService,
-  TenantService
+  CompanyService
 };

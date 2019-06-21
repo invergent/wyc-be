@@ -8,10 +8,9 @@ const {
 } = models;
 
 class ClaimService {
-  static findOrCreateClaim(tenantRef, overtimeRequest) {
+  static findOrCreateClaim(overtimeRequest) {
     return Claims.findOrCreate({
       where: {
-        tenantRef,
         monthOfClaim: overtimeRequest.monthOfClaim,
         requester: overtimeRequest.requester,
         status: GenericHelpers.notCancelledOrDeclined()
@@ -21,29 +20,29 @@ class ClaimService {
     });
   }
 
-  static findClaimByPk(tenantRef, claimId) {
-    return BasicQuerier.findByPk(tenantRef, 'Claims', claimId);
+  static findClaimByPk(claimId) {
+    return BasicQuerier.findByPk('Claims', claimId);
   }
 
-  static fetchClaimsByTenantRef(tenantRef, statusType) {
-    const options = GenericHelpers.fetchPendingClaimsOptions(tenantRef, statusType);
+  static fetchPendingClaims(statusType) {
+    const options = GenericHelpers.fetchPendingClaimsOptions(statusType);
     return Claims.findAll(options);
   }
 
-  static updateClaim(tenantRef, updatePayload, claimId) {
-    return BasicQuerier.update(tenantRef, 'Claims', updatePayload, claimId);
+  static updateClaim(updatePayload, claimId) {
+    return BasicQuerier.update('Claims', updatePayload, claimId);
   }
 
-  static fetchPendingClaimsForLineManagers(tenantRef, lineManager) {
-    const queryOptions = GenericHelpers.createLineManagerQueryOptions(tenantRef, lineManager);
+  static fetchPendingClaimsForLineManagers(lineManager) {
+    const queryOptions = GenericHelpers.createLineManagerQueryOptions(lineManager);
     return LineManagers.findOne(queryOptions);
   }
 
-  static async runClaimApproval(tenantRef, lineManager, claimId, approvalType) {
+  static async runClaimApproval(lineManager, claimId, approvalType) {
     const { id: lineManagerId, lineManagerRole } = lineManager;
     const updatePayload = GenericHelpers.createUpdatePayload(lineManagerRole, approvalType);
 
-    const [updated, claim] = await ClaimService.updateClaim(tenantRef, updatePayload, claimId);
+    const [updated, claim] = await ClaimService.updateClaim(updatePayload, claimId);
     const history = await ClaimApprovalHistoryService.createApprovalHistory(
       approvalType, claimId, lineManagerId
     );
@@ -52,54 +51,53 @@ class ClaimService {
     return [updated, updatedClaim];
   }
 
-  static approveClaim(tenantRef, lineManager, claimId) {
-    return ClaimService.runClaimApproval(tenantRef, lineManager, claimId, 'approve');
+  static approveClaim(lineManager, claimId) {
+    return ClaimService.runClaimApproval(lineManager, claimId, 'approve');
   }
 
-  static declineClaim(tenantRef, lineManager, claimId) {
-    return ClaimService.runClaimApproval(tenantRef, lineManager, claimId, 'decline');
+  static declineClaim(lineManager, claimId) {
+    return ClaimService.runClaimApproval(lineManager, claimId, 'decline');
   }
 
-  static cancelClaim(tenantRef, claimId) {
+  static cancelClaim(claimId) {
     const updatePayload = { status: 'Cancelled' };
-    return ClaimService.updateClaim(tenantRef, updatePayload, claimId);
+    return ClaimService.updateClaim(updatePayload, claimId);
   }
 
-  static fetchSubmittedClaims(tenantRef, statusType, period) {
-    const options = GenericHelpers.adminFetchClaimOptions(tenantRef, statusType, period);
+  static fetchSubmittedClaims(statusType, period) {
+    const options = GenericHelpers.adminFetchClaimOptions(statusType, period);
     return Claims.findAll(options);
   }
 
-  static fetchCompletedClaim(tenantRef) {
-    const options = GenericHelpers.fetchCompletedClaimsQueryOptions(tenantRef);
+  static fetchCompletedClaim() {
+    const options = GenericHelpers.fetchCompletedClaimsQueryOptions();
     return Claims.findAll(options);
   }
 
-  static fetchClaimsInProcessingForExports(tenantRef, statusType) {
-    const options = GenericHelpers.adminFetchClaimOptions(tenantRef, statusType);
+  static fetchClaimsInProcessingForExports(statusType) {
+    const options = GenericHelpers.adminFetchClaimOptions(statusType);
     return Claims.findAll(options);
   }
 
-  static markClaimsAsCompleted(tenantRef) {
-    const options = GenericHelpers.claimsInProcessingOptions(tenantRef);
+  static markClaimsAsCompleted() {
+    const options = GenericHelpers.claimsInProcessingOptions();
     const payload = { status: 'Completed' };
     return Claims.update(payload, options);
   }
 
-  static fetchStaffClaims(tenantRef, staffId, status) {
-    const options = GenericHelpers.staffPendingClaimOptions(tenantRef, staffId, status);
+  static fetchStaffClaims(staffId, status) {
+    const options = GenericHelpers.staffPendingClaimOptions(staffId, status);
     return Claims.findAll(options);
   }
 
-  static getChartStatistics(tenantRef) {
+  static getChartStatistics() {
     const currentYear = new Date().getFullYear();
-    const options = { where: { tenantRef, year: currentYear } };
+    const options = { where: { year: currentYear } };
     return ClaimsStatistics.findOne(options);
   }
 
-  static updateChartStatistics(tenantRef, statPayload) {
-    const currentYear = new Date().getFullYear();
-    const options = { where: { tenantRef, year: currentYear } };
+  static updateChartStatistics(year, statPayload) {
+    const options = { where: { year } };
     return ClaimsStatistics.update(statPayload, options);
   }
 

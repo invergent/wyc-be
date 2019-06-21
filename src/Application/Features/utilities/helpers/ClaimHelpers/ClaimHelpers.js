@@ -87,22 +87,22 @@ class ClaimHelpers {
     return filteredPendingClaims.map(claim => claim.id);
   }
 
-  static async pendingClaimsForlineManager(tenantRef, lineManager) {
+  static async pendingClaimsForlineManager(lineManager) {
     const { lineManagerRole } = lineManager;
-    const results = await ClaimService.fetchPendingClaimsForLineManagers(tenantRef, lineManager);
+    const results = await ClaimService.fetchPendingClaimsForLineManagers(lineManager);
     const { firstname, lastname } = results; // line manager details
     const filteredResults = ClaimHelpers.filterQueryResult(results.toJSON(), lineManagerRole);
     return { lineManager: { firstname, lastname }, pendingClaims: filteredResults };
   }
 
-  static async getIdsOfClaimsAssignedToLineManager(tenantRef, lineManager) {
-    const result = await ClaimHelpers.pendingClaimsForlineManager(tenantRef, lineManager);
+  static async getIdsOfClaimsAssignedToLineManager(lineManager) {
+    const result = await ClaimHelpers.pendingClaimsForlineManager(lineManager);
     const pendingClaimIds = ClaimHelpers.getIdsOfFilteredPendingClaims(result.pendingClaims);
     return pendingClaimIds;
   }
 
-  static async getStaffClaimStats(tenantRef, staffId) {
-    const claims = await ClaimService.fetchStaffClaims(tenantRef, staffId);
+  static async getStaffClaimStats(staffId) {
+    const claims = await ClaimService.fetchStaffClaims(staffId);
     const claimStats = {
       total: claims.length, completed: 0, declined: 0, cancelled: 0
     };
@@ -116,9 +116,9 @@ class ClaimHelpers {
     return acc;
   }
 
-  static async fetchStaffPendingClaim(tenantRef, staffId) {
+  static async fetchStaffPendingClaim(staffId) {
     // a hack for a claim that is either awaiting or processing
-    const pendingClaim = await ClaimService.fetchStaffClaims(tenantRef, staffId, 'ing');
+    const pendingClaim = await ClaimService.fetchStaffClaims(staffId, 'ing');
     if (!pendingClaim.length) return [];
 
     const {

@@ -2,7 +2,7 @@ import ClaimService from '../../services/ClaimService';
 import StaffService from '../../services/StaffService';
 
 class AdministrationHelpers {
-  static convertStaffWorksheetToObjectsArray(tenantRef, worksheet) {
+  static convertStaffWorksheetToObjectsArray(worksheet) {
     const arrayOfStaff = [];
 
     worksheet.eachRow((row) => {
@@ -10,7 +10,6 @@ class AdministrationHelpers {
       const [emptyCell, staffId, firstname, lastname, middlename, email, phone] = row.values;
 
       arrayOfStaff.push({
-        tenantRef,
         staffId: staffId.toUpperCase(),
         firstname,
         lastname,
@@ -23,15 +22,13 @@ class AdministrationHelpers {
     return arrayOfStaff;
   }
 
-  static convertBranchWorksheetToObjectsArray(tenantRef, worksheet) {
+  static convertBranchWorksheetToObjectsArray(worksheet) {
     const arrayOfBranches = [];
 
     worksheet.eachRow((row) => {
       // eslint-disable-next-line
       const [emptyCell, name, solId, address] = row.values;
-      arrayOfBranches.push({
-        tenantRef, name, solId, address
-      });
+      arrayOfBranches.push({ name, solId, address });
     });
 
     return arrayOfBranches;
@@ -74,13 +71,13 @@ class AdministrationHelpers {
     });
   }
 
-  static async submittedClaimsForAdmin(tenantRef) {
-    const claims = await ClaimService.fetchSubmittedClaims(tenantRef);
+  static async submittedClaimsForAdmin() {
+    const claims = await ClaimService.fetchSubmittedClaims();
     return AdministrationHelpers.filterAdminClaimsQueryResult(claims);
   }
 
-  static async exportableClaims(tenantRef) {
-    const claims = await ClaimService.fetchClaimsInProcessingForExports(tenantRef, 'Processing');
+  static async exportableClaims() {
+    const claims = await ClaimService.fetchClaimsInProcessingForExports('Processing');
     return AdministrationHelpers.filterAdminClaimsQueryResult(claims);
   }
 
@@ -99,12 +96,12 @@ class AdministrationHelpers {
     return acc;
   }
 
-  static getChartStatistics(tenantRef) {
-    return ClaimService.getChartStatistics(tenantRef);
+  static getChartStatistics() {
+    return ClaimService.getChartStatistics();
   }
 
-  static fetchStaff(tenantRef, attributes) {
-    return StaffService.fetchStaff(tenantRef, attributes);
+  static fetchStaff(attributes) {
+    return StaffService.fetchStaff(attributes);
   }
 }
 

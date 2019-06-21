@@ -28,7 +28,6 @@ notify.register(eventNames.Cancelled, ActivityLogger.logClaimActivity);
 
 notify.register(eventNames.Completed, EmailNotifications.notifyStaffCompleted);
 notify.register(eventNames.Completed, InAppNotifications.notifyStaffCompleted);
-notify.register(eventNames.Completed, InAppNotifications.notifyStaffCompleted);
 
 notify.register(eventNames.Reminder, EmailNotifications.remindStaffOfPendingClaim);
 

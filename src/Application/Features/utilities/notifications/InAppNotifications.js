@@ -27,8 +27,8 @@ class InAppNotifications {
     return InAppNotifications.recordAndNotifyStaff(data, BSMDeclined);
   }
 
-  static notifyStaffCompleted(data) {
-    return InAppNotifications.recordAndNotifyManyStaff(data);
+  static notifyStaffCompleted() {
+    return InAppNotifications.recordAndNotifyManyStaff();
   }
 
   static recordAndNotifyStaff(data, notificationSource) {
@@ -44,12 +44,12 @@ class InAppNotifications {
     return NotificationService.createNotification(notification);
   }
 
-  static async recordAndNotifyManyStaff(data) {
-    const completedClaimsWithStaff = await ClaimService.fetchClaimsByTenantRef(data.tenantRef, 'Completed');
+  static async recordAndNotifyManyStaff() {
+    const completedClaimsWithStaff = await ClaimService.fetchPendingClaims('Completed');
     const filteredListOfStaff = ClaimHelpers.filterCompletedClaims(completedClaimsWithStaff);
 
     return filteredListOfStaff.forEach((staff) => {
-      const newData = { ...data, staff, claimId: staff.claimId };
+      const newData = { staff, claimId: staff.claimId };
       InAppNotifications.recordAndNotifyStaff(newData, 'adminProcessed');
     });
   }

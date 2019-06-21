@@ -4,19 +4,18 @@ import BasicQuerier from '../BasicQuerier';
 const { Settings } = models;
 
 class SettingService {
-  static fetchAllSettings(tenantRef) {
-    const options = { raw: true };
-    if (tenantRef) options.where = { tenantRef };
-    return Settings.findAll(options);
+  static fetchSettings() {
+    const options = { where: { id: 1 }, raw: true };
+    return Settings.findOne(options);
   }
 
-  static updateSettings(tenantRef, updatePayload) {
-    return BasicQuerier.update(tenantRef, 'Settings', updatePayload);
+  static updateSettings(updatePayload) {
+    return BasicQuerier.update('Settings', updatePayload, 1);
   }
 
-  static async updateOvertimeWindow([tenantRef, scheduleType]) {
+  static async updateOvertimeWindow([scheduleType]) {
     const overtimeWindow = scheduleType.includes('Start') ? 'Open' : 'Close';
-    return BasicQuerier.update(tenantRef, 'Settings', { overtimeWindow });
+    return BasicQuerier.update('Settings', { overtimeWindow });
   }
 }
 

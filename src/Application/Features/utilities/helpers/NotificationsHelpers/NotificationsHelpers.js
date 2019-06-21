@@ -22,18 +22,18 @@ class NotificationsHelpers {
     return [hashedToken, emailTemplateName];
   }
 
-  static createEmail(tenantRef, staff, emailTemplateName, hash) {
+  static createEmail(staff, emailTemplateName, hash) {
     const emailDetails = {
       ...staff,
       emailTemplateName,
       hash
     };
-    return EmailConstructor.create(tenantRef, emailDetails);
+    return EmailConstructor.create(emailDetails);
   }
 
-  static createMultipleEmails(tenantRef, reciepients, notificationType) {
+  static createMultipleEmails(reciepients, notificationType) {
     const template = NotificationsHelpers.staffEmailTemplateName(undefined, notificationType);
-    return EmailConstructor.createForMany(tenantRef, reciepients, template);
+    return EmailConstructor.createForMany(reciepients, template);
   }
 }
 

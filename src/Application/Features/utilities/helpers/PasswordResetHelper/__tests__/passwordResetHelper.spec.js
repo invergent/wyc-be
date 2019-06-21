@@ -10,7 +10,7 @@ describe('PasswordResetHelper', () => {
       jest.spyOn(PasswordResetService, 'fetchPasswordResetRequest').mockResolvedValue(null);
 
       const [statusCode, message] = await PasswordResetHelper
-        .findAndValidateResetRequest('tenantRef', 'staffId');
+        .findAndValidateResetRequest('staffId');
 
       expect(statusCode).toBe(404);
       expect(message).toBe('Reset link is expired');
@@ -21,7 +21,7 @@ describe('PasswordResetHelper', () => {
       jest.spyOn(PasswordResetService, 'fetchPasswordResetRequest').mockResolvedValue(data);
 
       const [statusCode, message] = await PasswordResetHelper
-        .findAndValidateResetRequest('tenantRef', 'staffId', 'incorrectHash');
+        .findAndValidateResetRequest('staffId', 'incorrectHash');
 
       expect(statusCode).toBe(403);
       expect(message).toBe('Reset link is invalid');
@@ -34,7 +34,7 @@ describe('PasswordResetHelper', () => {
         .mockResolvedValue({});
 
       const [statusCode, message] = await PasswordResetHelper
-        .findAndValidateResetRequest('tenantRef', 'staffId', 'correctHash');
+        .findAndValidateResetRequest('staffId', 'correctHash');
 
       expect(statusCode).toBe(200);
       expect(message).toBe('valid');
@@ -47,7 +47,7 @@ describe('PasswordResetHelper', () => {
       jest.spyOn(krypter, 'createCryptrHash').mockReturnValue('passwordResetHash');
       const update = jest.spyOn(PasswordResetService, 'updateOrInsertResetRequest').mockResolvedValue(null);
 
-      const hash = await PasswordResetHelper.createAndSaveResetHash('tenantRef', 'staffId');
+      const hash = await PasswordResetHelper.createAndSaveResetHash('staffId');
 
       expect(hash).toBe('passwordResetHash');
       expect(update).toHaveBeenCalled();

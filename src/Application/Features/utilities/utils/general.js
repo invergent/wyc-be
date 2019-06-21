@@ -33,6 +33,6 @@ export const notificationActivities = {
   adminPaid: 'Your claim has been paid.'
 };
 
-export const staffIncludes = ['supervisor', 'BSM', 'company'];
+export const staffIncludes = ['supervisor', 'BSM'];
 
-export const tenantsInfo = {};
+export const companyInfo = {};

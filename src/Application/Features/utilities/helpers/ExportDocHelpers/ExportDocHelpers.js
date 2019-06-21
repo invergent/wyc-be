@@ -1,13 +1,13 @@
 import Exceljs from 'exceljs';
 import GenericHelpers from '../GenericHelpers';
 import AdministrationHelpers from '../AdministrationHelpers';
-import { tenantsInfo, exportDocHeaders } from '../../utils/general';
+import { companyInfo, exportDocHeaders } from '../../utils/general';
 
 const workbook = new Exceljs.Workbook();
 
 class ExportDocHelpers {
-  static async setWorkBookPropertiesAndCreateSheet(tenantRef) {
-    workbook.creator = tenantsInfo[tenantRef].businessName;
+  static async setWorkBookPropertiesAndCreateSheet() {
+    workbook.creator = companyInfo.businessName;
     workbook.created = new Date();
     const worksheet = workbook.addWorksheet('Submitted Claims');
     return worksheet;
@@ -37,9 +37,9 @@ class ExportDocHelpers {
     return worksheet;
   }
 
-  static async populateWorkbooksSheetWithData(tenantRef) {
-    const claims = await AdministrationHelpers.exportableClaims(tenantRef);
-    const preparedWorksheet = await ExportDocHelpers.setWorkBookPropertiesAndCreateSheet(tenantRef);
+  static async populateWorkbooksSheetWithData() {
+    const claims = await AdministrationHelpers.exportableClaims();
+    const preparedWorksheet = await ExportDocHelpers.setWorkBookPropertiesAndCreateSheet();
     const worksheetWithHeader = ExportDocHelpers.createDocColumnHeaders(preparedWorksheet);
     ExportDocHelpers.populateRowsWithClaimData(worksheetWithHeader, claims);
     return workbook;

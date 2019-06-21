@@ -5,13 +5,13 @@ const { StaffService } = services;
 
 class Authorisation {
   static async runAuthorisation(req) {
-    const { body: { staffId, email, password }, tenantRef, path } = req;
+    const { body: { staffId, email, password }, path } = req;
     const identifier = staffId ? staffId.toUpperCase() : email.toLowerCase();
     const errorCode = path.includes('admin') ? 'ADMLGN' : 'STFLGN';
     const tokenType = path.includes('admin') ? 'adminToken' : 'staffToken';
     
     try {
-      const staff = await StaffService.findStaffByStaffIdOrEmail(tenantRef, identifier, ['role']);
+      const staff = await StaffService.findStaffByStaffIdOrEmail(identifier, ['role']);
       if (!staff) return [404, 'Staff not found'];
       
       

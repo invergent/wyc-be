@@ -2,14 +2,11 @@ import StaffService from '../utilities/services/StaffService';
 
 class ProfileUpdate {
   static async profileInfo(req) {
-    const {
-      tenantRef, currentStaff, currentAdmin, body
-    } = req;
-
+    const { currentStaff, currentAdmin, body } = req;
     const requester = currentStaff || currentAdmin;
 
     try {
-      const updated = await StaffService.updateStaffInfo(tenantRef, requester.staffId, body);
+      const updated = await StaffService.updateStaffInfo(requester.staffId, body);
       
       return [updated ? 200 : 500, `Profile ${updated ? '' : 'not '}updated!`];
     } catch (e) {

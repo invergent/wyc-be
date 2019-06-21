@@ -6,13 +6,12 @@ import cors from 'express-cors';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import morgan from 'morgan';
-import subdomain from 'express-subdomain';
 import Cron from './Application/Features/Cron';
 import routes from './routes';
-import TenantService from './Application/Features/utilities/services/TenantService';
+import CompanyService from './Application/Features/utilities/services/CompanyService';
 
 const app = express();
-TenantService.getTenantsList(); // initialise all tenants info for mailing/other operations
+CompanyService.fetchInfo(); // initialise company info for mailing/other operations
 
 const setupApp = async () => {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +19,7 @@ const setupApp = async () => {
   app.use(cookieParser());
 
   if (process.env.NODE_ENV !== 'test') {
-    app.use(cors({ allowedOrigins: await TenantService.mapForCors() }));
+    app.use(cors({ allowedOrigins: ['localhost:4200'] }));
   }
 
   app.use(fileUpload({
@@ -39,15 +38,8 @@ const setupApp = async () => {
     api_secret: process.env.API_SECRET
   });
 
-  // Add tenant's unique identifier property
-  app.use((req, res, next) => {
-    const [tenant] = req.headers.host.split('.overtime-api');
-    req.tenantRef = tenant.toUpperCase();
-    return next();
-  });
-
   // Subdomain definitions
-  app.use(subdomain('*.overtime-api', routes));
+  app.use('/', routes);
   app.get('*', (req, res) => res.status(200).json({ message: 'Project started' }));
 
   // Schedule jobs

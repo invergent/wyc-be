@@ -8,13 +8,13 @@ const { StaffService } = services;
 
 class PasswordReset {
   static async forgotPassword(req) {
-    const { body: { staffId, email }, tenantRef } = req;
+    const { body: { staffId, email } } = req;
     const identifier = staffId ? staffId.toUpperCase() : email.toLowerCase();
 
-    const staff = await StaffService.findStaffByStaffIdOrEmail(tenantRef, identifier, ['company']);
+    const staff = await StaffService.findStaffByStaffIdOrEmail(identifier);
     if (!staff) return [404, 'Staff does not exist'];
 
-    notifications.emit(eventNames.ForgotPassword, [tenantRef, staff.toJSON()]);
+    notifications.emit(eventNames.ForgotPassword, [staff.toJSON()]);
     return [200, `We just sent an email to ${staff.email}`];
   }
 
@@ -43,17 +43,13 @@ class PasswordReset {
   }
 
   static async resetPassword(req) {
-    const {
-      currentReset: { staffId }, query: { hash }, body: { password }, tenantRef
-    } = req;
+    const { currentReset: { staffId }, query: { hash }, body: { password } } = req;
 
     try {
-      const [statusCode, message] = await PasswordResetHelper
-        .findAndValidateResetRequest(tenantRef, staffId, hash);
-
+      const [statusCode, message] = await PasswordResetHelper.findAndValidateResetRequest(staffId, hash);
       if (message !== 'valid') return [statusCode, message];
 
-      const updated = await StaffService.updateStaffInfo(tenantRef, staffId, { password });
+      const updated = await StaffService.updateStaffInfo(staffId, { password });
       if (updated) notifications.emit(eventNames.LogActivity, [activityNames.PasswordReset, staffId]);
 
       return [updated ? 200 : 500, `Password reset ${updated ? '' : 'un'}successful!`];

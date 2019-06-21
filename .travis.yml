@@ -1,10 +1,12 @@
+services:
+  - postgresql
 addons:
   hosts:
     - init.overtime-api.example.com
     - example.com
 env:
   global:
-    - CC_TEST_REPORTER_ID=dbf26fbb9835bb9744b5be2d9df17de476f36c5c7aa738cd53a45abc625168f5
+    - CC_TEST_REPORTER_ID=393ba1836f186d5ddd84d2979fcb12401fc8147fc0c9332e3ebf1bbc176191dc
 language: node_js
 node_js:
   - '11.10.1'

@@ -17,17 +17,7 @@ describe('INIT tests', () => {
   afterAll((done) => {
     server.close(done);
   });
-
-  describe('INIT home', () => {
-    it('should return "INIT boarded"', async () => {
-      const response = await request
-        .get('/');
-
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('INIT boarded');
-    });
-  });
-
+  
   describe('Staff Signin', () => {
     it('should respond with missing fields if fields are empty while attempting a signin', async () => {
       const response = await request

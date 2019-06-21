@@ -150,8 +150,8 @@ class Controller {
     return Responder.respond(req, res, Notifications.markAsViewedAndRead);
   }
 
-  static async tenantSettings(req, res) {
-    return Responder.respond(req, res, Administration.fetchTenantSettings);
+  static async companySettings(req, res) {
+    return Responder.respond(req, res, Administration.fetchSettings);
   }
 }
 

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import app from '../../../app';
 import models from '../../../Application/Database/models';
-import { tenantsInfo } from '../../../Application/Features/utilities/utils/general';
+import { companyInfo } from '../../../Application/Features/utilities/utils/general';
 import EmailNotifications from '../../../Application/Features/utilities/notifications/EmailNotifications';
 
 jest.mock('@sendgrid/mail');
@@ -24,7 +24,7 @@ const supervisorsIncorrectDetails = {
   email: 'email'
 };
 
-tenantsInfo.INIT = { emailAddress: 'someEmailAddress' };
+companyInfo.VLA = { emailAddress: 'someEmailAddress' };
 
 describe('Line Manager', () => {
   let server;

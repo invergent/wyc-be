@@ -7,7 +7,7 @@ describe('EmailConstructor Unit test', () => {
     jest.spyOn(EmailService, 'fetchEmailTemplateByName').mockResolvedValue('failed');
     jest.spyOn(EmailConstructor, 'personalizeMessage').mockReturnValue('personalizeEmail');
 
-    const emails = await EmailConstructor.createForMany('tenantRef', mockFilteredStaffWithPendingClaims, 'emailTemplateName');
+    const emails = await EmailConstructor.createForMany(mockFilteredStaffWithPendingClaims, 'emailTemplateName');
 
     expect(emails.length).toEqual(mockFilteredStaffWithPendingClaims.length);
   });

@@ -3,8 +3,8 @@ import BasicQuerier from '../BasicQuerier';
 
 
 class BranchService {
-  static fetchBranchByPk(tenantRef, branchId) {
-    return BasicQuerier.findByPk(tenantRef, 'Branch', branchId);
+  static fetchBranchByPk(branchId) {
+    return BasicQuerier.findByPk('Branch', branchId);
   }
 
   static bulkCreateBranches(listOfBranches) {

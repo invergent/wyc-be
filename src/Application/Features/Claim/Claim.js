@@ -9,18 +9,18 @@ const { ClaimHelpers } = helpers;
 
 class Claim {
   static async create(req) {
-    const { currentStaff: { staffId }, body, tenantRef } = req;
+    const { currentStaff: { staffId }, body } = req;
 
     try {
-      const staff = await StaffService.findStaffByStaffIdOrEmail(tenantRef, staffId, staffIncludes);
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, staffIncludes);
       const overtimeRequest = ClaimHelpers.createOvertimeRequestObject(body, staff.id);
       const { messageWhenCreated, messageWhenNotCreated } = ClaimHelpers.responseMessage(
         overtimeRequest
       );
 
-      const [claim, created] = await ClaimService.findOrCreateClaim(tenantRef, overtimeRequest);
+      const [claim, created] = await ClaimService.findOrCreateClaim(overtimeRequest);
       if (created) {
-        notifications.emit(eventNames.NewClaim, [{ tenantRef, staff: staff.toJSON() }, activityNames.NewClaim]);
+        notifications.emit(eventNames.NewClaim, [{ staff: staff.toJSON() }, activityNames.NewClaim]);
       }
 
       return created ? [201, messageWhenCreated, claim] : [409, messageWhenNotCreated, claim];
@@ -30,8 +30,8 @@ class Claim {
   }
 
   static async sendPendingClaimsTolineManager(req) {
-    const { tenantRef, lineManager } = req;
-    const results = await ClaimHelpers.pendingClaimsForlineManager(tenantRef, lineManager);
+    const { lineManager } = req;
+    const results = await ClaimHelpers.pendingClaimsForlineManager(lineManager);
     // An empty result still returned the manager's details.
     // This checks if claims were also returned
     if (!results.pendingClaims.length) {
@@ -40,10 +40,8 @@ class Claim {
     return [200, `You have ${results.pendingClaims.length} claims to approve.`, results];
   }
 
-  static async checkThatClaimIsAssignedToLineManager(tenantRef, lineManager, claimId) {
-    const assignedClaims = await ClaimHelpers.getIdsOfClaimsAssignedToLineManager(
-      tenantRef, lineManager
-    );
+  static async checkThatClaimIsAssignedToLineManager(lineManager, claimId) {
+    const assignedClaims = await ClaimHelpers.getIdsOfClaimsAssignedToLineManager(lineManager);
     if (!assignedClaims.includes(parseInt(claimId, 10))) {
       return [403, 'This claim is not on your pending list. Access denied.'];
     }
@@ -51,26 +49,25 @@ class Claim {
   }
 
   static async runClaimApproval(req, approvalType) {
-    const { tenantRef, params: { claimId }, lineManager } = req;
+    const { params: { claimId }, lineManager } = req;
     const approvalMethod = approvalType === 'Approved' ? 'approveClaim' : 'declineClaim';
 
-    const [statusCode, message] = await Claim.checkThatClaimIsAssignedToLineManager(
-      tenantRef, lineManager, claimId
-    );
+    const [statusCode, message] = await Claim.checkThatClaimIsAssignedToLineManager(lineManager, claimId);
     if (statusCode === 403) return [statusCode, message];
-    const [updated, claim] = await ClaimService[approvalMethod](tenantRef, lineManager, claimId);
+
+    const [updated, claim] = await ClaimService[approvalMethod](lineManager, claimId);
     return [200, `Claim${updated ? '' : ' not'} ${approvalType.toLowerCase()}.`, claim];
   }
 
   static async runApprovalAndNotifyUsers(req, approvalType) {
-    const { tenantRef, params: { claimId }, lineManager: { lineManagerRole } } = req;
+    const { params: { claimId }, lineManager: { lineManagerRole } } = req;
     const [statusCode, message, data] = await Claim.runClaimApproval(req, approvalType);
     if (statusCode !== 200) return [statusCode, message];
 
-    const staff = await StaffService.fetchStaffByPk(tenantRef, data.requester, ['supervisor', 'BSM', 'company']);
+    const staff = await StaffService.fetchStaffByPk(data.requester, ['supervisor', 'BSM']);
     notifications.emit(
       eventNames[`${lineManagerRole}${approvalType}`], [{
-        tenantRef, staff: staff.toJSON(), lineManagerRole, claimId
+        staff: staff.toJSON(), lineManagerRole, claimId
       }]
     );
 
@@ -86,11 +83,11 @@ class Claim {
   }
 
   static async cancel(req) {
-    const { tenantRef, params: { claimId }, staff } = req;
+    const { params: { claimId }, staff } = req;
     try {
-      const [updated, claim] = await ClaimService.cancelClaim(tenantRef, claimId);
+      const [updated, claim] = await ClaimService.cancelClaim(claimId);
       if (updated) {
-        notifications.emit(eventNames.Cancelled, [{ tenantRef, staff, claimId }, activityNames.Cancelled]);
+        notifications.emit(eventNames.Cancelled, [{ staff, claimId }, activityNames.Cancelled]);
       }
       return [200, `Claim${updated ? '' : ' not'} cancelled.`, claim[0]];
     } catch (e) {

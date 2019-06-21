@@ -8,12 +8,12 @@ const { Claims } = models;
 
 class Staff {
   static async dashboardData(req) {
-    const { currentStaff: { staffId }, tenantRef, path } = req;
+    const { currentStaff: { staffId }, path } = req;
 
     try {
       const data = path.includes('statistics')
-        ? await ClaimHelpers.getStaffClaimStats(tenantRef, staffId)
-        : await ClaimHelpers.fetchStaffPendingClaim(tenantRef, staffId);
+        ? await ClaimHelpers.getStaffClaimStats(staffId)
+        : await ClaimHelpers.fetchStaffPendingClaim(staffId);
 
       return [200, 'Request successful', data];
     } catch (e) {
@@ -32,12 +32,12 @@ class Staff {
   }
 
   static async profileData(req) {
-    const { tenantRef, currentStaff, currentAdmin } = req;
+    const { currentStaff, currentAdmin } = req;
     const currentUser = currentStaff || currentAdmin;
     const includes = ['supervisor', 'BSM', 'role', 'branch'];
     
     try {
-      const staffData = await StaffService.fetchStaffByPk(tenantRef, currentUser.id, includes);
+      const staffData = await StaffService.fetchStaffByPk(currentUser.id, includes);
       const refinedStaffData = UsersHelpers.refineUserData(staffData);
       return [200, 'Request successful', refinedStaffData];
     } catch (e) {
@@ -46,9 +46,9 @@ class Staff {
   }
 
   static async claimHistory(req) {
-    const { tenantRef, currentStaff: { id } } = req;
+    const { currentStaff: { id } } = req;
     try {
-      const staffClaimsData = await StaffService.fetchStaffByPk(tenantRef, id, [Claims], [[Claims, 'createdAt', 'DESC']]);
+      const staffClaimsData = await StaffService.fetchStaffByPk(id, [Claims], [[Claims, 'createdAt', 'DESC']]);
       return [200, 'Request successful', staffClaimsData.Claims];
     } catch (e) {
       return [500, 'An error occurred ERR500CLMHTY.'];
