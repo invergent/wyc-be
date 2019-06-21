@@ -1,0 +1,58 @@
+import services from '../services';
+import { notificationActivities } from '../utils/general';
+import { eventNames } from '../utils/types';
+import pusher from './pusher';
+import helpers from '../helpers';
+
+const { ClaimHelpers } = helpers;
+const { NotificationService, ClaimService } = services;
+const {
+  supervisorApproved, supervisorDeclined, BSMApproved, BSMDeclined
+} = eventNames;
+
+class InAppNotifications {
+  static notifyStaffSupervisorApproved(data) {
+    return InAppNotifications.recordAndNotifyStaff(data, supervisorApproved);
+  }
+
+  static notifyStaffBSMApproved(data) {
+    return InAppNotifications.recordAndNotifyStaff(data, BSMApproved);
+  }
+
+  static notifyStaffSupervisorDeclined(data) {
+    return InAppNotifications.recordAndNotifyStaff(data, supervisorDeclined);
+  }
+
+  static notifyStaffBSMDeclined(data) {
+    return InAppNotifications.recordAndNotifyStaff(data, BSMDeclined);
+  }
+
+  static notifyStaffCompleted() {
+    return InAppNotifications.recordAndNotifyManyStaff();
+  }
+
+  static recordAndNotifyStaff(data, notificationSource) {
+    const { staff, claimId } = data;
+    const type = notificationSource.includes('Declined') ? 'Declined' : 'Approved';
+    const message = notificationActivities[notificationSource];
+    
+    pusher.trigger(`${staff.staffId}`, notificationSource, { message });
+
+    const notification = {
+      activity: message, type, userId: staff.id, claimId
+    };
+    return NotificationService.createNotification(notification);
+  }
+
+  static async recordAndNotifyManyStaff() {
+    const completedClaimsWithStaff = await ClaimService.fetchPendingClaims('Completed');
+    const filteredListOfStaff = ClaimHelpers.filterCompletedClaims(completedClaimsWithStaff);
+
+    return filteredListOfStaff.forEach((staff) => {
+      const newData = { staff, claimId: staff.claimId };
+      InAppNotifications.recordAndNotifyStaff(newData, 'adminProcessed');
+    });
+  }
+}
+
+export default InAppNotifications;

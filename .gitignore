@@ -1,3 +1,9 @@
 /node_modules
 /dist
 package-lock.json
+yarn.lock
+coverage
+.env
+.DS_Store
+report.xlsx
+.vscode
