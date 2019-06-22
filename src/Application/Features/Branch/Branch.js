@@ -16,6 +16,7 @@ class Branch {
       notifications.emit(eventNames.LogActivity, [activityNames.ChangeBranch, staffId, branch]);
       return [200, 'Branch updated successfully.', branch];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occured ERR500CNGBRH'];
     }
   }

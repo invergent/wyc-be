@@ -18,6 +18,7 @@ class Settings {
         settings
       ];
     } catch (e) {
+      console.log(e);
       return [500, 'There was an error updating your schedule ERR500UPDSCH.'];
     }
   }

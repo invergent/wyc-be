@@ -55,6 +55,7 @@ class Authenticator {
       req[currentUserRole] = decoded[requester];
       return next();
     } catch (e) {
+      console.log(e);
       return res.status(401).json({ message: `Authentication error ${errorCode}.` });
     }
   }

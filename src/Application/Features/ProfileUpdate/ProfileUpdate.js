@@ -10,6 +10,7 @@ class ProfileUpdate {
       
       return [updated ? 200 : 500, `Profile ${updated ? '' : 'not '}updated!`];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500PRFUPD'];
     }
   }

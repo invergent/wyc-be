@@ -8,6 +8,7 @@ class Notifications {
       const notifications = await NotificationService.fetchNotifications(currentUser.id);
       return [200, 'Request successful!', notifications];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500NOTIFS'];
     }
   }
@@ -20,6 +21,7 @@ class Notifications {
       const [updated] = await NotificationService.updateNotificationsAsViewedAndRead(currentUser.id);
       return [updated ? 200 : 500, `Request ${updated ? '' : 'un'}successful!`];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500NOTVAR'];
     }
   }

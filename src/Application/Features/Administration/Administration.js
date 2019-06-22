@@ -19,6 +19,7 @@ class Administration {
       const createdStaff = results.map(result => result.dataValues);
       return [201, `${createdStaff.length} staff created successfully.`, createdStaff];
     } catch (e) {
+      console.log(e);
       if (e.name) return [409, e.errors[0].message];
       return [500, 'There was an error creating staff ERR500CRTSTF.', e];
     }
@@ -33,6 +34,7 @@ class Administration {
         : await StaffService.findOrCreateSingleStaff(body);
       return [201, `${resource} created successfully.`, created];
     } catch (e) {
+      console.log(e);
       if (e.name) return [409, e.errors[0].message];
       return [500, 'There was an error while creating resource.', e];
     }
@@ -48,6 +50,7 @@ class Administration {
       const createdBranches = results.map(result => result.dataValues);
       return [201, `${createdBranches.length} branches created successfully.`, createdBranches];
     } catch (e) {
+      console.log(e);
       return [500, 'There was an error creating branches ERR500CRTBRC.', e];
     }
   }
@@ -58,6 +61,7 @@ class Administration {
       const statistics = await AdministrationHelpers.getClaimStatistics(submittedClaims);
       return [200, 'Request successful', { submittedClaims, statistics }];
     } catch (e) {
+      console.log(e);
       return [500, 'There was a problem fetching claims ERR500ADMDSH.'];
     }
   }
@@ -67,6 +71,7 @@ class Administration {
       const stats = await AdministrationHelpers.getChartStatistics();
       return [200, 'Request successful', stats];
     } catch (e) {
+      console.log(e);
       return [500, 'There was a problem fetching claims ERR500CHRTST.'];
     }
   }
@@ -77,6 +82,7 @@ class Administration {
       const staffList = await AdministrationHelpers.fetchStaff(attributes);
       return [200, 'Request successful', staffList];
     } catch (e) {
+      console.log(e);
       return [500, 'There was a problem fetching claims ERR500FETSTF.'];
     }
   }
@@ -93,6 +99,7 @@ class Administration {
           : 'No claims were marked as completed.'
       ];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred while marking claims as completed ERR500CLMMCC.', e];
     }
   }
@@ -102,6 +109,7 @@ class Administration {
       const settings = await SettingService.fetchSettings();
       return [200, 'Request successful!', settings];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred while fetching settings.', e];
     }
   }
