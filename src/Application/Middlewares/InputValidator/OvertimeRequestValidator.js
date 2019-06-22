@@ -26,12 +26,6 @@ class OvertimeRequestValidator {
       return acc;
     }, []);
 
-    // total weekend claim types must not exceed weekend days in the claim month
-    if (overtimeRequest.weekend && overtimeRequest.atm) {
-      const weekendDays = +overtimeRequest.weekend + +overtimeRequest.atm;
-      if (weekendDays > numberOfWeekends) errors.push('Total weekend days exceeded.');
-    }
-
     return errors;
   }
 }

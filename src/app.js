@@ -19,7 +19,7 @@ const setupApp = async () => {
   app.use(cookieParser());
 
   if (process.env.NODE_ENV !== 'test') {
-    app.use(cors({ allowedOrigins: ['localhost:4200'] }));
+    app.use(cors({ allowedOrigins: ['localhost:4200', 'overtime.invergent-technologies.com'] }));
   }
 
   app.use(fileUpload({
@@ -27,7 +27,7 @@ const setupApp = async () => {
     limits: { fileSize: 5000000 },
     responseOnLimit: 'File too large',
     useTempFiles: true,
-    tempFileDir: `${__dirname}/uploads/`
+    tempFileDir: '/tmp'
   }));
   app.use(morgan('combined'));
 

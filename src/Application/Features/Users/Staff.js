@@ -17,6 +17,7 @@ class Staff {
 
       return [200, 'Request successful', data];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500DSHBOD.'];
     }
   }
@@ -27,6 +28,7 @@ class Staff {
       const activities = await ActivityService.fetchActivities(staffId, limit);
       return [200, 'Request successful', activities];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500ACTVTY.'];
     }
   }
@@ -41,6 +43,7 @@ class Staff {
       const refinedStaffData = UsersHelpers.refineUserData(staffData);
       return [200, 'Request successful', refinedStaffData];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500PROFIL.'];
     }
   }
@@ -51,6 +54,7 @@ class Staff {
       const staffClaimsData = await StaffService.fetchStaffByPk(id, [Claims], [[Claims, 'createdAt', 'DESC']]);
       return [200, 'Request successful', staffClaimsData.Claims];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500CLMHTY.'];
     }
   }

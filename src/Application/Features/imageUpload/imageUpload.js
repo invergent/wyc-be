@@ -1,5 +1,6 @@
 import cloudinary from 'cloudinary';
 import fs from 'fs-extra';
+import path from 'path';
 import StaffService from '../utilities/services/StaffService';
 
 export default async (req) => {
@@ -18,8 +19,9 @@ export default async (req) => {
 
     return [201, 'Image upload successful.', { url, secureUrl }];
   } catch (e) {
+    console.log(e);
     return [500, 'An error occurred while uploading your image ERR500IMGUPL.'];
   } finally {
-    fs.remove(image.tempFilePath.split('/tmp')[0]); // remove upload folder
+    fs.remove(image.tempFilePath); // remove file after upload
   }
 };

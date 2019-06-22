@@ -3,10 +3,11 @@ import GenericHelpers from '../GenericHelpers';
 import AdministrationHelpers from '../AdministrationHelpers';
 import { companyInfo, exportDocHeaders } from '../../utils/general';
 
-const workbook = new Exceljs.Workbook();
+let workbook;
 
 class ExportDocHelpers {
   static async setWorkBookPropertiesAndCreateSheet() {
+    workbook = new Exceljs.Workbook();
     workbook.creator = companyInfo.businessName;
     workbook.created = new Date();
     const worksheet = workbook.addWorksheet('Submitted Claims');

@@ -20,6 +20,7 @@ class Authorisation {
 
       return AuthorisationHelpers.createStaffToken(staff, tokenType);
     } catch (e) {
+      console.log(e);
       return [500, `An error occurred ERR500${errorCode}.`];
     }
   }
@@ -37,6 +38,7 @@ class Authorisation {
     try {
       return AuthorisationHelpers.createLineManagerToken(lineManager);
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500VFYMGR.'];
     }
   }

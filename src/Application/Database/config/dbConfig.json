@@ -1,16 +1,29 @@
 {
   "development": {
-    "use_env_variable": "DATABASE_URL",
+    "host": "localhost",
+    "port": 5433,
+    "database": "vla-overtime",
+    "username": "postgres",
+    "password": "pass",
     "dialect": "postgres",
     "logging": false
   },
   "test": {
-    "use_env_variable": "TEST_DATABASE_URL",
+    "host": "localhost",
+    "port": 5432,
+    "database": "vla-test",
+    "username": "jamesenejo",
+    "password": null,
     "dialect": "postgres",
     "logging": false
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
+    "host": "/cloudsql/vla-overtime:us-central1:vla-overtime",
+    "port": 5432,
+    "database": "vla-overtime",
+    "username": "postgres",
+    "password": "pass",
+    "dialect": "postgres",
+    "logging": false
   }
 }

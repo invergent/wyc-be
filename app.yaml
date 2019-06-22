@@ -1,0 +1,21 @@
+service: default #if you change this name it will create a new service in GCP
+runtime: nodejs10
+env_variables: #put whatever you want here then access in code via process.env.VAR_NAME
+  NODE_ENV: 'production'
+  SECRET: 'howcanYouguess'
+  RESET_SECRET: 'resetit'
+  SENDGRID_API_KEY: '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'
+  PUSHER_APP_ID: '739747'
+  PUSHER_API_KEY: 'b79fda95698b77ecf0a3'
+  PUSHER_SECRET: 'adcdcfc1a2801383cd4e'
+  PUSHER_CLUSTER: 'eu'
+  CLOUD_NAME: 'invergent'
+  API_KEY: '882415814135169'
+  API_SECRET: 'bJPqFW_jh8O4gMSXaYt7Ha5rM_E'
+beta_settings:
+  cloud_sql_instances: vla-overtime:us-central1:vla-overtime
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301

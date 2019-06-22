@@ -15,6 +15,7 @@ describe('ChangePassword Unit test', () => {
     try {
       await ChangePassword.processPasswordUpdate(mockReq, 'models');
     } catch (e) {
+      console.log(e);
       expect(e).toEqual('failed');
     }
   });

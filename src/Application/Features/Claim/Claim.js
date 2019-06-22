@@ -25,6 +25,7 @@ class Claim {
 
       return created ? [201, messageWhenCreated, claim] : [409, messageWhenNotCreated, claim];
     } catch (e) {
+      console.log(e);
       return [500, 'There was a problem submitting your request ERR500CLMCRT'];
     }
   }
@@ -91,6 +92,7 @@ class Claim {
       }
       return [200, `Claim${updated ? '' : ' not'} cancelled.`, claim[0]];
     } catch (e) {
+      console.log(e);
       return [500, 'There was a problem cancelling your claim ERR500CLMCNL.'];
     }
   }

@@ -36,6 +36,7 @@ class AdministrationMiddleware {
       req.worksheet = worksheet;
       return next();
     } catch (e) {
+      console.log(e);
       return res.status(500).json({
         message: `An error occurred while processing your request.${''
         } This could be a problem with the file you uploaded.`

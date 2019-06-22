@@ -28,6 +28,7 @@ class LineManager {
         lineManager
       ];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occured ERR500CNGLNM'];
     }
   }

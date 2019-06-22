@@ -28,6 +28,7 @@ class ChangePassword {
 
       return [updated ? 200 : 500, `Password ${updated ? '' : 'not '}changed!`];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occurred ERR500CHGPSW'];
     }
   }

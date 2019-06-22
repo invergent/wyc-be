@@ -38,6 +38,7 @@ class PasswordReset {
       data.hashedToken = hashedToken;
       return [200, 'Decryption successful!', data, 'passwordResetToken'];
     } catch (e) {
+      console.log(e);
       return [500, 'Decryption unsuccessful!'];
     }
   }
@@ -54,6 +55,7 @@ class PasswordReset {
 
       return [updated ? 200 : 500, `Password reset ${updated ? '' : 'un'}successful!`];
     } catch (e) {
+      console.log(e);
       return [500, 'An error occured ERR500PSWRST'];
     }
   }
