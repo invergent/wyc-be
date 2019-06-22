@@ -1,6 +1,7 @@
 {
   "development": {
     "host": "localhost",
+<<<<<<< HEAD
     "port": 5432,
     "database": "wyc-dev",
     "username": "jamesenejo",
@@ -12,6 +13,10 @@
     "host": "localhost",
     "port": 5433,
     "database": "cleontime",
+=======
+    "port": 5433,
+    "database": "vla-overtime",
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
     "username": "postgres",
     "password": "pass",
     "dialect": "postgres",
@@ -20,16 +25,27 @@
   "test": {
     "host": "localhost",
     "port": 5432,
+<<<<<<< HEAD
     "database": "wyc_test",
     "username": "postgres",
+=======
+    "database": "vla-test",
+    "username": "jamesenejo",
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
     "password": null,
     "dialect": "postgres",
     "logging": false
   },
   "production": {
+<<<<<<< HEAD
     "host": "/cloudsql/cleontime-api:us-central1:cleontime",
     "port": 5432,
     "database": "cleontime",
+=======
+    "host": "/cloudsql/vla-overtime:us-central1:vla-overtime",
+    "port": 5432,
+    "database": "vla-overtime",
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
     "username": "postgres",
     "password": "pass",
     "dialect": "postgres",

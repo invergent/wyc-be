@@ -13,7 +13,11 @@ class Excel {
     try {
       const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData();
       const pathToDocument = await Excel.createExcelDocument(populatedWorkbook);
+<<<<<<< HEAD
       return [pathToDocument, 'cleontimeReport.xlsx'];
+=======
+      return [pathToDocument, 'VLAClaimReport.xlsx'];
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred ERR500DWLEXL'];
