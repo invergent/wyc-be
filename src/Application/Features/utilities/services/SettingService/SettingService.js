@@ -15,7 +15,7 @@ class SettingService {
 
   static async updateOvertimeWindow([scheduleType]) {
     const overtimeWindow = scheduleType.includes('Start') ? 'Open' : 'Close';
-    return BasicQuerier.update('Settings', { overtimeWindow });
+    return BasicQuerier.update('Settings', { overtimeWindow, overtimeWindowIsActive: false });
   }
 }
 
