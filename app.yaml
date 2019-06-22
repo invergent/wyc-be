@@ -4,7 +4,11 @@ env_variables: #put whatever you want here then access in code via process.env.V
   NODE_ENV: 'production'
   SECRET: 'howcanYouguess'
   RESET_SECRET: 'resetit'
+<<<<<<< HEAD
   SENDGRID_API_KEY: ''
+=======
+  SENDGRID_API_KEY: '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'
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
   PUSHER_APP_ID: '739747'
   PUSHER_API_KEY: 'b79fda95698b77ecf0a3'
   PUSHER_SECRET: 'adcdcfc1a2801383cd4e'
@@ -13,7 +17,11 @@ env_variables: #put whatever you want here then access in code via process.env.V
   API_KEY: '882415814135169'
   API_SECRET: 'bJPqFW_jh8O4gMSXaYt7Ha5rM_E'
 beta_settings:
+<<<<<<< HEAD
   cloud_sql_instances: cleontime-api:us-central1:cleontime
+=======
+  cloud_sql_instances: vla-overtime:us-central1:vla-overtime
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
 handlers:
 - url: /.*
   script: auto
