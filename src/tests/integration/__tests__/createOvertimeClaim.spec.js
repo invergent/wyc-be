@@ -77,13 +77,53 @@ describe('Create Claim Tests', () => {
       expect(response.body.message).toEqual('validationErrors');
       expect(response.body.errors[0]).toEqual('claim request details cannot be empty');
     });
+<<<<<<< HEAD
 
     it('should create claim request', async () => {
+=======
+    
+    it('should fail if props do not have values', async () => {
       const response = await request
         .post('/users/claim')
         .set('cookie', token)
         .set('Accept', 'application/json')
+        .send({ weekend: '' });
+
+      const errorMessage = 'Please enter a value for weekend.';
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual('validationErrors');
+      expect(response.body.errors[0]).toEqual(errorMessage);
+    });
+
+    it('should fail if the value of overtime props exceeds the maximum for the month', async () => {
+      const response = await request
+        .post('/users/claim')
+        .set('cookie', token)
+        .set('Accept', 'application/json')
+        .send({ weekday: 25, weekend: 14 });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual('validationErrors');
+      expect(response.body.errors.length).toEqual(2);
+      expect(response.body.errors[0]).toEqual('weekday maximum value exceeded.');
+      expect(response.body.errors[1]).toEqual('weekend maximum value exceeded.');
+    });
+
+    it('should successfully submit overtime request', async () => {
+      jest.spyOn(EmailNotifications, 'sender').mockImplementation(() => {});
+
+      const amount = (20 * 150) + (8 * 800);
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
+      const response = await request
+        .post('/users/claim')
+        .set('cookie', token)
+        .set('Accept', 'application/json')
+<<<<<<< HEAD
         .send(claimRequest);
+=======
+        .send({ weekday: 20, weekend: 8 });
+>>>>>>> update overtimeWindowIsActive field when cron job updates overtimeWindow status
 
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('Your claim request was created successfully.');
