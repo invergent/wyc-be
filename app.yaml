@@ -4,7 +4,7 @@ env_variables: #put whatever you want here then access in code via process.env.V
   NODE_ENV: 'production'
   SECRET: 'howcanYouguess'
   RESET_SECRET: 'resetit'
-  SENDGRID_API_KEY: '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'
+  SENDGRID_API_KEY: ''
   PUSHER_APP_ID: '739747'
   PUSHER_API_KEY: 'b79fda95698b77ecf0a3'
   PUSHER_SECRET: 'adcdcfc1a2801383cd4e'

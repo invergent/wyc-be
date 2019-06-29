@@ -6,7 +6,7 @@ addons:
     - example.com
 env:
   global:
-    - CC_TEST_REPORTER_ID=393ba1836f186d5ddd84d2979fcb12401fc8147fc0c9332e3ebf1bbc176191dc
+    - CC_TEST_REPORTER_ID=614179c3cd5043569da8a11f6744c552d24de79d0662fee7848e716e5f4cf1e8
 language: node_js
 node_js:
   - '11.10.1'
