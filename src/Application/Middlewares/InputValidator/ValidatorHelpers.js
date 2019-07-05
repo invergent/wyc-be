@@ -37,21 +37,12 @@ class ValidatorHelpers {
     return [];
   }
 
-  // static validateNumberParam(param, claimId) {
-  //   const isInter = Number.isInteger(parseInt(param, 10));
-  //   const isGreaterThanZero = parseInt(param, 10) > 0;
-  //
-  //   if (isInter && isGreaterThanZero) return [];
-  //   return [`${claimId} must be an integer greater than zero.`];
-  // }
-
-  static checkLineManagerRole(lineManagerRole) {
-    const lineManagerRoles = ['Supervisor', 'BSM'];
-
-    if (!lineManagerRoles.includes(lineManagerRole)) {
-      return ['Line Manager role can only be Supervisor or BSM'];
-    }
-    return [];
+  static validateNumberParam(field, param) {
+    const isInter = Number.isInteger(parseInt(param, 10));
+    const isGreaterThanZero = parseInt(param, 10) > 0;
+  
+    if (isInter && isGreaterThanZero) return [];
+    return [`${field} must be an integer greater than zero.`];
   }
 
   static checkCronTime(field, cronTime) {

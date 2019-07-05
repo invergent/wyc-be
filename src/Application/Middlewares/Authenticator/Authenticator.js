@@ -6,7 +6,7 @@ const passwordResetError = 'Action unauthorised!';
 const errorToLineManager = `Your request was unauthorised.${
   ''
 } Be sure to have clicked the button in the email you recieved.`;
-Authenticator
+
 class Authenticator {
   static authenticateAdmin(req, res, next) {
     return Authenticator.authenticate(req, res, next, 'admin', errorToStaff);

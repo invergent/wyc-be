@@ -7,30 +7,26 @@ import Dates from '../Dates';
 const { Claims, Staff } = models;
 
 class GenericHelpers {
-  static createUpdatePayload(lineManagerRole, approvalType) {
-    const payload = { status: 'Declined' };
-    if (approvalType === 'decline') return payload;
-
-    const status = lineManagerRole === 'supervisor' ? 'Awaiting BSM' : 'Processing';
-    payload.status = status;
+  static createUpdatePayload(approvalType) {
+    const payload = {};
+    if (approvalType === 'decline') {
+      payload.status = 'Declined';
+    } else {
+      payload.status = 'Processing';
+    }
     return payload;
   }
 
   static createLineManagerQueryOptions(lineManager) {
-    const { id, lineManagerRole } = lineManager;
-    const bsmOrSupervisorStaff = lineManagerRole === 'BSM' ? 'bsmStaff' : 'supervisorStaff';
-
-    const claimsWhereOptions = { status: 'Awaiting supervisor' };
-    if (lineManagerRole === 'BSM') claimsWhereOptions.status = 'Awaiting BSM';
-
+    const { id } = lineManager;
     const options = {
       where: { id },
       include: [{
         model: Staff,
-        as: bsmOrSupervisorStaff,
+        as: 'subordinates',
         include: [{
           model: Claims,
-          where: claimsWhereOptions
+          where: { status: 'Pending' }
         }]
       }]
     };
@@ -44,23 +40,9 @@ class GenericHelpers {
     return firstDayOfCurrentMonth;
   }
 
-  static castStatusColumn(status) {
-    const column = col('Claims.status');
-    const colCast = cast(column, 'TEXT');
-    const whereCast = where(colCast, { [Op.iLike]: `%${status}%` });
-    return whereCast;
-  }
-
-  static notCancelledOrDeclined() {
-    const column = col('Claims.status');
-    const colCast = cast(column, 'TEXT');
-    const whereCast = where(colCast, { [Op.like]: { [Op.any]: ['Completed', 'Processing', 'Awaiting%'] } });
-    return whereCast;
-  }
-
   static claimStatusFilter(statusType) {
     const statusFilter = {};
-    if (statusType) statusFilter.status = GenericHelpers.castStatusColumn(statusType);
+    if (statusType) statusFilter.status = { [Op.iLike]: `%${statusType}%` };
     return statusFilter;
   }
 

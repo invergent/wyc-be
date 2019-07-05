@@ -8,14 +8,10 @@ class LineManager {
   static async addOrChangeLineManager(req) {
     const { currentStaff: { staffId }, body: lineManagerDetails } = req;
     
-    const { lineManagerRole } = lineManagerDetails;
-    const lineManagerIdColumn = lineManagerRole === 'Supervisor'
-      ? 'supervisorId' : 'bsmId';
-    
     try {
       const [lineManagerData, created] = await LineManagerService.findOrCreateLineManager(lineManagerDetails);
       const lineManager = lineManagerData.toJSON();
-      const payload = { [lineManagerIdColumn]: lineManager.id };
+      const payload = { lineManagerId: lineManager.id };
       await StaffService.updateStaffInfo(staffId, payload);
     
       notifications.emit(
@@ -24,7 +20,7 @@ class LineManager {
     
       return [
         created ? 201 : 200,
-        `${lineManagerRole} ${created ? 'added' : 'updated'} successfully.`,
+        `Line manager ${created ? 'added' : 'updated'} successfully.`,
         lineManager
       ];
     } catch (e) {
