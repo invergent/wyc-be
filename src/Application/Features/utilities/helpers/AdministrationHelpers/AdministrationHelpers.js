@@ -90,7 +90,7 @@ class AdministrationHelpers {
 
   static statAccumulator(acc, claim) {
     if (['Processing', 'Completed'].includes(claim.status)) acc.approved += 1;
-    if (claim.status.includes('Awaiting')) acc.pending += 1;
+    if (claim.status === 'Pending') acc.pending += 1;
     if (claim.status === 'Declined') acc.declined += 1;
     if (claim.status === 'Cancelled') acc.total -= 1;
     return acc;

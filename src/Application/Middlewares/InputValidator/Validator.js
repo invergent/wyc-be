@@ -6,7 +6,7 @@ import {
 
 class Validator {
   static checkProps(reqObject, methodName) {
-    const expectedProps = Object.keys(formProperties[methodName]);
+    const expectedProps = formProperties[methodName];
     const receivedProps = Object.keys(reqObject);
 
     return expectedProps.reduce((acc, item) => {
@@ -42,7 +42,7 @@ class Validator {
       errors.push('Email is invalid');
     }
 
-    errors.push(...ValidatorHelpers.checkLineManagerRole(lineManagerRole));
+    errors.push(...ValidatorHelpers.validateNumberParam('lineManagerRole', lineManagerRole));
     errors.push(...ValidatorHelpers.checkPatternedFields('email', email, emailRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('firstname', firstname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('lastname', lastname));
@@ -81,7 +81,7 @@ class Validator {
   }
 
   static schedules(reqObject) {
-    const expectedProps = Object.keys(formProperties.schedules);
+    const expectedProps = formProperties.schedules;
     const receivedProps = Object.keys(reqObject).filter(prop => (!expectedProps.includes(prop)));
 
     if (receivedProps.length) return ['Request contains unrecognised props.'];

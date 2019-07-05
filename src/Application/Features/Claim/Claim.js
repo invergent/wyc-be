@@ -2,7 +2,6 @@ import helpers from '../utilities/helpers';
 import services from '../utilities/services';
 import notifications from '../utilities/notifications';
 import { eventNames, activityNames } from '../utilities/utils/types';
-import { staffIncludes } from '../utilities/utils/general';
 
 const { ClaimService, StaffService } = services;
 const { ClaimHelpers } = helpers;
@@ -12,7 +11,7 @@ class Claim {
     const { currentStaff: { staffId }, body } = req;
 
     try {
-      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, staffIncludes);
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['lineManager']);
       const overtimeRequest = ClaimHelpers.createOvertimeRequestObject(body, staff.id);
       const { messageWhenCreated, messageWhenNotCreated } = ClaimHelpers.responseMessage(
         overtimeRequest
@@ -20,7 +19,7 @@ class Claim {
 
       const [claim, created] = await ClaimService.findOrCreateClaim(overtimeRequest);
       if (created) {
-        notifications.emit(eventNames.NewClaim, [{ staff: staff.toJSON() }, activityNames.NewClaim]);
+        notifications.emit(eventNames.NewClaim, [staff.toJSON(), activityNames.NewClaim]);
       }
 
       return created ? [201, messageWhenCreated, claim] : [409, messageWhenNotCreated, claim];
@@ -61,15 +60,13 @@ class Claim {
   }
 
   static async runApprovalAndNotifyUsers(req, approvalType) {
-    const { params: { claimId }, lineManager: { lineManagerRole } } = req;
+    const { params: { claimId } } = req;
     const [statusCode, message, data] = await Claim.runClaimApproval(req, approvalType);
     if (statusCode !== 200) return [statusCode, message];
 
-    const staff = await StaffService.fetchStaffByPk(data.requester, ['supervisor', 'BSM']);
+    const staff = await StaffService.fetchStaffByPk(data.requester, ['lineManager']);
     notifications.emit(
-      eventNames[`${lineManagerRole}${approvalType}`], [{
-        staff: staff.toJSON(), lineManagerRole, claimId
-      }]
+      eventNames[`lineManager${approvalType}`], [staff.toJSON(), claimId]
     );
 
     return [statusCode, message, data];

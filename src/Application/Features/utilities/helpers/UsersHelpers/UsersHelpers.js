@@ -5,24 +5,16 @@ class UsersHelpers {
     } = user;
     const branch = user.branch ? user.branch.name : null;
     const role = user.role ? user.role.name : null;
-    let supervisorFirstName = null;
-    let supervisorLastName = null;
-    let supervisorEmailAddress = null;
-    let bsmFirstName = null;
-    let bsmLastName = null;
-    let bsmEmailAddress = null;
+    let lineManagerFirstName = null;
+    let lineManagerLastName = null;
+    let lineManagerEmailAddress = null;
     
-    if (user.supervisor) {
-      supervisorFirstName = user.supervisor.firstname;
-      supervisorLastName = user.supervisor.lastname;
-      supervisorEmailAddress = user.supervisor.email;
+    if (user.lineManager) {
+      lineManagerFirstName = user.lineManager.firstname;
+      lineManagerLastName = user.lineManager.lastname;
+      lineManagerEmailAddress = user.lineManager.email;
     }
-    if (user.BSM) {
-      bsmFirstName = user.BSM.firstname;
-      bsmLastName = user.BSM.lastname;
-      bsmEmailAddress = user.BSM.email;
-    }
-    
+
     return {
       staffId,
       firstname,
@@ -34,12 +26,9 @@ class UsersHelpers {
       role,
       branch,
       changedPassword,
-      supervisorFirstName,
-      supervisorLastName,
-      supervisorEmailAddress,
-      bsmFirstName,
-      bsmLastName,
-      bsmEmailAddress
+      lineManagerFirstName,
+      lineManagerLastName,
+      lineManagerEmailAddress
     };
   }
 }

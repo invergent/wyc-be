@@ -1,6 +1,6 @@
 import helpers from '../helpers';
 import services from '../services';
-import { templateNames, roleNames } from '../utils/types';
+import { templateNames } from '../utils/types';
 
 const {
   Mailer, NotificationsHelpers, PasswordResetHelper, ClaimHelpers
@@ -18,29 +18,17 @@ class EmailNotifications {
   static async sendPasswordResetEmail(staff) {
     const { staffId } = staff;
     const passwordResetHash = PasswordResetHelper.createAndSaveResetHash(staffId);
-    // a hack to avoid failure during email destructuring
-    const newStaff = { ...staff, supervisor: {}, BSM: {} };
-    return EmailNotifications.sendNotificationEmail(newStaff, templateNames.Reset, passwordResetHash);
+    return EmailNotifications.sendNotificationEmail(staff, templateNames.Reset, passwordResetHash);
   }
 
-  static sendLineManagerNotifications(data) {
-    const { staff, lineManagerRole } = data;
+  static sendLineManagerNotifications(staff) {
     const [hashedToken, emailTemplateName] = NotificationsHelpers
-      .createLineManagerEmailDetails(staff, lineManagerRole);
-
-    const newStaff = {
-      ...staff,
-      lineManagerEmailAddress: staff[lineManagerRole].email
-    };
-
-    return EmailNotifications.sendNotificationEmail(newStaff, emailTemplateName, hashedToken);
+      .createLineManagerEmailDetails(staff);
+    return EmailNotifications.sendNotificationEmail(staff, emailTemplateName, hashedToken);
   }
 
-  static sendStaffNotifications(data, notificationType) {
-    const { staff, lineManagerRole } = data;
-    const emailTemplateName = NotificationsHelpers.staffEmailTemplateName(
-      lineManagerRole, notificationType
-    );
+  static sendStaffNotifications(staff, notificationType) {
+    const emailTemplateName = NotificationsHelpers.staffEmailTemplateName(notificationType);
     return EmailNotifications.sendNotificationEmail(staff, emailTemplateName);
   }
 
@@ -51,45 +39,25 @@ class EmailNotifications {
     return EmailNotifications.sender(emails);
   }
 
-  static notifySupervisorOfNewClaim(data) {
+  static notifyLineManagerOfNewClaim(staff) {
     // if supervisor email address is set
-    if (data.staff.supervisor.email) {
-      const newData = { ...data, lineManagerRole: roleNames.supervisor };
-      EmailNotifications.sendLineManagerNotifications(newData);
-    }
+    EmailNotifications.sendLineManagerNotifications(staff);
   }
 
-  static notifyBSMSupervisorApproved(data) {
-    // if supervisor email address is set
-    if (data.staff.BSM.email) {
-      // set lineManager role to BSM to notify BSM
-      const newData = { ...data, lineManagerRole: roleNames.BSM };
-      EmailNotifications.sendLineManagerNotifications(newData);
-    }
+  static notifyStaffOfClaimSubmission(staff) {
+    EmailNotifications.sendStaffNotifications(staff);
   }
 
-  static notifyStaffOfClaimSubmission(data) {
-    EmailNotifications.sendStaffNotifications(data);
+  static notifyStaffLineManagerApproved(staff) {
+    EmailNotifications.sendStaffNotifications(staff, 'Approved');
   }
 
-  static notifyStaffSupervisorApproved(data) {
-    EmailNotifications.sendStaffNotifications(data, 'Approved');
+  static notifyStaffLineManagerDeclined(staff) {
+    EmailNotifications.sendStaffNotifications(staff, 'Declined');
   }
 
-  static notifyStaffBSMApproved(data) {
-    EmailNotifications.sendStaffNotifications(data, 'Approved');
-  }
-
-  static notifyStaffSupervisorDeclined(data) {
-    EmailNotifications.sendStaffNotifications(data, 'Declined');
-  }
-
-  static notifyStaffBSMDeclined(data) {
-    EmailNotifications.sendStaffNotifications(data, 'Declined');
-  }
-
-  static notifyStaffCancelled(data) {
-    EmailNotifications.sendStaffNotifications(data, 'Cancelled');
+  static notifyStaffCancelled(staff) {
+    EmailNotifications.sendStaffNotifications(staff, 'Cancelled');
   }
 
   static remindStaffOfPendingClaim(listOfStaff) {

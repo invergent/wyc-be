@@ -2,7 +2,7 @@ import EmailService from '../../services/EmailService';
 
 class EmailConstructor {
   static async create(emailDetails) {
-    const { email: staffEmailAddress, lineManagerEmailAddress, emailTemplateName } = emailDetails;
+    const { email: staffEmailAddress, lineManager, emailTemplateName } = emailDetails;
     const emailTemplate = await EmailService.fetchEmailTemplateByName(emailTemplateName);
     const { htmlMessage, subject } = emailTemplate;
 
@@ -11,7 +11,7 @@ class EmailConstructor {
     if (emailTemplateName.includes('Staff')) {
       toEmailAddress = staffEmailAddress;
     } else {
-      toEmailAddress = lineManagerEmailAddress;
+      toEmailAddress = lineManager.email;
     }
 
     const personalizedEmail = EmailConstructor.personalizeMessage(emailDetails, htmlMessage);
@@ -44,33 +44,19 @@ class EmailConstructor {
     const {
       firstname: staffFirstName,
       lastname: staffLastName,
-      supervisor,
-      BSM,
       hash,
       monthOfClaim,
-      amount
+      amount,
+      lineManager
     } = reciepient;
-    let supervisorFirstName;
-    let supervisorLastName;
-    let bsmFirstName;
-    let bsmLastName;
+    let lineManagerFirstName;
 
-    if (supervisor) {
-      const { firstname, lastname } = supervisor;
-      [supervisorFirstName, supervisorLastName] = [firstname, lastname];
-    }
-    if (BSM) {
-      const { firstname, lastname } = BSM;
-      [bsmFirstName, bsmFirstName] = [firstname, lastname];
-    }
+    if (lineManager) lineManagerFirstName = lineManager.firstname;
 
     return htmlMessage
       .replace(/{{staffFirstName}}/g, staffFirstName)
       .replace(/{{staffLastName}}/g, staffLastName)
-      .replace(/{{supervisorFirstName}}/g, supervisorFirstName)
-      .replace(/{{supervisorLastName}}/g, supervisorLastName)
-      .replace(/{{bsmFirstName}}/g, bsmFirstName)
-      .replace(/{{bsmLastName}}/g, bsmLastName)
+      .replace(/{{lineManagerFirstName}}/g, lineManagerFirstName)
       .replace(/{{url}}/g, 'overtime.invergent-technologies.com')
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amount)
