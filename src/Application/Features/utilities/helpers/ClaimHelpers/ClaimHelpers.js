@@ -22,7 +22,7 @@ class ClaimHelpers {
       ...overtimeRequest,
       requester: staffId,
       amount: ClaimHelpers.calculateClaimAmount(overtimeRequest),
-      status: 'Awaiting supervisor'
+      status: 'Pending'
     };
   }
 
@@ -35,14 +35,11 @@ class ClaimHelpers {
     };
   }
 
-  static filterQueryResult(queryResult, lineManagerRole) {
-    const property = lineManagerRole === 'BSM' ? 'bsmStaff' : 'supervisorStaff';
-    const pendingClaims = queryResult[property];
+  static filterQueryResult(queryResult) {
+    const pendingClaims = queryResult.subordinates;
 
-    if (!pendingClaims.length) {
-      return [];
-    }
-
+    if (!pendingClaims.length) return [];
+    
     return pendingClaims.map((result) => {
       const {
         staffId, firstname, lastname, middlename, image, Claims
@@ -88,10 +85,9 @@ class ClaimHelpers {
   }
 
   static async pendingClaimsForlineManager(lineManager) {
-    const { lineManagerRole } = lineManager;
     const results = await ClaimService.fetchPendingClaimsForLineManagers(lineManager);
     const { firstname, lastname } = results; // line manager details
-    const filteredResults = ClaimHelpers.filterQueryResult(results.toJSON(), lineManagerRole);
+    const filteredResults = ClaimHelpers.filterQueryResult(results.toJSON());
     return { lineManager: { firstname, lastname }, pendingClaims: filteredResults };
   }
 
@@ -117,7 +113,7 @@ class ClaimHelpers {
   }
 
   static async fetchStaffPendingClaim(staffId) {
-    // a hack for a claim that is either awaiting or processing
+    // a hack for a claim that is either pending or processing
     const pendingClaim = await ClaimService.fetchStaffClaims(staffId, 'ing');
     if (!pendingClaim.length) return [];
 

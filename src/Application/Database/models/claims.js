@@ -24,9 +24,7 @@ const claims = (sequelize, DataTypes) => {
       allowNull: false
     },
     status: {
-      type: DataTypes.ENUM(
-        'Awaiting supervisor', 'Awaiting BSM', 'Declined', 'Cancelled', 'Processing', 'Completed'
-      ),
+      type: DataTypes.STRING,
       allowNull: false
     }
   }, { freezeTableName: true });

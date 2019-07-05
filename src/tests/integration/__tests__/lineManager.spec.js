@@ -10,8 +10,8 @@ jest.mock('@sendgrid/mail');
 
 const { LineManagers } = models;
 
-const supervisorsDetails = {
-  lineManagerRole: 'Supervisor',
+const lineManagerDetails = {
+  lineManagerRole: '7',
   firstname: 'firstname',
   lastname: 'lastname',
   email: 'email@email.com'
@@ -24,7 +24,7 @@ const supervisorsIncorrectDetails = {
   email: 'email'
 };
 
-companyInfo.VLA = { emailAddress: 'someEmailAddress' };
+companyInfo.emailAddress = 'someEmailAddress';
 
 describe('Line Manager', () => {
   let server;
@@ -64,7 +64,7 @@ describe('Line Manager', () => {
       const response = await request
         .post('/users/profile/line-manager')
         .set('Accept', 'application/json')
-        .send(supervisorsDetails);
+        .send(lineManagerDetails);
 
       expect(response.status).toBe(401);
       expect(response.body.message).toEqual('Please login first.');
@@ -83,7 +83,7 @@ describe('Line Manager', () => {
     });
 
     it('should fail if fields are missing', async () => {
-      const supervisor = { ...supervisorsDetails };
+      const supervisor = { ...lineManagerDetails };
       delete supervisor.email;
       const response = await request
         .post('/users/profile/line-manager')
@@ -102,26 +102,10 @@ describe('Line Manager', () => {
         .post('/users/profile/line-manager')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send(supervisorsDetails);
+        .send(lineManagerDetails);
 
       expect(response.status).toBe(201);
-      expect(response.body.message).toEqual('Supervisor added successfully.');
-    });
-
-    it('should add BSM if BSM does not already exist', async () => {
-      const bsm = {
-        ...supervisorsDetails,
-        email: 'newEmail@email.com',
-        lineManagerRole: 'BSM'
-      };
-      const response = await request
-        .post('/users/profile/line-manager')
-        .set('cookie', token)
-        .set('Accept', 'application/json')
-        .send(bsm);
-
-      expect(response.status).toBe(201);
-      expect(response.body.message).toEqual('BSM added successfully.');
+      expect(response.body.message).toEqual('Line manager added successfully.');
     });
 
     it('should update supervisor if supervisor already exists', async () => {
@@ -129,27 +113,10 @@ describe('Line Manager', () => {
         .post('/users/profile/line-manager')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send(supervisorsDetails);
+        .send(lineManagerDetails);
 
       expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Supervisor updated successfully.');
-    });
-
-    it('should update BSM if BSM already exists', async () => {
-      const bsm = {
-        ...supervisorsDetails,
-        email: 'newEmail@email.com',
-        lineManagerRole: 'BSM',
-      };
-
-      const response = await request
-        .post('/users/profile/line-manager')
-        .set('cookie', token)
-        .set('Accept', 'application/json')
-        .send(bsm);
-
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('BSM updated successfully.');
+      expect(response.body.message).toEqual('Line manager updated successfully.');
     });
 
     it('should respond with a list of line managers', async () => {
@@ -167,7 +134,7 @@ describe('Line Manager', () => {
         .post('/users/profile/line-manager')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send(supervisorsDetails);
+        .send(lineManagerDetails);
 
       expect(response.status).toBe(500);
       expect(response.body.message).toEqual('An error occured ERR500CNGLNM');
@@ -180,7 +147,7 @@ describe('Line Manager', () => {
         .post('/users/profile/line-manager')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send(supervisorsDetails);
+        .send(lineManagerDetails);
 
       expect(response.status).toBe(401);
       expect(response.body.message).toEqual('Authentication error ERRSTFAUTH.');

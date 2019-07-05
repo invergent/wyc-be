@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     lineManagerRole: {
-      type: Sequelize.ENUM('Supervisor', 'BSM'),
+      type: Sequelize.INTEGER,
       allowNull: false
     },
     firstname: {

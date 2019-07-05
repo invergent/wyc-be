@@ -1,11 +1,10 @@
+import { Op } from 'sequelize';
 import models from '../../../../Database/models';
 import ClaimApprovalHistoryService from '../ClaimApprovalHistoryService';
 import GenericHelpers from '../../helpers/GenericHelpers';
 import BasicQuerier from '../BasicQuerier';
 
-const {
-  Claims, LineManagers, ClaimsStatistics, Staff
-} = models;
+const { Claims, LineManagers, ClaimsStatistics } = models;
 
 class ClaimService {
   static findOrCreateClaim(overtimeRequest) {
@@ -13,7 +12,7 @@ class ClaimService {
       where: {
         monthOfClaim: overtimeRequest.monthOfClaim,
         requester: overtimeRequest.requester,
-        status: GenericHelpers.notCancelledOrDeclined()
+        status: { [Op.like]: { [Op.any]: ['Completed', 'Processing', 'Pending'] } }
       },
       defaults: overtimeRequest,
       raw: true
@@ -39,8 +38,8 @@ class ClaimService {
   }
 
   static async runClaimApproval(lineManager, claimId, approvalType) {
-    const { id: lineManagerId, lineManagerRole } = lineManager;
-    const updatePayload = GenericHelpers.createUpdatePayload(lineManagerRole, approvalType);
+    const { id: lineManagerId } = lineManager;
+    const updatePayload = GenericHelpers.createUpdatePayload(approvalType);
 
     const [updated, claim] = await ClaimService.updateClaim(updatePayload, claimId);
     const history = await ClaimApprovalHistoryService.createApprovalHistory(

@@ -6,33 +6,22 @@ import helpers from '../helpers';
 
 const { ClaimHelpers } = helpers;
 const { NotificationService, ClaimService } = services;
-const {
-  supervisorApproved, supervisorDeclined, BSMApproved, BSMDeclined
-} = eventNames;
+const { lineManagerApproved, lineManagerDeclined } = eventNames;
 
 class InAppNotifications {
-  static notifyStaffSupervisorApproved(data) {
-    return InAppNotifications.recordAndNotifyStaff(data, supervisorApproved);
+  static notifyStaffLineManagerApproved(staff, claimId) {
+    return InAppNotifications.recordAndNotifyStaff(staff, claimId, lineManagerApproved);
   }
 
-  static notifyStaffBSMApproved(data) {
-    return InAppNotifications.recordAndNotifyStaff(data, BSMApproved);
-  }
-
-  static notifyStaffSupervisorDeclined(data) {
-    return InAppNotifications.recordAndNotifyStaff(data, supervisorDeclined);
-  }
-
-  static notifyStaffBSMDeclined(data) {
-    return InAppNotifications.recordAndNotifyStaff(data, BSMDeclined);
+  static notifyStaffLineManagerDeclined(staff, claimId) {
+    return InAppNotifications.recordAndNotifyStaff(staff, claimId, lineManagerDeclined);
   }
 
   static notifyStaffCompleted() {
     return InAppNotifications.recordAndNotifyManyStaff();
   }
 
-  static recordAndNotifyStaff(data, notificationSource) {
-    const { staff, claimId } = data;
+  static recordAndNotifyStaff(staff, claimId, notificationSource) {
     const type = notificationSource.includes('Declined') ? 'Declined' : 'Approved';
     const message = notificationActivities[notificationSource];
     
@@ -49,8 +38,7 @@ class InAppNotifications {
     const filteredListOfStaff = ClaimHelpers.filterCompletedClaims(completedClaimsWithStaff);
 
     return filteredListOfStaff.forEach((staff) => {
-      const newData = { staff, claimId: staff.claimId };
-      InAppNotifications.recordAndNotifyStaff(newData, 'adminProcessed');
+      InAppNotifications.recordAndNotifyStaff(staff, staff.claimId, 'adminProcessed');
     });
   }
 }

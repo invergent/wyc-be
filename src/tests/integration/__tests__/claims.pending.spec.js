@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import http from 'http';
 import app from '../../../app';
-import { supervisorHash, bsmHash, noClaimHash } from '../testUtils';
+import { lineManagerHash, NCLineManagerHash } from '../testUtils';
 
 jest.mock('@sendgrid/mail');
 
@@ -20,28 +20,24 @@ describe('Pending Claims Tests', () => {
   });
 
   describe('pendingClaimsForlineManagers', () => {
-    let token1;
-    let token2;
-    let token3;
+    let lineManagerToken;
+    let NClineManagerToken;
 
     beforeAll(async () => {
       // verify line manager
-      const response1 = await request.get(`/line-manager/verify?hash=${supervisorHash}`);
-      token1 = response1.header['set-cookie'];
+      const response1 = await request.get(`/line-manager/verify?hash=${lineManagerHash}`);
+      lineManagerToken = response1.header['set-cookie'];
 
-      const response2 = await request.get(`/line-manager/verify?hash=${bsmHash}`);
-      token2 = response2.header['set-cookie'];
-
-      const response3 = await request.get(`/line-manager/verify?hash=${noClaimHash}`);
-      token3 = response3.header['set-cookie'];
+      const response2 = await request.get(`/line-manager/verify?hash=${NCLineManagerHash}`);
+      NClineManagerToken = response2.header['set-cookie'];
     });
 
     afterEach(() => {
       jest.resetAllMocks();
     });
 
-    it('should get claims awaiting the line manager\'s (supervisor) approval.', async () => {
-      const response = await request.get('/line-manager/claims/pending').set('cookie', token1);
+    it('should get claims awaiting the line manager\'s approval.', async () => {
+      const response = await request.get('/line-manager/claims/pending').set('cookie', lineManagerToken);
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('You have 3 claims to approve.');
@@ -49,15 +45,8 @@ describe('Pending Claims Tests', () => {
       expect(response.body.data.pendingClaims[1].firstname).toEqual('Ligamala');
     });
 
-    it('should get claims awaiting the line manager\'s (BSM) approval.', async () => {
-      const response = await request.get('/line-manager/claims/pending').set('cookie', token2);
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('You have 1 claims to approve.');
-      expect(response.body.data.pendingClaims[0].firstname).toEqual('Mercy');
-    });
-
     it('should return 404 if there are no claims for line manager to approve .', async () => {
-      const response = await request.get('/line-manager/claims/pending').set('cookie', token3);
+      const response = await request.get('/line-manager/claims/pending').set('cookie', NClineManagerToken);
 
       expect(response.status).toBe(404);
       expect(response.body.message).toEqual('You currently have no pending claims to approve.');

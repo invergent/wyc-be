@@ -1,7 +1,7 @@
 const lineManagers = (sequelize, DataTypes) => {
   const LineManagers = sequelize.define('LineManagers', {
     lineManagerRole: {
-      type: DataTypes.ENUM('Supervisor', 'BSM'),
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     firstname: {
@@ -20,8 +20,8 @@ const lineManagers = (sequelize, DataTypes) => {
   });
 
   LineManagers.associate = (models) => {
-    LineManagers.hasMany(models.Staff, { as: 'supervisorStaff', foreignKey: 'supervisorId' });
-    LineManagers.hasMany(models.Staff, { as: 'bsmStaff', foreignKey: 'bsmId' });
+    LineManagers.hasMany(models.Staff, { as: 'subordinates', foreignKey: 'lineManagerId' });
+    LineManagers.belongsTo(models.Roles, { as: 'designation', foreignKey: 'lineManagerRole' });
   };
   return LineManagers;
 };

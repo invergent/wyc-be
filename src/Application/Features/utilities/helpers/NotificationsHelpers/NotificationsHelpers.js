@@ -1,23 +1,21 @@
 import EmailConstructor from '../EmailConstructor';
-import { templateNames, roleNames } from '../../utils/types';
+import { templateNames } from '../../utils/types';
 import krypter from '../krypter';
 
 
 class NotificationsHelpers {
-  static staffEmailTemplateName(lineManagerRole, notificationType) {
-    if (lineManagerRole) return templateNames[`${lineManagerRole}${notificationType}`];
+  static staffEmailTemplateName(notificationType) {
+    if (['Approved', 'Declined'].includes(notificationType)) {
+      return templateNames[`lineManager${notificationType}`];
+    }
     if (notificationType) return templateNames[notificationType];
     return templateNames.NewClaimStaff;
   }
 
-  static createLineManagerEmailDetails(staff, lineManagerRole) {
-    const emailTemplateName = lineManagerRole === roleNames.BSM
-      ? templateNames.NewClaimBSM : templateNames.NewClaimSupervisor;
-    const id = lineManagerRole === roleNames.BSM
-      ? staff.BSM.id : staff.supervisor.id;
-
-    const payload = { id, lineManagerRole };
-    const hashedToken = krypter.authenticationEncryption('lineManager', payload);
+  static createLineManagerEmailDetails(staff) {
+    const emailTemplateName = templateNames.NewClaimLineManager;
+    const id = staff.lineManagerId;
+    const hashedToken = krypter.authenticationEncryption('lineManager', { id });
 
     return [hashedToken, emailTemplateName];
   }

@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import http from 'http';
 import app from '../../../app';
-import { supervisorHash, bsmHash } from '../testUtils';
+import { lineManagerHash } from '../testUtils';
 import EmailNotifications from '../../../Application/Features/utilities/notifications/EmailNotifications';
 import { companyInfo } from '../../../Application/Features/utilities/utils/general';
 
@@ -24,12 +24,12 @@ describe('Claim Approval Tests', () => {
   });
 
   describe('Supervisor Claim Approval', () => {
-    let supervisorToken;
+    let lineManagerToken;
 
     beforeAll(async () => {
       // verify line manager
-      const supervisorVerificationResponse = await request.get(`/line-manager/verify?hash=${supervisorHash}`);
-      supervisorToken = supervisorVerificationResponse.header['set-cookie'];
+      const lineManagerVerificationResponse = await request.get(`/line-manager/verify?hash=${lineManagerHash}`);
+      lineManagerToken = lineManagerVerificationResponse.header['set-cookie'];
     });
 
     beforeEach(() => jest.spyOn(EmailNotifications, 'sender').mockImplementation(() => {}));
@@ -40,52 +40,21 @@ describe('Claim Approval Tests', () => {
     });
 
     it('should fail if claim is not amongst pending claims assigned to the line manager for approval.', async () => {
-      const response = await request.put('/line-manager/claims/pending/1/approve').set('cookie', supervisorToken);
+      const response = await request.put('/line-manager/claims/pending/1/approve').set('cookie', lineManagerToken);
 
       expect(response.status).toBe(403);
       expect(response.body.message).toEqual('This claim is not on your pending list. Access denied.');
     });
 
     it('should approve claim.', async () => {
-      const response = await request.put('/line-manager/claims/pending/3/approve').set('cookie', supervisorToken);
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Claim approved.');
-      expect(response.body.data.status).toEqual('Awaiting BSM');
-    });
-
-    it('should decline claim.', async () => {
-      const response = await request.put('/line-manager/claims/pending/4/decline').set('cookie', supervisorToken);
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Claim declined.');
-      expect(response.body.data.status).toEqual('Declined');
-    });
-  });
-
-  describe('BSM Claim Approval', () => {
-    let bsmToken;
-
-    beforeAll(async () => {
-      const bsmVerificationResponse = await request.get(`/line-manager/verify?hash=${bsmHash}`);
-      bsmToken = bsmVerificationResponse.header['set-cookie'];
-    });
-
-    beforeEach(() => jest.spyOn(EmailNotifications, 'sender').mockImplementation(() => {}));
-
-    afterEach(() => {
-      jest.resetAllMocks();
-      jest.clearAllMocks();
-    });
-
-    it('should approve claim.', async () => {
-      const response = await request.put('/line-manager/claims/pending/1/approve').set('cookie', bsmToken);
+      const response = await request.put('/line-manager/claims/pending/2/approve').set('cookie', lineManagerToken);
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Claim approved.');
       expect(response.body.data.status).toEqual('Processing');
     });
 
     it('should decline claim.', async () => {
-      const response = await request.put('/line-manager/claims/pending/2/decline').set('cookie', bsmToken);
-
+      const response = await request.put('/line-manager/claims/pending/5/decline').set('cookie', lineManagerToken);
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Claim declined.');
       expect(response.body.data.status).toEqual('Declined');

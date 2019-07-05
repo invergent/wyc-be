@@ -1,5 +1,4 @@
 import services from '../../Features/utilities/services';
-import { staffIncludes } from '../../Features/utilities/utils/general';
 
 const { ClaimService, StaffService } = services;
 
@@ -9,13 +8,12 @@ class ClaimAccessControl {
     const claim = await ClaimService.findClaimByPk(claimId);
     if (!claim) return res.status(404).json({ message: 'Claim does not exist.' });
 
-    const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, staffIncludes);
+    const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, 'lineManager');
     if (claim.requester !== staff.id) {
       return res.status(401).json({ message: 'You do not have access to this claim.' });
     }
-
-    const statuses = ['Awaiting BSM', 'Awaiting supervisor'];
-    if (!statuses.includes(claim.status)) {
+    
+    if (claim.status !== 'Pending') {
       return res.status(403).json({
         message: 'Operation failed. Only pending claims can be cancelled.'
       });

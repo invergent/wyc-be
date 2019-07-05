@@ -7,8 +7,8 @@ class ActivityLogger {
     return ActivityService.logActivity(activity, staffId);
   }
 
-  static logClaimActivity(data, activity) {
-    return ActivityLogger.log(activity, data.staff.staffId);
+  static logClaimActivity(staff, activity) {
+    return ActivityLogger.log(activity, staff.staffId);
   }
 
   static refineChangeLineManagerLog(activity, data) {

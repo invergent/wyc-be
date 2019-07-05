@@ -1,17 +1,17 @@
 {
   "development": {
     "host": "localhost",
-    "port": 5433,
-    "database": "vla-overtime",
-    "username": "postgres",
-    "password": "pass",
+    "port": 5432,
+    "database": "wyc-dev",
+    "username": "jamesenejo",
+    "password": null,
     "dialect": "postgres",
-    "logging": false
+    "logging": true
   },
   "test": {
     "host": "localhost",
     "port": 5432,
-    "database": "overtime",
+    "database": "wyc-test",
     "username": "postgres",
     "password": null,
     "dialect": "postgres",

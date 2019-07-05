@@ -6,7 +6,7 @@ module.exports = {
     shift: 9,
     amount: 7200,
     requester: 1,
-    status: 'Awaiting BSM',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -17,7 +17,7 @@ module.exports = {
     shift: null,
     amount: 7400,
     requester: 3,
-    status: 'Awaiting BSM',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -28,7 +28,7 @@ module.exports = {
     shift: null,
     amount: 7350,
     requester: 3,
-    status: 'Awaiting supervisor',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -39,7 +39,7 @@ module.exports = {
     shift: null,
     amount: 6850,
     requester: 4,
-    status: 'Awaiting supervisor',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -50,7 +50,7 @@ module.exports = {
     shift: null,
     amount: 6900,
     requester: 5,
-    status: 'Awaiting supervisor',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -61,7 +61,7 @@ module.exports = {
     shift: null,
     amount: 6150,
     requester: 6,
-    status: 'Awaiting supervisor',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -72,7 +72,7 @@ module.exports = {
     shift: null,
     amount: 2950,
     requester: 7,
-    status: 'Awaiting supervisor',
+    status: 'Pending',
     createdAt: new Date(),
     updatedAt: new Date()
   },
