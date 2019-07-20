@@ -9,21 +9,18 @@ module.exports = {
     monthOfClaim: {
       type: Sequelize.STRING
     },
-    weekday: {
-      type: Sequelize.INTEGER
-    },
-    weekend: {
-      type: Sequelize.INTEGER
-    },
-    atm: {
-      type: Sequelize.INTEGER
-    },
-    shift: {
+    claimElements: {
       type: Sequelize.INTEGER
     },
     amount: {
       type: Sequelize.INTEGER,
       allowNull: false
+    },
+    details: {
+      type: Sequelize.JSON
+    },
+    dates: {
+      type: Sequelize.JSON
     },
     requester: {
       type: Sequelize.INTEGER,

@@ -3,21 +3,18 @@ const claims = (sequelize, DataTypes) => {
     monthOfClaim: {
       type: DataTypes.STRING
     },
-    weekday: {
-      type: DataTypes.INTEGER
-    },
-    weekend: {
-      type: DataTypes.INTEGER
-    },
-    atm: {
-      type: DataTypes.INTEGER
-    },
-    shift: {
+    claimElements: {
       type: DataTypes.INTEGER
     },
     amount: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    details: {
+      type: DataTypes.JSON
+    },
+    dates: {
+      type: DataTypes.JSON
     },
     requester: {
       type: DataTypes.STRING,

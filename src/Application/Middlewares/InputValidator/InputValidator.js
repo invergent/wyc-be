@@ -1,7 +1,7 @@
+/* eslint-disable max-len */
 import Validator from './Validator';
 import ValidatorHelpers from './ValidatorHelpers';
 import OvertimeRequestValidator from './OvertimeRequestValidator';
-import Dates from '../../Features/utilities/helpers/Dates';
 import { staffIdRegex, emailRegex } from '../../Features/utilities/utils/inputValidator';
 
 const {
@@ -30,14 +30,8 @@ class InputValidator {
 
   static checkBranchId(req, res, next) {
     const { branchId } = req.body;
-
-    if (!branchId) {
-      return res.status(400).json({ message: 'branchId is required' });
-    }
-
-    if (!Number.isInteger(parseInt(branchId, 10))) {
-      return res.status(400).json({ message: 'branchId must be an integer' });
-    }
+    if (!branchId) return res.status(400).json({ message: 'branchId is required' });
+    if (!Number.isInteger(parseInt(branchId, 10))) return res.status(400).json({ message: 'branchId must be an integer' });
     return next();
   }
 
@@ -55,18 +49,12 @@ class InputValidator {
   }
 
   static checkOvertimeProps(req, res, next) {
-    const { currentStaff: { staffRole }, body } = req;
-    
-    const errors = OvertimeRequestValidator.checkOvertimeProps(body, staffRole);
-
+    const errors = OvertimeRequestValidator.checkOvertimeProps(req.body);
     return validatorResponder(res, errors, next);
   }
 
   static checkOvertimeValues(req, res, next) {
-    const { body } = req;
-    const daysInAMonth = Dates.countWeekdaysAndWeekendsOfAMonth();
-    const errors = OvertimeRequestValidator.checkOvertimeEntries(body, daysInAMonth);
-
+    const errors = OvertimeRequestValidator.checkOvertimeEntries(req.body);
     return validatorResponder(res, errors, next);
   }
 
