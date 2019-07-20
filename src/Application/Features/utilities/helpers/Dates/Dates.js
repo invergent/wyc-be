@@ -11,24 +11,6 @@ class Dates {
     return { year, month };
   }
 
-  static countWeekdaysAndWeekendsOfAMonth() {
-    const previousMonth = this.getPreviousYearMonth().getMonth();
-    const yearOfPreviousMonth = this.getPreviousYearMonth().getFullYear();
-    const numberOfDaysInPreviousMonth = this.getPreviousYearMonth().getDate();
-    let numberOfWeekdays = 0;
-    let numberOfWeekdends = 0;
-
-    for (let i = 1; i <= numberOfDaysInPreviousMonth; i += 1) {
-      const day = new Date(yearOfPreviousMonth, previousMonth, i).getDay();
-      if ([0, 6].includes(day)) {
-        numberOfWeekdends += 1;
-      } else {
-        numberOfWeekdays += 1;
-      }
-    }
-    return [numberOfWeekdays, numberOfWeekdends, numberOfDaysInPreviousMonth];
-  }
-
   static convertPreviousYearMonthToString() {
     const previousYearMonth = this.getPreviousYearMonth().toDateString().split(' ');
     const month = previousYearMonth[1];

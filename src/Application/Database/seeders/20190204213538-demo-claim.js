@@ -1,9 +1,18 @@
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('Claims', [{
     monthOfClaim: 'Oct, 2018',
-    weekday: null,
-    weekend: null,
-    shift: 9,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 7200,
     requester: 1,
     status: 'Pending',
@@ -12,9 +21,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Nov, 2018',
-    weekday: 12,
-    weekend: 7,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 7400,
     requester: 3,
     status: 'Pending',
@@ -23,9 +41,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Dec, 2018',
-    weekday: 17,
-    weekend: 6,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 7350,
     requester: 3,
     status: 'Pending',
@@ -34,9 +61,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Dec, 2018',
-    weekday: 19,
-    weekend: 5,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 6850,
     requester: 4,
     status: 'Pending',
@@ -45,9 +81,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Jan, 2019',
-    weekday: 14,
-    weekend: 6,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 6900,
     requester: 5,
     status: 'Pending',
@@ -56,9 +101,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Jan, 2019',
-    weekday: 17,
-    weekend: 4,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 6150,
     requester: 6,
     status: 'Pending',
@@ -67,9 +121,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Jan, 2019',
-    weekday: 9,
-    weekend: 2,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 2950,
     requester: 7,
     status: 'Pending',
@@ -78,9 +141,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Jan, 2019',
-    weekday: 16,
-    weekend: 5,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 6400,
     requester: 8,
     status: 'Processing',
@@ -89,9 +161,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 12,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 8200,
     requester: 6,
     status: 'Processing',
@@ -100,9 +181,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'April, 2019',
-    weekday: 20,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9400,
     requester: 6,
     status: 'Processing',
@@ -111,9 +201,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 20,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9400,
     requester: 6,
     status: 'Completed',
@@ -122,9 +221,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 20,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9400,
     requester: 10,
     status: 'Completed',
@@ -133,9 +241,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 20,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9400,
     requester: 6,
     status: 'Declined',
@@ -144,9 +261,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 20,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9400,
     requester: 6,
     status: 'Cancelled',
@@ -155,9 +281,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Oct, 2018',
-    weekday: 16,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9400,
     requester: 11,
     status: 'Cancelled',
@@ -166,9 +301,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Oct, 2018',
-    weekday: 18,
-    weekend: 8,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9600,
     requester: 11,
     status: 'Completed',
@@ -177,9 +321,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Nov, 2018',
-    weekday: 15,
-    weekend: 5,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 6700,
     requester: 11,
     status: 'Completed',
@@ -188,9 +341,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Dec, 2018',
-    weekday: 21,
-    weekend: 6,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9800,
     requester: 11,
     status: 'Completed',
@@ -199,9 +361,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Jan, 2019',
-    weekday: 21,
-    weekend: 6,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 9800,
     requester: 11,
     status: 'Declined',
@@ -210,9 +381,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'Jan, 2019',
-    weekday: 15,
-    weekend: 4,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 6000,
     requester: 11,
     status: 'Completed',
@@ -221,9 +401,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 22,
-    weekend: 4,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 7000,
     requester: 11,
     status: 'Cancelled',
@@ -232,9 +421,18 @@ module.exports = {
   },
   {
     monthOfClaim: 'March, 2019',
-    weekday: 22,
-    weekend: 6,
-    shift: null,
+    details: `{
+      "weekend": 4,
+      "atm": 7,
+      "outstation": 350000,
+      "shift": 2
+    }`,
+    dates: `{
+      "weekend": "2/24/2019, 2/25/2019",
+      "atm": "2/24/2019, 2/25/2019",
+      "outstation": "2/24/2019, 2/25/2019",
+      "shift": "2/24/2019, 2/25/2019"
+    }`,
     amount: 8000,
     requester: 11,
     status: 'Completed',

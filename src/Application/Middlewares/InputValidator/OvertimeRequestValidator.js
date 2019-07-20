@@ -1,30 +1,34 @@
-import OvertimeRequestValidatorHelpers from './OvertimeRequestValidatorHelpers';
+/* eslint-disable object-curly-newline */
+import ValidatorHelpers from './ValidatorHelpers';
 
-const helpers = OvertimeRequestValidatorHelpers;
+const { validateNumberParam } = ValidatorHelpers;
 
 class OvertimeRequestValidator {
-  static checkOvertimeProps(overtimeRequest, staffRole) {
-    const overtimeTypes = Object.keys(overtimeRequest);
-    if (helpers.canApplyForShifts(staffRole)) {
-      return helpers.checkRPCRequest(overtimeTypes);
-    }
-    return helpers.checkNonRPCRequest(overtimeTypes);
-  }
+  static checkOvertimeProps(overtimeRequest) {
+    const expectedProps = ['claimElements', 'amount', 'details', 'dates'];
+    const missingProp = expectedProps.filter(field => !overtimeRequest[field]);
+    if (missingProp.length) return [`The following props are missing: ${missingProp}`];
 
-  static checkOvertimeEntries(overtimeRequest, maxValues) {
-    const [numberOfWeekdays, numberOfWeekends, totalDays] = maxValues;
-    const validator = helpers.validateOvertimeValues;
+    const overtimeFields = ['overtime', 'weekend', 'shift', 'atm', 'outstation'];
+    const detailsKeys = Object.keys(overtimeRequest.details);
 
-    const errors = Object.keys(overtimeRequest).reduce((acc, item) => {
-      if (['weekend', 'atm'].includes(item)) {
-        acc.push(...validator(overtimeRequest[item], numberOfWeekends, item));
-      } else if (item === 'weekday') {
-        acc.push(...validator(overtimeRequest[item], numberOfWeekdays, item));
-      } else {
-        acc.push(...validator(overtimeRequest[item], totalDays, item));
-      }
+    if (!detailsKeys.length) return ['claim request details cannot be empty'];
+    const unknownProps = detailsKeys.reduce((acc, item) => {
+      if (!overtimeFields.includes(item)) acc.push(item);
       return acc;
     }, []);
+
+    return unknownProps.length ? [`unrecognised fields: ${unknownProps}`] : [];
+  }
+
+  static checkOvertimeEntries(overtimeRequest) {
+    const { claimElements, amount, details } = overtimeRequest;
+    const errors = [];
+    errors.push(...validateNumberParam('claimElements', claimElements));
+    errors.push(...validateNumberParam('amount', amount));
+    Object.keys(details).forEach((detailKey) => {
+      errors.push(...validateNumberParam(detailKey, details[detailKey]));
+    });
 
     return errors;
   }

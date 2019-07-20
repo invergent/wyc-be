@@ -16,7 +16,7 @@ class Validator {
       return acc;
     }, '');
   }
-
+  
   static errorDecider(errors) {
     if (errors.length) return { rowIsValid: false, errors };
     return { rowIsValid: true };

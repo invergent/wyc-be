@@ -1,6 +1,7 @@
 export const formProperties = {
   signin: ['staffId', 'password'],
   login: ['email', 'password'],
+  claim: ['overtime', 'weekend', 'shift', 'atm', 'outstation'],
   lineManager: ['lineManagerRole', 'firstname', 'lastname', 'email'],
   image: ['image'],
   reset: ['password', 'confirmPassword'],
