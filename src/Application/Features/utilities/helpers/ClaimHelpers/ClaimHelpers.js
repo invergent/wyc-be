@@ -3,25 +3,12 @@ import ClaimService from '../../services/ClaimService';
 import { claimTypeRates } from '../../utils/general';
 
 class ClaimHelpers {
-  static calculateClaimAmount(overtimeRequest) {
-    const claimTypeList = Object.keys(overtimeRequest);
-
-    const claimAmountAccumulator = (accumulator, claimType) => {
-      const claimUnits = overtimeRequest[claimType];
-      const claimRate = claimTypeRates[claimType];
-      accumulator += claimUnits * claimRate;
-      return accumulator;
-    };
-
-    return claimTypeList.reduce(claimAmountAccumulator, 0);
-  }
-
   static createOvertimeRequestObject(overtimeRequest, staffId) {
     return {
       monthOfClaim: Dates.convertPreviousYearMonthToString(),
       ...overtimeRequest,
       requester: staffId,
-      amount: ClaimHelpers.calculateClaimAmount(overtimeRequest),
+      amount: overtimeRequest.amount,
       status: 'Pending'
     };
   }
