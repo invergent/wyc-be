@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import app from '../../../app';
 import models from '../../../Application/Database/models';
+import { lineManagerHash } from '../testUtils';
 import { companyInfo } from '../../../Application/Features/utilities/utils/general';
 import EmailNotifications from '../../../Application/Features/utilities/notifications/EmailNotifications';
 

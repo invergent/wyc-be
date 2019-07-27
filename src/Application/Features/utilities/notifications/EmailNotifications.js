@@ -21,9 +21,9 @@ class EmailNotifications {
     return EmailNotifications.sendNotificationEmail(staff, templateNames.Reset, passwordResetHash);
   }
 
-  static sendLineManagerNotifications(staff) {
+  static sendLineManagerNotifications(staff, notificationType) {
     const [hashedToken, emailTemplateName] = NotificationsHelpers
-      .createLineManagerEmailDetails(staff);
+      .createLineManagerEmailDetails(staff, notificationType);
     return EmailNotifications.sendNotificationEmail(staff, emailTemplateName, hashedToken);
   }
 
@@ -40,8 +40,15 @@ class EmailNotifications {
   }
 
   static notifyLineManagerOfNewClaim(staff) {
-    // if supervisor email address is set
-    EmailNotifications.sendLineManagerNotifications(staff);
+    EmailNotifications.sendLineManagerNotifications(staff, 'NewClaimLineManager');
+  }
+
+  static notifyLineManagerOfUpdatedClaim(staff) {
+    EmailNotifications.sendLineManagerNotifications(staff, 'UpdatedLineManager');
+  }
+
+  static notifyStaffUpdatedClaim(staff) {
+    EmailNotifications.sendStaffNotifications(staff, 'UpdatedStaff');
   }
 
   static notifyStaffOfClaimSubmission(staff) {
@@ -58,6 +65,10 @@ class EmailNotifications {
 
   static notifyStaffCancelled(staff) {
     EmailNotifications.sendStaffNotifications(staff, 'Cancelled');
+  }
+
+  static notifyStaffEditRequest(staff) {
+    EmailNotifications.sendStaffNotifications(staff, 'EditRequested');
   }
 
   static remindStaffOfPendingClaim(listOfStaff) {

@@ -3,7 +3,8 @@ import services from '../utilities/services';
 import notifications from '../utilities/notifications';
 import { eventNames, activityNames } from '../utilities/utils/types';
 
-const { ClaimService, StaffService } = services;
+
+const { ClaimService, StaffService, LineManagerService } = services;
 const { ClaimHelpers } = helpers;
 
 class Claim {
@@ -19,7 +20,7 @@ class Claim {
 
       const [claim, created] = await ClaimService.findOrCreateClaim(overtimeRequest);
       if (created) {
-        notifications.emit(eventNames.NewClaim, [staff.toJSON(), activityNames.NewClaim]);
+        notifications.emit(eventNames.NewClaim, [staff.toJSON(), claim.id, activityNames.NewClaim]);
       }
 
       return created ? [201, messageWhenCreated, claim] : [409, messageWhenNotCreated, claim];
@@ -60,13 +61,12 @@ class Claim {
   }
 
   static async runApprovalAndNotifyUsers(req, approvalType) {
-    const { params: { claimId } } = req;
     const [statusCode, message, data] = await Claim.runClaimApproval(req, approvalType);
     if (statusCode !== 200) return [statusCode, message];
 
     const staff = await StaffService.fetchStaffByPk(data.requester, ['lineManager']);
     notifications.emit(
-      eventNames[`lineManager${approvalType}`], [staff.toJSON(), claimId]
+      eventNames[`lineManager${approvalType}`], [staff.toJSON()]
     );
 
     return [statusCode, message, data];
@@ -81,16 +81,53 @@ class Claim {
   }
 
   static async cancel(req) {
-    const { params: { claimId }, staff } = req;
+    const { params: { claimId }, claim } = req;
+
+    if (claim.status !== 'Pending') {
+      return [403, 'Operation failed. Only pending claims can be cancelled.']
+    }
     try {
-      const [updated, claim] = await ClaimService.cancelClaim(claimId);
+      const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId);
       if (updated) {
-        notifications.emit(eventNames.Cancelled, [{ staff, claimId }, activityNames.Cancelled]);
+        notifications.emit(eventNames.Cancelled, [claim.claimer, claimId, activityNames.Cancelled]);
       }
-      return [200, `Claim${updated ? '' : ' not'} cancelled.`, claim[0]];
+      return [200, `Claim${updated ? '' : ' not'} cancelled.`, updatedClaim[0]];
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem cancelling your claim ERR500CLMCNL.'];
+    }
+  }
+
+  static async requestEdit(req) {
+    const { params: { claimId } } = req;
+
+    try {
+      const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
+      const [updated, updatedClaim] = await ClaimService.updateClaim({ editRequested: true }, claimId);
+      if (updated) {
+        notifications.emit(eventNames.EditRequested, [claim.claimer.toJSON(), claimId]);
+      }
+      return [200, `Edit${updated ? '' : ' not'} requested.`, updatedClaim[0]];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem requesting edit ERR500EDTREQ.'];
+    }
+  }
+  
+  static async updateOvertimeClaim(req) {
+    const { params: { claimId }, claim: { claimer: staff }, body } = req;
+    body.editRequested = false;
+    try {
+      const [updated, claim] = await ClaimService.updateClaim(body, claimId);
+      if (updated) {
+        const lineManager = await LineManagerService.findLineManagerByPk(staff.lineManagerId);
+        staff.lineManager = lineManager;
+        notifications.emit(eventNames.Updated, [staff, activityNames.Updated, claimId]);
+      }
+      return [200, `Claim${updated ? '' : ' not'} updated.`, claim[0]];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem updating your claim ERR500UPDCLM.'];
     }
   }
 }

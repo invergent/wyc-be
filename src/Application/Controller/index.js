@@ -50,6 +50,10 @@ class Controller {
     return Responder.respond(req, res, Claim.create);
   }
 
+  static async updateOvertimeClaim(req, res) {
+    return Responder.respond(req, res, Claim.updateOvertimeClaim);
+  }
+
   static async pendingClaimsForlineManagers(req, res) {
     return Responder.respond(req, res, Claim.sendPendingClaimsTolineManager);
   }
@@ -60,6 +64,10 @@ class Controller {
 
   static async declineClaim(req, res) {
     return Responder.respond(req, res, Claim.decline);
+  }
+
+  static async requestEdit(req, res) {
+    return Responder.respond(req, res, Claim.requestEdit);
   }
 
   static async cancelClaim(req, res) {

@@ -1,6 +1,5 @@
 import Dates from '../Dates';
 import ClaimService from '../../services/ClaimService';
-import { claimTypeRates } from '../../utils/general';
 
 class ClaimHelpers {
   static createOvertimeRequestObject(overtimeRequest, staffId) {
@@ -32,7 +31,7 @@ class ClaimHelpers {
         staffId, firstname, lastname, middlename, image, Claims
       } = result;
       const {
-        id, monthOfClaim, weekday, weekend, atm, shift, status
+        id, monthOfClaim, claimElements, details, dates
       } = Claims[0];
       return {
         staffId,
@@ -42,11 +41,9 @@ class ClaimHelpers {
         image,
         id,
         monthOfClaim,
-        weekday,
-        weekend,
-        atm,
-        shift,
-        status
+        claimElements,
+        details,
+        dates
       };
     });
   }
@@ -54,8 +51,8 @@ class ClaimHelpers {
   static filterReminderPendingClaims(queryResult) {
     return queryResult.map((result) => {
       const {
-        id: claimId, monthOfClaim, amount, 'Staff.firstname': firstname, 'Staff.email': email,
-        'Staff.staffId': staffId
+        id: claimId, monthOfClaim, amount, 'claimer.firstname': firstname, 'claimer.email': email,
+        'claimer.staffId': staffId
       } = result;
       return {
         claimId, staffId, monthOfClaim, amount, firstname, email
@@ -105,10 +102,10 @@ class ClaimHelpers {
     if (!pendingClaim.length) return [];
 
     const {
-      id, monthOfClaim, weekday, weekend, atm, shift, amount, status, createdAt, approvalHistory
+      id, monthOfClaim, claimElements, amount, details, dates, status, createdAt, approvalHistory
     } = pendingClaim[0];
     return [{
-      id, monthOfClaim, weekday, weekend, atm, shift, amount, status, createdAt, approvalHistory
+      id, monthOfClaim, claimElements, amount, details, dates, status, createdAt, approvalHistory
     }];
   }
 }

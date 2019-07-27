@@ -6,7 +6,7 @@ import helpers from '../helpers';
 
 const { ClaimHelpers } = helpers;
 const { NotificationService, ClaimService } = services;
-const { lineManagerApproved, lineManagerDeclined } = eventNames;
+const { lineManagerApproved, lineManagerDeclined, EditRequested } = eventNames;
 
 class InAppNotifications {
   static notifyStaffLineManagerApproved(staff, claimId) {
@@ -17,15 +17,19 @@ class InAppNotifications {
     return InAppNotifications.recordAndNotifyStaff(staff, claimId, lineManagerDeclined);
   }
 
+  static notifyStaffEditRequest(staff, claimId) {
+    return InAppNotifications.recordAndNotifyStaff(staff, claimId, EditRequested);
+  }
+
   static notifyStaffCompleted() {
     return InAppNotifications.recordAndNotifyManyStaff();
   }
 
-  static recordAndNotifyStaff(staff, claimId, notificationSource) {
-    const type = notificationSource.includes('Declined') ? 'Declined' : 'Approved';
-    const message = notificationActivities[notificationSource];
+  static recordAndNotifyStaff(staff, claimId, eventType) {
+    const type = eventType.includes('Declined') ? 'Declined' : 'Approved';
+    const message = notificationActivities[eventType];
     
-    pusher.trigger(`${staff.staffId}`, notificationSource, { message });
+    pusher.trigger(`${staff.staffId}`, eventType, { message });
 
     const notification = {
       activity: message, type, userId: staff.id, claimId

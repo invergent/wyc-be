@@ -41,8 +41,8 @@ describe('Pending Claims Tests', () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('You have 3 claims to approve.');
-      expect(response.body.data.pendingClaims[0].firstname).toEqual('Mercy');
-      expect(response.body.data.pendingClaims[1].firstname).toEqual('Molly');
+      expect(response.body.data.pendingClaims[0].firstname).toEqual('Molly');
+      expect(response.body.data.pendingClaims[1].firstname).toEqual('Ligamala');
     });
 
     it('should return 404 if there are no claims for line manager to approve .', async () => {

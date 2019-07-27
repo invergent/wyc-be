@@ -19,8 +19,8 @@ class ClaimService {
     });
   }
 
-  static findClaimByPk(claimId) {
-    return BasicQuerier.findByPk('Claims', claimId);
+  static findClaimByPk(claimId, includes) {
+    return BasicQuerier.findByPk('Claims', claimId, includes);
   }
 
   static fetchPendingClaims(statusType) {

@@ -17,7 +17,7 @@ const {
   markClaimsAsCompleted, staffClaimStats, staffActivities, staffProfileData, staffClaimHistory,
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
-  companySettings
+  companySettings, requestEdit, updateOvertimeClaim
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, validateForgotPasswordRequest, checkOvertimeProps,
@@ -40,6 +40,7 @@ router.get('/line-manager/verify', verifyLineManager, authoriseLineManager);
 router.get('/line-manager/claims/pending', authenticateLineManager, pendingClaimsForlineManagers);
 router.put('/line-manager/claims/pending/:claimId/approve', authenticateLineManager, approveClaim);
 router.put('/line-manager/claims/pending/:claimId/decline', authenticateLineManager, declineClaim);
+router.put('/line-manager/claims/pending/:claimId/request-edit', authenticateLineManager, requestEdit);
 
 router.get('/branches', authenticateAdminOrStaff, fetchBranches);
 
@@ -52,6 +53,7 @@ router.get('/users/claims/statistics', authenticateStaff, staffClaimStats);
 router.get('/users/claims/pending', authenticateStaff, staffClaimStats);
 router.get('/users/claims/history', authenticateStaff, staffClaimHistory);
 router.post('/users/claim', authenticateStaff, checkOvertimeProps, checkOvertimeValues, createOvertimeClaim);
+router.put('/users/claims/:claimId', authenticateStaff, validateClaimAccess, checkOvertimeProps, checkOvertimeValues, updateOvertimeClaim);
 router.delete('/users/claims/:claimId', authenticateStaff, validateClaimAccess, cancelClaim);
 
 router.get('/users/activities', authenticateStaff, staffActivities);
