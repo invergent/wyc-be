@@ -54,6 +54,7 @@ class GenericHelpers {
       },
       include: [{
         model: Staff,
+        as: 'claimer',
         include: ['branch', 'role']
       }],
       raw: true
@@ -75,7 +76,7 @@ class GenericHelpers {
   static fetchPendingClaimsOptions(statusType) {
     return {
       where: { ...GenericHelpers.claimStatusFilter(statusType) },
-      include: [Staff],
+      include: ['claimer'],
       plain: false,
       raw: true
     };
@@ -88,7 +89,7 @@ class GenericHelpers {
 
   static fetchCompletedClaimsQueryOptions() {
     const options = GenericHelpers.adminBulkSortQueryOptions('Completed');
-    options.include = [Staff];
+    options.include = ['claimer'];
     return options;
   }
 
@@ -106,7 +107,7 @@ class GenericHelpers {
   static staffPendingClaimOptions(staffId, statusType) {
     return {
       where: { ...GenericHelpers.claimStatusFilter(statusType) },
-      include: [{ model: Staff, where: { staffId } }, 'approvalHistory']
+      include: [{ model: Staff, as: 'claimer', where: { staffId } }, 'approvalHistory']
     };
   }
 }

@@ -59,6 +59,16 @@ describe('Claim Approval Tests', () => {
       expect(response.body.message).toEqual('Claim declined.');
       expect(response.body.data.status).toEqual('Declined');
     });
+
+    it('should request edit on specified staff claim', async () => {
+      const response = await request
+        .put('/line-manager/claims/pending/3/request-edit')
+        .set('cookie', lineManagerToken)
+        .send({});
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Edit requested.');
+    });
   });
 
   describe('Staff Claim Approval (Cancelled)', () => {

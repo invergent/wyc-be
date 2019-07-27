@@ -10,6 +10,12 @@ notify.register(eventNames.NewClaim, EmailNotifications.notifyLineManagerOfNewCl
 notify.register(eventNames.NewClaim, EmailNotifications.notifyStaffOfClaimSubmission);
 notify.register(eventNames.NewClaim, ActivityLogger.logClaimActivity);
 
+notify.register(eventNames.EditRequested, EmailNotifications.notifyStaffEditRequest);
+notify.register(eventNames.EditRequested, InAppNotifications.notifyStaffEditRequest);
+
+notify.register(eventNames.Updated, EmailNotifications.notifyLineManagerOfUpdatedClaim);
+notify.register(eventNames.Updated, ActivityLogger.logClaimActivity);
+
 notify.register(eventNames.lineManagerApproved, EmailNotifications.notifyStaffLineManagerApproved);
 notify.register(eventNames.lineManagerApproved, InAppNotifications.notifyStaffLineManagerApproved);
 
