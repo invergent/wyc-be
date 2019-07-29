@@ -75,12 +75,16 @@ class InputValidator {
     return validatorResponder(res, errors, next);
   }
 
-  // static checkParams(req, res, next) {
-  //   const { claimId } = req.params;
-  //
-  //   const error = ValidatorHelpers.validateNumberParam(claimId, 'claimId');
-  //   return ValidatorHelpers.validatorResponder(res, error, next);
-  // }
+  static checkIdParams(req, res, next) {
+    const errors = [];
+    const paramKeys = Object.keys(req.params);
+
+    paramKeys.forEach(paramKey => (
+      errors.push(...ValidatorHelpers.validateNumberParam(paramKey, req.params[paramKey]))
+    ));
+
+    return ValidatorHelpers.validatorResponder(res, errors, next);
+  }
 
   static checkScheduleProps(req, res, next) {
     if (!Object.keys(req.body).length) return validatorResponder(res, ['You sent an empty request.']);
