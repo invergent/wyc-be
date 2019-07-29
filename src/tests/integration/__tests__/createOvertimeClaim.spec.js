@@ -21,7 +21,7 @@ const claimRequest = {
     atm: '7/22/2019, 7/23/2019',
     outstation: '7/22/2019, 7/23/2019',
   }
-}
+};
 
 describe('Create Claim Tests', () => {
   let server;
@@ -37,7 +37,7 @@ describe('Create Claim Tests', () => {
     server.close(done);
   });
 
-  describe('RPC tests', () => {
+  describe('Create claim', () => {
     let token;
 
     beforeAll(async () => {
@@ -99,6 +99,18 @@ describe('Create Claim Tests', () => {
 
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('Your claim request was created successfully.');
+      expect(response.body.data.amount).toEqual(claimRequest.amount);
+    });
+
+    it('should update pending claim request', async () => {
+      const response = await request
+        .put('/users/claims/1')
+        .set('cookie', token)
+        .set('Accept', 'application/json')
+        .send(claimRequest);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Claim updated.');
       expect(response.body.data.amount).toEqual(claimRequest.amount);
     });
   });

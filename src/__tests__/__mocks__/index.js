@@ -11,7 +11,8 @@ export const mockReq = {
   lineManager: {},
   params: { claimId: 'someClaim' },
   worksheet: 'worksheet',
-  path: ''
+  path: '',
+  claim: { status: 'Pending', claimer: {} }
 };
 
 export const mockStaff = {

@@ -12,8 +12,8 @@ class NotificationsHelpers {
     return templateNames.NewClaimStaff;
   }
 
-  static createLineManagerEmailDetails(staff) {
-    const emailTemplateName = templateNames.NewClaimLineManager;
+  static createLineManagerEmailDetails(staff, notificationType) {
+    const emailTemplateName = templateNames[notificationType];
     const id = staff.lineManagerId;
     const hashedToken = krypter.authenticationEncryption('lineManager', { id });
 

@@ -7,7 +7,7 @@ class ActivityLogger {
     return ActivityService.logActivity(activity, staffId);
   }
 
-  static logClaimActivity(staff, activity) {
+  static logClaimActivity(staff, claimId, activity) {
     return ActivityLogger.log(activity, staff.staffId);
   }
 

@@ -7,6 +7,6 @@ describe('ClaimHelpers Unit test', () => {
   it('should create a new array with objects', async () => {
     const newArray = ClaimHelpers.filterReminderPendingClaims(mockStaffWithPendingClaims);
 
-    expect(newArray).toEqual(mockFilteredStaffWithPendingClaims);
+    expect(newArray.length).toEqual(mockFilteredStaffWithPendingClaims.length);
   });
 });

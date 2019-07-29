@@ -23,11 +23,15 @@ const claims = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    editRequested: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, { freezeTableName: true });
 
   Claims.associate = (models) => {
-    Claims.belongsTo(models.Staff, { foreignKey: 'requester' });
+    Claims.belongsTo(models.Staff, { as: 'claimer', foreignKey: 'requester' });
     Claims.hasMany(models.ClaimApprovalHistory, { as: 'approvalHistory', foreignKey: 'claimId' });
   };
 

@@ -27,6 +27,7 @@ export const exportDocHeaders = [
 export const notificationActivities = {
   lineManagerApproved: 'Your claim was approved by your line manager. It is now being processed by Admin.',
   lineManagerDeclined: 'Your claim was declined by your line manager.',
+  EditRequested: 'Your line manager requested edit on your claim submission.',
   adminProcessed: 'Your claim has been processed. It would be credited on payday.',
   adminPaid: 'Your claim has been paid.'
 };
