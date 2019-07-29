@@ -1,7 +1,8 @@
 import ValidatorHelpers from './ValidatorHelpers';
 
 import {
-  emailRegex, staffIdRegex, solIdRegex, formProperties, phoneRegex, numberRegex
+  emailRegex, staffIdRegex, solIdRegex, formProperties, phoneRegex, numberRegex,
+  holidayRegex
 } from '../../Features/utilities/utils/inputValidator';
 
 class Validator {
@@ -161,6 +162,16 @@ class Validator {
       errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename));
       errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneRegex));
     }
+
+    return errors;
+  }
+
+  static holidays(data) {
+    const errors = [];
+    const { name, day } = data;
+
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Holiday name', name));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Holiday date', day, holidayRegex));
 
     return errors;
   }

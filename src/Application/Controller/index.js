@@ -5,7 +5,7 @@ import Responder from './Responder';
 const {
   Authorisation, Branch, LineManager, PasswordReset, ChangePassword, Claim,
   exportDoc, Settings, Administration, Users, imageUpload, ProfileUpdate, Roles,
-  Notifications
+  Notifications, Holidays
 } = features;
 
 class Controller {
@@ -160,6 +160,22 @@ class Controller {
 
   static async companySettings(req, res) {
     return Responder.respond(req, res, Administration.fetchSettings);
+  }
+
+  static async addHoliday(req, res) {
+    return Responder.respond(req, res, Holidays.add);
+  }
+
+  static async updateHoliday(req, res) {
+    return Responder.respond(req, res, Holidays.update);
+  }
+
+  static async removeHoliday(req, res) {
+    return Responder.respond(req, res, Holidays.delete);
+  }
+
+  static async fetchAllHolidays(req, res) {
+    return Responder.respond(req, res, Holidays.getAll);
   }
 }
 
