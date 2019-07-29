@@ -71,7 +71,9 @@ class ValidatorHelpers {
       case (path.indexOf('login') !== -1):
       case (path.indexOf('staff') !== -1):
       case (path.indexOf('branch') !== -1):
+      case (path.indexOf('holidays') !== -1):
         methodName = path.slice(7);
+        if (path.includes('holidays/')) methodName = methodName.substr(0, 8);
         break;
       default:
         methodName = path.slice(1);

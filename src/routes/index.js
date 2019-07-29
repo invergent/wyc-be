@@ -17,10 +17,11 @@ const {
   markClaimsAsCompleted, staffClaimStats, staffActivities, staffProfileData, staffClaimHistory,
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
-  companySettings, requestEdit, updateOvertimeClaim
+  companySettings, requestEdit, updateOvertimeClaim, addHoliday, updateHoliday, removeHoliday,
+  fetchAllHolidays
 } = Controller;
 const {
-  checkProps, checkEntries, checkBranchId, validateForgotPasswordRequest, checkOvertimeProps,
+  checkProps, checkEntries, checkBranchId, checkIdParams, validateForgotPasswordRequest, checkOvertimeProps,
   checkDocType, checkOvertimeValues, checkFileType, validateProfileEdit, checkScheduleProps
 } = InputValidator;
 const {
@@ -80,5 +81,10 @@ router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, 
 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);
+
+router.post('/admin/holidays', authenticateAdmin, checkProps, checkEntries, addHoliday);
+router.put('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, checkProps, checkEntries, updateHoliday);
+router.delete('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, removeHoliday);
+router.get('/admin/holidays', authenticateAdmin, fetchAllHolidays);
 
 export default router;

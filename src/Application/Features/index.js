@@ -7,6 +7,7 @@ import PasswordReset from './PasswordReset';
 import ChangePassword from './ChangePassword';
 import Claim from './Claim';
 import exportDoc from './exportDoc';
+import Holidays from './Holidays';
 import Roles from './Roles';
 import Settings from './Settings';
 import Users from './Users';
@@ -23,6 +24,7 @@ export default {
   ChangePassword,
   Claim,
   exportDoc,
+  Holidays,
   Notifications,
   Roles,
   Settings,
