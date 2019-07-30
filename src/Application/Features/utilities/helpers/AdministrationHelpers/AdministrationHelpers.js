@@ -37,36 +37,34 @@ class AdministrationHelpers {
   static filterAdminClaimsQueryResult(queryResult) {
     return queryResult.map((result) => {
       const {
-        weekday,
-        weekend,
-        atm,
-        shift,
+        details: { overtime, weekend, atm, shift, holiday, outstation },
         amount,
         status,
         monthOfClaim,
-        'Staff.staffId': staffId,
-        'Staff.firstname': firstname,
-        'Staff.lastname': lastname,
-        'Staff.middlename': middlename,
-        'Staff.branch.solId': solId,
-        'Staff.branch.name': branch,
-        'Staff.role.name': role
+        claimer: {
+          firstname, lastname, middlename, staffId,
+          branch: { solId, name: branch },
+          role: { name: role },
+          lineManager: { firstname: lmFirstname, lastname: lmLastname, email: lmEmail }
+        },
       } = result;
       return {
-        weekday,
+        overtime,
         weekend,
         atm,
         shift,
+        holiday,
+        outstation,
         amount,
         status,
         staffId,
-        firstname,
-        lastname,
-        middlename,
+        fullname: `${firstname} ${lastname}${middlename ? ' ' : ''}${middlename || ''}`,
         solId,
         branch,
         monthOfClaim,
-        role
+        role,
+        approvedby: `${lmFirstname} ${lmLastname}`,
+        approverEmail: lmEmail
       };
     });
   }

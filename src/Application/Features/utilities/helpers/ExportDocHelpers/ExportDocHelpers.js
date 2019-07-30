@@ -29,10 +29,7 @@ class ExportDocHelpers {
 
   static populateRowsWithClaimData(worksheet, claims) {
     claims.forEach((claim, index) => {
-      const { firstname, lastname, middlename } = claim;
-      const fullname = `${lastname} ${firstname}${middlename ? ' ' : ''}${middlename || ''}`;
       claim.sn = index + 1;
-      claim.fullname = fullname;
       worksheet.addRow(claim);
     });
     return worksheet;

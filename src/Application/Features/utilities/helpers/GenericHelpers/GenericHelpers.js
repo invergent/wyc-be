@@ -1,6 +1,4 @@
-import {
-  Op, where, cast, col
-} from 'sequelize';
+import { Op } from 'sequelize';
 import models from '../../../../Database/models';
 import Dates from '../Dates';
 
@@ -55,9 +53,8 @@ class GenericHelpers {
       include: [{
         model: Staff,
         as: 'claimer',
-        include: ['branch', 'role']
-      }],
-      raw: true
+        include: ['branch', 'role', 'lineManager']
+      }]
     };
     return options;
   }
@@ -69,6 +66,8 @@ class GenericHelpers {
       .replace(/ id/g, 'Id')
       .replace(/ /g, '')
       .replace(/duty/g, '')
+      .replace(/outstationallowance/g, 'outstation')
+      .replace(/approveremailaddress/g, 'approverEmail')
       .replace(/monthofclaim/g, 'monthOfClaim');
     return key;
   }
