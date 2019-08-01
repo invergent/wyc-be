@@ -10,12 +10,13 @@ export const formProperties = {
   schedules: ['emailSchedule', 'overtimeWindowStart', 'overtimeWindowEnd', 'overtimeWindowIsActive'],
   staff: ['excelDoc'],
   branch: ['excelDoc'],
-  single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone'],
+  single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone', 'accountNumber'],
   holidays: ['name', 'day']
 };
 
 export const staffIdRegex = /^[Tt][Nn][0-9]{6}$/;
 export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
+export const accNumRegex = /^\d{10}$/;
 export const solIdRegex = /^\d{4}$/;
 export const phoneRegex = /^\d{11}$/;
 export const numberRegex = /^\d$/;
