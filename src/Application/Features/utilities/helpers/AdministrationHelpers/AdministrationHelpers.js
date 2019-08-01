@@ -7,7 +7,7 @@ class AdministrationHelpers {
 
     worksheet.eachRow((row) => {
       // eslint-disable-next-line
-      const [emptyCell, staffId, firstname, lastname, middlename, email, phone] = row.values;
+      const [emptyCell, staffId, firstname, lastname, middlename, email, phone, accountNumber] = row.values;
 
       arrayOfStaff.push({
         staffId: staffId.toUpperCase(),
@@ -15,7 +15,8 @@ class AdministrationHelpers {
         lastname,
         middlename,
         email: email.toLowerCase(),
-        phone
+        phone,
+        accountNumber
       });
     });
 
@@ -37,12 +38,12 @@ class AdministrationHelpers {
   static filterAdminClaimsQueryResult(queryResult) {
     return queryResult.map((result) => {
       const {
-        details: { overtime, weekend, atm, shift, holiday, outstation },
+        details: { overtime, weekend, atmDuty, atmSupport, shiftDuty, outstation },
         amount,
         status,
         monthOfClaim,
         claimer: {
-          firstname, lastname, middlename, staffId,
+          firstname, lastname, middlename, staffId, accountNumber,
           branch: { solId, name: branch },
           role: { name: role },
           lineManager: { firstname: lmFirstname, lastname: lmLastname, email: lmEmail }
@@ -51,9 +52,9 @@ class AdministrationHelpers {
       return {
         overtime,
         weekend,
-        atm,
-        shift,
-        holiday,
+        atmDuty,
+        atmSupport,
+        shiftDuty,
         outstation,
         amount,
         status,
@@ -61,6 +62,7 @@ class AdministrationHelpers {
         fullname: `${firstname} ${lastname}${middlename ? ' ' : ''}${middlename || ''}`,
         solId,
         branch,
+        accountNumber,
         monthOfClaim,
         role,
         approvedby: `${lmFirstname} ${lmLastname}`,

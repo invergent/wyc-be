@@ -63,9 +63,13 @@ class GenericHelpers {
     const key = header
       .toLowerCase()
       .replace(/\//g, '')
-      .replace(/ id/g, 'Id')
       .replace(/ /g, '')
-      .replace(/duty/g, '')
+      .replace(/no/g, 'Id')
+      .replace(/id/g, 'Id')
+      .replace(/number/g, 'Number')
+      .replace(/jobfunction/g, 'role')
+      .replace(/duty/g, 'Duty')
+      .replace(/support/g, 'Support')
       .replace(/outstationallowance/g, 'outstation')
       .replace(/approveremailaddress/g, 'approverEmail')
       .replace(/monthofclaim/g, 'monthOfClaim');

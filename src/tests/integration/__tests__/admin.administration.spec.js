@@ -84,14 +84,15 @@ describe('Admin Administration', () => {
       expect(response.body.rowsWithErrors[0]).toHaveProperty('line');
       expect(response.body.rowsWithErrors[0]).toHaveProperty('errors');
     });
-
+    
     it('should successfully create all staff listed in the excel document.', async () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
         .attach('excelDoc', `${__dirname}/testFiles/validExcel.xlsx`, 'staff.xlsx')
         .set('cookie', token);
-
+      
+      console.log(response.body)
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('10 staff created successfully.');
       expect(response.body.data).toHaveLength(10);
@@ -132,7 +133,6 @@ describe('Admin Administration', () => {
         .set('Content-Type', 'multipart/form-data')
         .attach('excelDoc', `${__dirname}/testFiles/validBranches.xlsx`, 'branches.xlsx')
         .set('cookie', token);
-
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('10 branches created successfully.');
       expect(response.body.data).toHaveLength(10);
@@ -169,7 +169,7 @@ describe('Admin Administration', () => {
         .set('cookie', token)
         .set('Accept', 'application/json')
         .send({
-          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '080234567890'
+          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '080234567890', accountNumber: '00234567890'
         });
 
       expect(response.status).toBe(201);
