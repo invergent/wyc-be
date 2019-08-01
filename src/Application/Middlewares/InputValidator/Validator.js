@@ -1,7 +1,7 @@
 import ValidatorHelpers from './ValidatorHelpers';
 
 import {
-  emailRegex, staffIdRegex, solIdRegex, formProperties, phoneRegex, numberRegex,
+  emailRegex, accNumRegex, staffIdRegex, solIdRegex, formProperties, phoneRegex, numberRegex,
   holidayRegex
 } from '../../Features/utilities/utils/inputValidator';
 
@@ -102,11 +102,13 @@ class Validator {
 
   static staff(rowValues) {
     // eslint-disable-next-line
-    const [emptyCell, staffId, firstname, lastname, middlename, emailAddress] = rowValues;
+    const [emptyCell, staffId, firstname, lastname, middlename, emailAddress, phone, accountNumber] = rowValues;
     const errors = [];
-
+    console.log(accountNumber)
     errors.push(...ValidatorHelpers.checkPatternedFields('Staff ID', staffId, staffIdRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', emailAddress, emailRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Phone Number', phone, phoneRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Account Number', accountNumber, accNumRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename, true));
@@ -128,7 +130,7 @@ class Validator {
   static profile(profileInfo) {
     const errors = [];
     const {
-      firstname, lastname, middlename, email, phone, supervisorId, bsmId, roleId, branchId
+      firstname, lastname, middlename, email, phone, supervisorId, bsmId, roleId, branchId, accountNumber
     } = profileInfo;
 
     errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', email, emailRegex));
@@ -136,6 +138,7 @@ class Validator {
     errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname, true));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename, true));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Account Number', accountNumber, accNumRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('roleId', roleId, numberRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('Supervisor ID', supervisorId, numberRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('BSM ID', bsmId, numberRegex));
