@@ -34,16 +34,11 @@ class Validator {
   }
 
   static lineManager(reqObject) {
-    const {
-      lineManagerRole, firstname, lastname, email
-    } = reqObject;
+    const { firstname, lastname, email } = reqObject;
     const errors = [];
 
-    if (!emailRegex.test(email)) {
-      errors.push('Email is invalid');
-    }
+    if (!emailRegex.test(email)) errors.push('Email is invalid');
 
-    errors.push(...ValidatorHelpers.validateNumberParam('lineManagerRole', lineManagerRole));
     errors.push(...ValidatorHelpers.checkPatternedFields('email', email, emailRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('firstname', firstname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('lastname', lastname));
@@ -104,7 +99,7 @@ class Validator {
     // eslint-disable-next-line
     const [emptyCell, staffId, firstname, lastname, middlename, emailAddress, phone, accountNumber] = rowValues;
     const errors = [];
-    console.log(accountNumber)
+
     errors.push(...ValidatorHelpers.checkPatternedFields('Staff ID', staffId, staffIdRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', emailAddress, emailRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('Phone Number', phone, phoneRegex));
@@ -171,10 +166,12 @@ class Validator {
 
   static holidays(data) {
     const errors = [];
-    const { name, day } = data;
-
-    errors.push(...ValidatorHelpers.checkForEmptyFields('Holiday name', name));
-    errors.push(...ValidatorHelpers.checkPatternedFields('Holiday date', day, holidayRegex));
+    const { name, month, date, fullDate } = data;
+    
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Holiday name', name, true));
+    if (month < 0 || month > 11) errors.push('month is invalid');
+    if (date < 1 || date > 31) errors.push('date is invalid');
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Full date', fullDate));
 
     return errors;
   }

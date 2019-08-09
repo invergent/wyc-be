@@ -17,12 +17,12 @@ const {
   markClaimsAsCompleted, staffClaimStats, staffActivities, staffProfileData, staffClaimHistory,
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
-  companySettings, requestEdit, updateOvertimeClaim, addHoliday, updateHoliday, removeHoliday,
+  companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove,
   fetchAllHolidays
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, checkIdParams, validateForgotPasswordRequest, checkOvertimeProps,
-  checkDocType, checkOvertimeValues, checkFileType, validateProfileEdit, checkScheduleProps
+  checkDocType, checkOvertimeValues, checkFileType, customValidator, checkScheduleProps
 } = InputValidator;
 const {
   authenticateAdmin, authenticateStaff, authenticateLineManager, verifyLineManager,
@@ -60,7 +60,7 @@ router.delete('/users/claims/:claimId', authenticateStaff, validateClaimAccess, 
 router.get('/users/activities', authenticateStaff, staffActivities);
 
 router.get('/users/profile', authenticateAdminOrStaff, staffProfileData);
-router.put('/users/profile', authenticateAdminOrStaff, validateProfileEdit, updateProfileInfo);
+router.put('/users/profile', authenticateAdminOrStaff, customValidator, updateProfileInfo);
 router.post('/users/profile/image', authenticateAdminOrStaff, checkProps, checkFileType, uploadImage);
 router.post('/users/profile/line-manager', authenticateStaff, checkProps, checkEntries, addOrChangeLineManager);
 router.put('/users/profile/branch', authenticateStaff, checkBranchId, updateBranch);
@@ -82,9 +82,9 @@ router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);
 
-router.post('/admin/holidays', authenticateAdmin, checkProps, checkEntries, addHoliday);
-router.put('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, checkProps, checkEntries, updateHoliday);
-router.delete('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, removeHoliday);
-router.get('/admin/holidays', authenticateAdmin, fetchAllHolidays);
+router.post('/admin/holidays', authenticateAdmin, customValidator, addHoliday);
+// router.put('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, customValidator, updateOrDelete);
+router.delete('/admin/holidays', authenticateAdmin, remove);
+router.get('/admin/holidays', authenticateAdminOrStaff, fetchAllHolidays);
 
 export default router;

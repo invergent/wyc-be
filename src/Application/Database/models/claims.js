@@ -13,9 +13,6 @@ const claims = (sequelize, DataTypes) => {
     details: {
       type: DataTypes.JSON
     },
-    dates: {
-      type: DataTypes.JSON
-    },
     requester: {
       type: DataTypes.STRING,
       allowNull: false

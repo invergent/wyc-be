@@ -166,12 +166,8 @@ class Controller {
     return Responder.respond(req, res, Holidays.add);
   }
 
-  static async updateHoliday(req, res) {
-    return Responder.respond(req, res, Holidays.update);
-  }
-
-  static async removeHoliday(req, res) {
-    return Responder.respond(req, res, Holidays.delete);
+  static async remove(req, res) {
+    return Responder.respond(req, res, Holidays.remove);
   }
 
   static async fetchAllHolidays(req, res) {

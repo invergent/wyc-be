@@ -71,11 +71,6 @@ class AdministrationHelpers {
     });
   }
 
-  static async submittedClaimsForAdmin() {
-    const claims = await ClaimService.fetchSubmittedClaims();
-    return AdministrationHelpers.filterAdminClaimsQueryResult(claims);
-  }
-
   static async exportableClaims() {
     const claims = await ClaimService.fetchClaimsInProcessingForExports('Processing');
     return AdministrationHelpers.filterAdminClaimsQueryResult(claims);

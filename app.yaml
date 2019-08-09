@@ -13,7 +13,7 @@ env_variables: #put whatever you want here then access in code via process.env.V
   API_KEY: '882415814135169'
   API_SECRET: 'bJPqFW_jh8O4gMSXaYt7Ha5rM_E'
 beta_settings:
-  cloud_sql_instances: vla-overtime:us-central1:vla-overtime
+  cloud_sql_instances: cleontime-api:us-central1:cleontime
 handlers:
 - url: /.*
   script: auto

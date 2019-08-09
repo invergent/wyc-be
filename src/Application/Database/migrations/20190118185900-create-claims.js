@@ -19,9 +19,6 @@ module.exports = {
     details: {
       type: Sequelize.JSON
     },
-    dates: {
-      type: Sequelize.JSON
-    },
     requester: {
       type: Sequelize.INTEGER,
       onDelete: 'CASCADE',
