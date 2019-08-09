@@ -10,8 +10,7 @@ export const formProperties = {
   schedules: ['emailSchedule', 'overtimeWindowStart', 'overtimeWindowEnd', 'overtimeWindowIsActive'],
   staff: ['excelDoc'],
   branch: ['excelDoc'],
-  single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone', 'accountNumber'],
-  holidays: ['name', 'day']
+  single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone', 'accountNumber']
 };
 
 export const staffIdRegex = /^[Tt][Nn][0-9]{6}$/;

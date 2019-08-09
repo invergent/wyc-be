@@ -1,10 +1,17 @@
 const holidays = (sequelize, DataTypes) => {
   const Holidays = sequelize.define('Holidays', {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
+    },
+    month: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    day: {
+    date: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    fullDate: {
       type: DataTypes.STRING,
       allowNull: false
     }

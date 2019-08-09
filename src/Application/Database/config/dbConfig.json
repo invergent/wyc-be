@@ -8,6 +8,15 @@
     "dialect": "postgres",
     "logging": true
   },
+  "cloud-local": {
+    "host": "localhost",
+    "port": 5433,
+    "database": "cleontime",
+    "username": "postgres",
+    "password": "pass",
+    "dialect": "postgres",
+    "logging": true
+  },
   "test": {
     "host": "localhost",
     "port": 5432,
@@ -18,9 +27,9 @@
     "logging": false
   },
   "production": {
-    "host": "/cloudsql/vla-overtime:us-central1:vla-overtime",
+    "host": "/cloudsql/cleontime-api:us-central1:cleontime",
     "port": 5432,
-    "database": "vla-overtime",
+    "database": "cleontime",
     "username": "postgres",
     "password": "pass",
     "dialect": "postgres",

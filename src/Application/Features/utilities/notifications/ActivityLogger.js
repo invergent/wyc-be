@@ -12,9 +12,9 @@ class ActivityLogger {
   }
 
   static refineChangeLineManagerLog(activity, data) {
-    const { firstname: fs, lastname: ls, lineManagerRole: lr } = data;
-    if (activity.includes('Added')) return `Added ${fs} ${ls} as ${lr}`;
-    return `Changed ${lr} to ${fs} ${ls}`;
+    const { firstname: fs, lastname: ls } = data;
+    if (activity.includes('Added')) return `Added ${fs} ${ls} as line manager`;
+    return `Changed line manager to ${fs} ${ls}`;
   }
 
   static refineChangeBranchLog(data) {
