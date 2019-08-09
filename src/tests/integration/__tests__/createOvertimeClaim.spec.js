@@ -63,7 +63,7 @@ describe('Create Claim Tests', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors[0]).toEqual('The following props are missing: claimElements,amount,details,dates');
+      expect(response.body.errors[0]).toEqual('The following props are missing: claimElements,amount,details');
     });
 
     it('should fail if claim request does not contain details', async () => {
@@ -76,18 +76,6 @@ describe('Create Claim Tests', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
       expect(response.body.errors[0]).toEqual('claim request details cannot be empty');
-    });
-
-    it('should fail if claim request details contains unrecognised props', async () => {
-      const response = await request
-        .post('/users/claim')
-        .set('cookie', token)
-        .set('Accept', 'application/json')
-        .send({ ...claimRequest, details: { someKey: 'someValue' } });
-
-      expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors[0]).toEqual('unrecognised fields: someKey');
     });
 
     it('should create claim request', async () => {

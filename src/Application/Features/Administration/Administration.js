@@ -57,7 +57,7 @@ class Administration {
 
   static async submittedClaims() {
     try {
-      const submittedClaims = await AdministrationHelpers.submittedClaimsForAdmin();
+      const submittedClaims = await ClaimService.fetchSubmittedClaims();
       const statistics = await AdministrationHelpers.getClaimStatistics(submittedClaims);
       return [200, 'Request successful', { submittedClaims, statistics }];
     } catch (e) {

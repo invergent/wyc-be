@@ -80,7 +80,7 @@ describe('Line Manager', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors.length).toEqual(5);
+      expect(response.body.errors.length).toEqual(4);
     });
 
     it('should fail if fields are missing', async () => {

@@ -24,16 +24,6 @@ describe('Administration Unit Tests', () => {
   });
 
   describe('submittedClaims', () => {
-    it('should send a 500 fail response if an error occurs while fetching claims.', async () => {
-      jest.spyOn(AdministrationHelpers, 'submittedClaimsForAdmin').mockRejectedValue('err');
-
-      const result = await Administration.submittedClaims();
-
-      expect(result).toHaveLength(2);
-      expect(result[0]).toEqual(500);
-      expect(result[1]).toEqual('There was a problem fetching claims ERR500ADMDSH.');
-    });
-
     it('should send a 500 fail response if an error occurs while fetching chart statistics data.', async () => {
       jest.spyOn(AdministrationHelpers, 'getChartStatistics').mockRejectedValue('err');
 

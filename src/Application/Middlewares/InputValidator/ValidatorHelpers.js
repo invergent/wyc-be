@@ -59,6 +59,9 @@ class ValidatorHelpers {
     let methodName;
 
     switch (true) {
+      case (path === '/users/profile'):
+        methodName = 'profile';
+        break;
       case (path.indexOf('users') !== -1):
         methodName = path.slice(15);
         break;

@@ -2,50 +2,45 @@ import models from '../../Database/models';
 
 class Holidays {
   static async add(req) {
-    const { body } = req;
+    const { body: { fullDate } } = req;
 
     try {
       const [holiday, created] = await models.Holidays.findOrCreate({
-        where: { day: body.day },
-        defaults: body
+        where: { fullDate },
+        defaults: req.body
       });
-      return created ? [201, 'Holiday created!', holiday] : [409, 'Holiday already exists', holiday];
+
+      return created ? [201, 'Holiday added!', holiday] : [409, 'Holiday already exists', holiday];
     } catch (error) {
       console.log(error);
       return [500, 'There was a problem creating holiday ERR500HOLCRT'];
     }
   }
 
-  static async update(req) {
-    const { params: { holidayId }, body } = req;
+  static async remove(req) {
+    const { query: { fullDate } } = req;
+
+    if (!fullDate) return [400, 'query params missing or invalid'];
 
     try {
-      const [updated] = await models.Holidays.update(body, { where: { id: holidayId } });
-      return [200, `Holiday${updated ? '' : ' not'} updated.`];
-    } catch (error) {
-      console.log(error);
-      return [500, 'There was a problem updating holiday ERR500HOLUPD'];
-    }
-  }
-
-  static async delete(req) {
-    const { params: { holidayId } } = req;
-
-    try {
-      const holiday = await models.Holidays.findByPk(holidayId);
+      const holiday = await models.Holidays.findOne({ where: { fullDate } });
       if (!holiday) return [200, 'Holiday not found.'];
-      holiday.destroy();
+      
+      await holiday.destroy();
 
-      return [200, 'Holiday removed.'];
+      return [200, 'Holiday removed!'];
     } catch (error) {
       console.log(error);
-      return [500, 'There was a problem removing holiday ERR500HOLDEL'];
+      return [500, 'There was a problem updating holiday ERR500HOLDEL'];
     }
   }
 
-  static async getAll() {
+  static async getAll(req) {
+    const { query: { month } } = req;
+    const queryOptions = {};
+    if (month) queryOptions.where = { month };
     try {
-      const holidays = await models.Holidays.findAll();
+      const holidays = await models.Holidays.findAll(queryOptions);
       return [200, `Found ${holidays.length} holidays`, holidays];
     } catch (error) {
       console.log(error);

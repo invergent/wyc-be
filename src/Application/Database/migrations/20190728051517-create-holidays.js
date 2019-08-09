@@ -7,10 +7,17 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
+    },
+    month: {
+      type: Sequelize.INTEGER,
       allowNull: false
     },
-    day: {
+    date: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    fullDate: {
       type: Sequelize.STRING,
       allowNull: false
     },
