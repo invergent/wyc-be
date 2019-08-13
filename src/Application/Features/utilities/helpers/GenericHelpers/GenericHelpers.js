@@ -65,7 +65,7 @@ class GenericHelpers {
       .replace(/\//g, '')
       .replace(/ /g, '')
       .replace(/no/g, 'Id')
-      .replace(/id/g, 'Id')
+      .replace(/solid/g, 'solId')
       .replace(/number/g, 'Number')
       .replace(/jobfunction/g, 'role')
       .replace(/duty/g, 'Duty')
