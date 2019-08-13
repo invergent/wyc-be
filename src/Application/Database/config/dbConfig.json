@@ -8,14 +8,14 @@
     "dialect": "postgres",
     "logging": true
   },
-  "cloud-local": {
+  "cloud_local": {
     "host": "localhost",
     "port": 5433,
     "database": "cleontime",
     "username": "postgres",
     "password": "pass",
     "dialect": "postgres",
-    "logging": true
+    "logging": false
   },
   "test": {
     "host": "localhost",

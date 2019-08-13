@@ -24,7 +24,7 @@ class GenericHelpers {
         as: 'subordinates',
         include: [{
           model: Claims,
-          where: { status: 'Pending' }
+          where: { status: 'Pending', editRequested: false }
         }]
       }]
     };
