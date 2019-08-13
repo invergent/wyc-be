@@ -32,23 +32,23 @@ module.exports = function headerAndFooterContent(section) {
           text-align: center;
         }
         .header img {
-          width: 80px;
+          width: 120px;
         }
         hr {
-          border: 1px solid #001E50;
+          border: 1px solid #ec1e8d;
         }
         .body {
           padding: 10px 25px 10px;
           box-sizing: border-box;
         }
         .body h2 {
-          color: #001E50;
+          color: #ec1e8d;
           margin: 20px auto;
           box-sizing: border-box;
           text-align: center;
         }
         .body .paragraphs p {
-          color: #001E50;
+          color: #000000;
           margin-bottom: 15px;
           text-align: left;
         }
@@ -56,7 +56,7 @@ module.exports = function headerAndFooterContent(section) {
           margin: 30px auto;
         }
         .body .button-wrapper a {
-          background-color: #001E50;
+          background-color: #ec1e8d;
           color: white;
           font-size: 16px;
           padding: 15px;

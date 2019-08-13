@@ -17,7 +17,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -73,7 +73,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -130,7 +130,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -187,7 +187,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -244,7 +244,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -258,7 +258,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Dear {{staffFirstName}},</p>
-                                  <p>Your overtime claim request has been approved by your supervisor. It is now awaiting your BSM's approval.</p>
+                                  <p>Your overtime claim request has been approved by your line manager. It is now being processed by admin.</p>
                                   <p>You can click the button below to see the progress of your pending claim.</p>
                                 </div>
                               </td>
@@ -287,7 +287,7 @@ module.exports = {
   },
   {
     name: 'Line Manager Declined Staff',
-    description: 'Notify staff when Supervisor declines claim',
+    description: 'Notify staff when line manager declines claim',
     subject: 'Claim Request: Supervisor Approval',
     htmlMessage: `<html lang="en" dir="ltr">
       ${headerAndFooterContent('header')}
@@ -301,7 +301,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -315,7 +315,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Dear {{staffFirstName}},</p>
-                                  <p>Your overtime claim request has been declined by your supervisor. Please liaise with your line managers and create a new claim request if you need to.</p>
+                                  <p>Your overtime claim request has been declined by your line manager. Please liaise with your line manager and create a new claim request if you need to.</p>
                                   <p>Thank you.</p>
                                 </div>
                               </td>
@@ -351,7 +351,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -401,7 +401,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -458,7 +458,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -508,7 +508,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1550692251/assets/invergent04a.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>

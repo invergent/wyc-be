@@ -21,7 +21,12 @@ export const authRoleName = {
 
 export const exportDocHeaders = [
   'S/N', 'Staff No', 'Full Name', 'Sol ID', 'Branch', 'Job Function', 'Account Number',
-  'Overtime', 'Weekend', 'Shift Duty', 'ATM Duty', 'ATM Support', 'OutStation Allowance',
+  'Overtime', 'Weekend', 'Shift Duty', 'ATM Duty', 'ATM Support', 'Holiday', 'OutStation Allowance',
+  'Amount', 'Status', 'Month of Claim', 'Approved By', 'Approver Email Address'
+];
+
+export const claimTypes = [
+  'overtime', 'weekend', 'shiftDuty', 'atmDuty', 'atmSupport', 'holiday', 'outstation',
   'Amount', 'Status', 'Month of Claim', 'Approved By', 'Approver Email Address'
 ];
 

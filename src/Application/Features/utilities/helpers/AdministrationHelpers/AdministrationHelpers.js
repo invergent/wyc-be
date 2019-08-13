@@ -38,7 +38,7 @@ class AdministrationHelpers {
   static filterAdminClaimsQueryResult(queryResult) {
     return queryResult.map((result) => {
       const {
-        details: { overtime, weekend, atmDuty, atmSupport, shiftDuty, outstation },
+        details,
         amount,
         status,
         monthOfClaim,
@@ -49,13 +49,19 @@ class AdministrationHelpers {
           lineManager: { firstname: lmFirstname, lastname: lmLastname, email: lmEmail }
         },
       } = result;
+
+      const parseDetails = details.total ? details : JSON.parse(details);
+      const claimDetails = Object.keys(parseDetails).reduce((acc, item) => {
+        if (item === 'outstation') {
+          acc[item] = parseDetails[item];
+        } else if (parseDetails[item].selectedDates) {
+          acc[item] = parseDetails[item].selectedDates.length;
+        }
+        return acc;
+      }, {});
+
       return {
-        overtime,
-        weekend,
-        atmDuty,
-        atmSupport,
-        shiftDuty,
-        outstation,
+        ...claimDetails,
         amount,
         status,
         staffId,
@@ -97,6 +103,18 @@ class AdministrationHelpers {
 
   static fetchStaff(attributes) {
     return StaffService.fetchStaff(attributes);
+  }
+
+  static refineSingleClaimData(claim) {
+    const {
+      id, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt
+    } = claim;
+    const {
+      staffId, firstname, lastname, middlename
+    } = claim.claimer;
+    return {
+      id, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt, staffId, firstname, lastname, middlename
+    };
   }
 }
 

@@ -26,7 +26,7 @@ const claims = (sequelize, DataTypes) => {
       defaultValue: false
     },
     editMessage: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     }
   }, { freezeTableName: true });
 

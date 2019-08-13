@@ -25,7 +25,8 @@ export const eventNames = Object.freeze({
   lineManagerDeclined: 'lineManagerDeclined',
   Cancelled: 'Cancelled',
   Reminder: 'Reminder',
-  LogActivity: 'LogActivity'
+  LogActivity: 'LogActivity',
+  Completed: 'Completed'
 });
 
 export const activityNames = Object.freeze({

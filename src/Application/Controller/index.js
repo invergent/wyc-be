@@ -78,6 +78,10 @@ class Controller {
     return Responder.respond(req, res, Administration.submittedClaims);
   }
 
+  static async fetchSingleClaim(req, res) {
+    return Responder.respond(req, res, Administration.fetchSingleClaim);
+  }
+
   static async chartStatistics(req, res) {
     return Responder.respond(req, res, Administration.chartStatistics);
   }
@@ -148,6 +152,10 @@ class Controller {
 
   static async fetchStaff(req, res) {
     return Responder.respond(req, res, Administration.fetchStaff);
+  }
+
+  static async fetchSingleStaff(req, res) {
+    return Responder.respond(req, res, Administration.fetchSingleStaff);
   }
 
   static async markNotificationsAsReadAndViewed(req, res) {

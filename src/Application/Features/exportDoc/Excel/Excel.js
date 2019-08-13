@@ -13,7 +13,7 @@ class Excel {
     try {
       const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData();
       const pathToDocument = await Excel.createExcelDocument(populatedWorkbook);
-      return [pathToDocument, 'VLAClaimReport.xlsx'];
+      return [pathToDocument, 'cleontimeReport.xlsx'];
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred ERR500DWLEXL'];
