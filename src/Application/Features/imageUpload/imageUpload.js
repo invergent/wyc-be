@@ -10,7 +10,7 @@ export default async (req) => {
   try {
     const response = await cloudinary.v2.uploader.upload(image.tempFilePath, {
       public_id: `${requester.staffId}`,
-      folder: 'overtime/VLA'
+      folder: 'overtime/whytecleon'
     });
     const { url, secure_url: secureUrl } = response;
 

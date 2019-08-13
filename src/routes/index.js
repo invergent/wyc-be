@@ -13,11 +13,11 @@ const {
   forgotPassword, authoriseStaff, authoriseAdmin, authoriseLineManager, changePassword,
   updateBranch, confirmPasswordResetRequest, resetPassword, addOrChangeLineManager,
   createOvertimeClaim, pendingClaimsForlineManagers, approveClaim, declineClaim, cancelClaim,
-  submittedClaims, exportDoc, updateSchedules, createStaff, createBranches,
+  submittedClaims, exportDoc, updateSchedules, createStaff, createBranches, fetchSingleClaim,
   markClaimsAsCompleted, staffClaimStats, staffActivities, staffProfileData, staffClaimHistory,
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
-  companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove,
+  companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays
 } = Controller;
 const {
@@ -69,6 +69,7 @@ router.post('/users/profile/reset', authenticatePasswordReset, checkProps, check
 
 router.get('/admin/claims', authenticateAdmin, submittedClaims);
 router.get('/admin/claims/chart-statistics', authenticateAdmin, chartStatistics);
+router.get('/admin/claims/:claimId', authenticateAdmin, fetchSingleClaim);
 router.get('/admin/claims/export/:docType', authenticateAdmin, checkDocType, exportDoc);
 router.put('/admin/claims/completed', authenticateAdmin, markClaimsAsCompleted);
 
@@ -76,6 +77,7 @@ router.get('/admin/settings', authenticateAdminOrStaff, companySettings);
 router.put('/admin/settings/schedules', authenticateAdmin, checkScheduleProps, updateSchedules);
 
 router.get('/admin/staff', authenticateAdmin, fetchStaff);
+router.get('/admin/staff/:staffId', authenticateAdmin, fetchSingleStaff);
 router.post('/admin/staff', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createStaff);
 router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, createSingleBranchOrStaff);
 

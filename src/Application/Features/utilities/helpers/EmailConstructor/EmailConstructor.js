@@ -50,8 +50,10 @@ class EmailConstructor {
       lineManager
     } = reciepient;
     let lineManagerFirstName;
+    let amountLocale;
 
     if (lineManager) lineManagerFirstName = lineManager.firstname;
+    if (amount) amountLocale = amount.toLocaleString();
 
     return htmlMessage
       .replace(/{{staffFirstName}}/g, staffFirstName)
@@ -59,7 +61,7 @@ class EmailConstructor {
       .replace(/{{lineManagerFirstName}}/g, lineManagerFirstName)
       .replace(/{{url}}/g, 'overtime.invergent-technologies.com')
       .replace(/{{hash}}/g, hash)
-      .replace(/{{amount}}/g, amount)
+      .replace(/{{amount}}/g, amountLocale)
       .replace(/{{monthOfClaim}}/g, monthOfClaim);
   }
 }

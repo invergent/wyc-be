@@ -30,7 +30,7 @@ class NotificationsHelpers {
   }
 
   static createMultipleEmails(reciepients, notificationType) {
-    const template = NotificationsHelpers.staffEmailTemplateName(undefined, notificationType);
+    const template = NotificationsHelpers.staffEmailTemplateName(notificationType);
     return EmailConstructor.createForMany(reciepients, template);
   }
 }

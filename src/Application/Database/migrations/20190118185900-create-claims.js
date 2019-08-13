@@ -37,7 +37,7 @@ module.exports = {
       defaultValue: false
     },
     editMessage: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     createdAt: {
       allowNull: false,
