@@ -84,7 +84,7 @@ class Claim {
     const { params: { claimId }, claim } = req;
 
     if (claim.status !== 'Pending') {
-      return [403, 'Operation failed. Only pending claims can be cancelled.']
+      return [403, 'Operation failed. Only pending claims can be cancelled.'];
     }
     try {
       const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId);

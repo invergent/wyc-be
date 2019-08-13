@@ -2,6 +2,7 @@ import helpers from '../utilities/helpers';
 import services from '../utilities/services';
 import notifications from '../utilities/notifications';
 import { eventNames } from '../utilities/utils/types';
+import UsersHelpers from '../utilities/helpers/UsersHelpers';
 
 const { AdministrationHelpers } = helpers;
 const {
@@ -81,6 +82,30 @@ class Administration {
     try {
       const staffList = await AdministrationHelpers.fetchStaff(attributes);
       return [200, 'Request successful', staffList];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem fetching claims ERR500FETSTF.'];
+    }
+  }
+
+  static async fetchSingleStaff(req) {
+    const { params: { staffId } } = req;
+    try {
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['lineManager', 'role', 'branch']);
+      const refinedUser = UsersHelpers.refineUserData(staff);
+      return [200, 'Request successful', refinedUser];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem fetching claims ERR500FETSTF.'];
+    }
+  }
+
+  static async fetchSingleClaim(req) {
+    const { params: { claimId } } = req;
+    try {
+      const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
+      const refinedUClaim = AdministrationHelpers.refineSingleClaimData(claim);
+      return [200, 'Request successful', refinedUClaim];
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem fetching claims ERR500FETSTF.'];
