@@ -99,11 +99,11 @@ class Claim {
   }
 
   static async requestEdit(req) {
-    const { params: { claimId } } = req;
+    const { params: { claimId }, body: { editMessage } } = req;
 
     try {
       const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
-      const [updated, updatedClaim] = await ClaimService.updateClaim({ editRequested: true }, claimId);
+      const [updated, updatedClaim] = await ClaimService.updateClaim({ editMessage, editRequested: true }, claimId);
       if (updated) {
         notifications.emit(eventNames.EditRequested, [claim.claimer.toJSON(), claimId]);
       }
@@ -117,12 +117,13 @@ class Claim {
   static async updateOvertimeClaim(req) {
     const { params: { claimId }, claim: { claimer: staff }, body } = req;
     body.editRequested = false;
+    body.editMessage = null;
     try {
       const [updated, claim] = await ClaimService.updateClaim(body, claimId);
       if (updated) {
         const lineManager = await LineManagerService.findLineManagerByPk(staff.lineManagerId);
         staff.lineManager = lineManager;
-        notifications.emit(eventNames.Updated, [staff, activityNames.Updated, claimId]);
+        notifications.emit(eventNames.Updated, [staff, claimId, activityNames.Updated]);
       }
       return [200, `Claim${updated ? '' : ' not'} updated.`, claim[0]];
     } catch (e) {

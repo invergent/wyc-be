@@ -31,7 +31,7 @@ class ClaimHelpers {
         staffId, firstname, lastname, middlename, image, Claims
       } = result;
       const {
-        id, monthOfClaim, claimElements, details, dates
+        id, monthOfClaim, claimElements, details, amount
       } = Claims[0];
       return {
         staffId,
@@ -43,7 +43,7 @@ class ClaimHelpers {
         monthOfClaim,
         claimElements,
         details,
-        dates
+        amount
       };
     });
   }
@@ -102,10 +102,10 @@ class ClaimHelpers {
     if (!pendingClaim.length) return [];
 
     const {
-      id, monthOfClaim, claimElements, amount, details, dates, status, createdAt, approvalHistory
+      id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
     } = pendingClaim[0];
     return [{
-      id, monthOfClaim, claimElements, amount, details, dates, status, createdAt, approvalHistory
+      id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
     }];
   }
 }

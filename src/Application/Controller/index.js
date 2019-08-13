@@ -110,10 +110,6 @@ class Controller {
     return Responder.respond(req, res, Users.Staff.dashboardData);
   }
 
-  static async staffPendingClaim(req, res) {
-    return Responder.respond(req, res, Users.Staff.dashboardData);
-  }
-
   static async staffActivities(req, res) {
     return Responder.respond(req, res, Users.Staff.activities);
   }

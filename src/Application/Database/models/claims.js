@@ -24,6 +24,9 @@ const claims = (sequelize, DataTypes) => {
     editRequested: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    editMessage: {
+      type: DataTypes.STRING
     }
   }, { freezeTableName: true });
 
