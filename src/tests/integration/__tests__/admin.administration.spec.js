@@ -109,6 +109,48 @@ describe('Admin Administration', () => {
       expect(response.status).toBe(409);
       expect(response.body.message).toEqual('staffId must be unique');
     });
+
+    it('should create a single staff.', async () => {
+      const response = await request
+        .post('/admin/staff/single')
+        .set('cookie', token)
+        .set('Accept', 'application/json')
+        .send({
+          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '080234567890', accountNumber: '00234567890'
+        });
+
+      expect(response.status).toBe(201);
+      expect(response.body.message).toEqual('Staff created successfully.');
+    });
+
+    it('should fail with a conflict error if staff already exists.', async () => {
+      const conflictResponse = await request
+        .post('/admin/staff/single')
+        .set('cookie', token)
+        .set('Accept', 'application/json')
+        .send({
+          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '080234567890', accountNumber: '00234567890'
+        });
+
+      expect(conflictResponse.status).toBe(409);
+      expect(conflictResponse.body.message).toEqual('Staff already exists.');
+    });
+
+    it('should fetch all staff.', async () => {
+      const response = await request.get('/admin/staff').set('cookie', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Request successful');
+    });
+
+    it('should fetch a single staff.', async () => {
+      const staffId = 'TN098432';
+      const response = await request.get(`/admin/staff/${staffId}`).set('cookie', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Request successful');
+      expect(response.body.data.staffId).toEqual(staffId);
+    });
   });
 
   describe('Bulk Create Branches with excel upload.', () => {
@@ -162,26 +204,15 @@ describe('Admin Administration', () => {
       expect(response.body.message).toEqual('Branch created successfully.');
     });
 
-    it('should create a single staff.', async () => {
+    it('should fail with a conflict error if branch already exists.', async () => {
       const response = await request
-        .post('/admin/staff/single')
+        .post('/admin/branch/single')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send({
-          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '080234567890', accountNumber: '00234567890'
-        });
+        .send({ solId: '9898', name: 'Molara', address: 'this is an address' });
 
-      expect(response.status).toBe(201);
-      expect(response.body.message).toEqual('Staff created successfully.');
-    });
-
-    it('should fetch all staff.', async () => {
-      const response = await request
-        .get('/admin/staff')
-        .set('cookie', token);
-
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Request successful');
+      expect(response.status).toBe(409);
+      expect(response.body.message).toEqual('Branch already exists.');
     });
   });
 
@@ -241,7 +272,7 @@ describe('Admin Administration', () => {
 
     it('should fetch all holidays.', async () => {
       const response = await request.get('/admin/holidays').set('cookie', token);
-      console.log(response.body)
+
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Found 2 holidays');
       expect(response.body.data).toHaveLength(2);
@@ -263,6 +294,17 @@ describe('Admin Administration', () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Holiday removed!');
+    });
+  });
+
+  describe('Claim administration.', () => {
+    it('should fetch a single claim.', async () => {
+      const response = await request.get('/admin/claims/2').set('cookie', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Request successful!');
+      expect(response.body.data).toHaveProperty('claimElements');
+      expect(response.body.data).toHaveProperty('monthOfClaim');
     });
   });
 });
