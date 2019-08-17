@@ -1,8 +1,9 @@
 const lineManagers = (sequelize, DataTypes) => {
   const LineManagers = sequelize.define('LineManagers', {
-    lineManagerRole: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    idNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     },
     firstname: {
       type: DataTypes.STRING,
@@ -11,6 +12,11 @@ const lineManagers = (sequelize, DataTypes) => {
     lastname: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     },
     email: {
       type: DataTypes.STRING,
@@ -21,7 +27,6 @@ const lineManagers = (sequelize, DataTypes) => {
 
   LineManagers.associate = (models) => {
     LineManagers.hasMany(models.Staff, { as: 'subordinates', foreignKey: 'lineManagerId' });
-    LineManagers.belongsTo(models.Roles, { as: 'designation', foreignKey: 'lineManagerRole' });
   };
   return LineManagers;
 };
