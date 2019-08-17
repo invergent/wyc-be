@@ -2,7 +2,7 @@ export const formProperties = {
   signin: ['staffId', 'password'],
   login: ['email', 'password'],
   claim: ['overtime', 'weekend', 'shift', 'atm', 'outstation'],
-  lineManager: ['lineManagerRole', 'firstname', 'lastname', 'email'],
+  lineManager: ['idNumber', 'phone', 'firstname', 'lastname', 'email'],
   image: ['image'],
   reset: ['password', 'confirmPassword'],
   changePassword: ['currentPassword', 'newPassword', 'confirmPassword'],
@@ -13,7 +13,7 @@ export const formProperties = {
   single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone', 'accountNumber']
 };
 
-export const staffIdRegex = /^[Tt][Nn][0-9]{6}$/;
+export const staffIdRegex = /^[TtSs][Nn][0-9]{6}$/;
 export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
 export const accNumRegex = /^\d{10}$/;
 export const solIdRegex = /^\d{4}$/;

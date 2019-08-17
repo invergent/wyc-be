@@ -12,16 +12,18 @@ jest.mock('@sendgrid/mail');
 const { LineManagers } = models;
 
 const lineManagerDetails = {
-  lineManagerRole: '7',
+  idNumber: 'SN773456',
   firstname: 'firstname',
   lastname: 'lastname',
+  phone: '08057632182',
   email: 'email@email.com'
 };
 
 const supervisorsIncorrectDetails = {
-  lineManagerRole: 'Super',
+  idNumber: 'SN773456',
   firstname: '   ',
   lastname: '   ',
+  phone: '08057632182',
   email: 'email'
 };
 
@@ -80,7 +82,7 @@ describe('Line Manager', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors.length).toEqual(4);
+      expect(response.body.errors.length).toEqual(5);
     });
 
     it('should fail if fields are missing', async () => {
@@ -125,7 +127,7 @@ describe('Line Manager', () => {
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Request successful!');
       expect(response.body.data).toHaveLength(8);
-      expect(response.body.data[0]).toHaveProperty('lineManagerRole');
+      expect(response.body.data[0]).toHaveProperty('idNumber');
     });
 
     it('should respond with an error message if an error occurs', async () => {

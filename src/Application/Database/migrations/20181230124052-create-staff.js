@@ -32,6 +32,10 @@ module.exports = {
       allowNull: false,
       unique: true
     },
+    altPhone: {
+      type: Sequelize.STRING,
+      unique: true
+    },
     accountNumber: {
       type: Sequelize.STRING,
       allowNull: false,

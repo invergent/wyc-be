@@ -7,7 +7,7 @@ class AdministrationHelpers {
 
     worksheet.eachRow((row) => {
       // eslint-disable-next-line
-      const [emptyCell, staffId, firstname, lastname, middlename, email, phone, accountNumber] = row.values;
+      const [emptyCell, staffId, firstname, lastname, middlename, email, phone, altPhone, accountNumber] = row.values;
 
       arrayOfStaff.push({
         staffId: staffId.toUpperCase(),
@@ -16,6 +16,7 @@ class AdministrationHelpers {
         middlename,
         email: email.toLowerCase(),
         phone,
+        altPhone,
         accountNumber
       });
     });

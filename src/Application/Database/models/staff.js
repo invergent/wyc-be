@@ -26,6 +26,10 @@ const staff = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    altPhone: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     accountNumber: {
       type: DataTypes.STRING,
       allowNull: false,

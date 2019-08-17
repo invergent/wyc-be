@@ -6,9 +6,10 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    lineManagerRole: {
-      type: Sequelize.INTEGER,
-      allowNull: false
+    idNumber: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
     },
     firstname: {
       type: Sequelize.STRING,
@@ -17,6 +18,11 @@ module.exports = {
     lastname: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
     },
     email: {
       type: Sequelize.STRING,
