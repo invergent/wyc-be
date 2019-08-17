@@ -1,5 +1,6 @@
 import Claim from '../Claim';
 import ClaimService from '../../utilities/services/ClaimService';
+import StaffService from '../../utilities/services/StaffService';
 import { companyInfo } from '../../utilities/utils/general';
 import { mockReq } from '../../../../__tests__/__mocks__';
 
@@ -7,6 +8,18 @@ jest.mock('@sendgrid/mail');
 
 describe('Claim Unit Test', () => {
   companyInfo.emailAddress = 'someEmailAddress';
+  describe('create claim', () => {
+    it('should send a 500 response if an error occurs while creating claim.', async () => {
+      jest.spyOn(StaffService, 'findStaffByStaffIdOrEmail').mockRejectedValue('err');
+
+      const result = await Claim.create(mockReq);
+
+      expect(result).toHaveLength(2);
+      expect(result[0]).toEqual(500);
+      expect(result[1]).toEqual('There was a problem submitting your request ERR500CLMCRT');
+    });
+  });
+
   describe('runClaimApproval', () => {
     it('should send a non-approval message if approval was not updated on the DB.', async () => {
       jest.spyOn(Claim, 'checkThatClaimIsAssignedToLineManager').mockResolvedValue([200, 'okay']);

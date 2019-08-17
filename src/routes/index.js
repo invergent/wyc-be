@@ -21,7 +21,7 @@ const {
   fetchAllHolidays
 } = Controller;
 const {
-  checkProps, checkEntries, checkBranchId, checkIdParams, validateForgotPasswordRequest, checkOvertimeProps,
+  checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
   checkDocType, checkOvertimeValues, checkFileType, customValidator, checkScheduleProps
 } = InputValidator;
 const {
