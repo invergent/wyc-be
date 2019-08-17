@@ -12,7 +12,7 @@ class LineManagerService {
   }
 
   static fetchLineManagers() {
-    return LineManagers.findAll({ include: ['designation'] });
+    return LineManagers.findAll();
   }
 
   static findLineManagerByPk(id) {
