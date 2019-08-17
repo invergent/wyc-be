@@ -28,15 +28,17 @@ class Administration {
 
   static async createSingleBranchOrStaff(req) {
     const { body } = req;
-    const resource = req.path.includes('branch') ? 'Branch' : 'Staff';
+    const resourceName = req.path.includes('branch') ? 'Branch' : 'Staff';
     try {
-      const [created] = req.path.includes('branch')
+      const [resource, created] = resourceName === 'Branch'
         ? await BranchService.findOrCreateSingleBranch(body)
         : await StaffService.findOrCreateSingleStaff(body);
-      return [201, `${resource} created successfully.`, created];
+
+      return created
+        ? [201, `${resourceName} created successfully.`, resource]
+        : [409, `${resourceName} already exists.`, resource];
     } catch (e) {
       console.log(e);
-      if (e.name) return [409, e.errors[0].message];
       return [500, 'There was an error while creating resource.', e];
     }
   }
@@ -105,10 +107,10 @@ class Administration {
     try {
       const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
       const refinedUClaim = AdministrationHelpers.refineSingleClaimData(claim);
-      return [200, 'Request successful', refinedUClaim];
+      return [200, 'Request successful!', refinedUClaim];
     } catch (e) {
       console.log(e);
-      return [500, 'There was a problem fetching claims ERR500FETSTF.'];
+      return [500, 'There was a problem fetching claims ERR500FETSCM.'];
     }
   }
 
