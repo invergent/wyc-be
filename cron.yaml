@@ -1,0 +1,8 @@
+cron:
+- description: "Keep active(early)"
+  url: /
+  schedule: every 1 minutes from 00:55 to 01:05
+
+- description: "Keep active(work hours)"
+  url: /
+  schedule: every 1 minutes from 06:55 to 07:05
