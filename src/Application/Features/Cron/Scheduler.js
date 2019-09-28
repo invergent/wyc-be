@@ -70,11 +70,11 @@ class Scheduler {
 
   static async updateCompanyStatistics() {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const { year, month } = Dates.getCurrentYearMonth();
+    const { year, month } = Dates.getLastMonthYearAndMonth();
 
     const claims = await ClaimService.fetchCompletedClaim();
     const statPayload = { [months[month]]: claims.length };
-    
+
     if (month === 0) {
       // if it is a new year, create a new record
       statPayload.year = year;
@@ -84,8 +84,8 @@ class Scheduler {
   }
 
   static scheduleStatsUpdateJob() {
-    // run statistics update by 2:00 on the 27th of every month
-    const job = new CronJob('0 2 27 * *', Scheduler.updateCompanyStatistics);
+    // run statistics update by 2:00 WAT on the 27th of every month
+    const job = new CronJob('0 1 27 * *', Scheduler.updateCompanyStatistics);
     job.start();
   }
 }

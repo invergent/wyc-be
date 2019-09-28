@@ -4,6 +4,13 @@ class Dates {
     return new Date(year, month, 0);
   }
 
+  static getLastMonthYearAndMonth() {
+    const previousYearMonth = Dates.getPreviousYearMonth();
+    const year = previousYearMonth.getFullYear();
+    const month = previousYearMonth.getMonth();
+    return { year, month };
+  }
+
   static getCurrentYearMonth() {
     const today = new Date();
     const year = today.getFullYear();
