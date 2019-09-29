@@ -63,6 +63,7 @@ class ValidatorHelpers {
         methodName = path.slice(15);
         break;
       case (path.indexOf('single') !== -1):
+      case (path.indexOf('multiple') !== -1):
         methodName = path.slice(path.indexOf('branch') !== -1 ? 14 : 13);
         break;
       case (path.indexOf('login') !== -1):

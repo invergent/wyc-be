@@ -166,6 +166,10 @@ class Controller {
     return Responder.respond(req, res, Administration.fetchSettings);
   }
 
+  static async authoriseMultipleClaimsApplication(req, res) {
+    return Responder.respond(req, res, Administration.authoriseMultipleClaimsApplication);
+  }
+
   static async addHoliday(req, res) {
     return Responder.respond(req, res, Holidays.add);
   }

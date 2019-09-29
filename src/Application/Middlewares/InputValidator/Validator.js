@@ -5,6 +5,7 @@ import {
 
 class Validator {
   static checkProps(reqObject, methodName) {
+    console.log(methodName)
     const expectedProps = formProperties[methodName];
     const receivedProps = Object.keys(reqObject);
 
@@ -173,6 +174,28 @@ class Validator {
     if (month < 0 || month > 11) errors.push('month is invalid');
     if (date < 1 || date > 31) errors.push('date is invalid');
     errors.push(...ValidatorHelpers.checkForEmptyFields('Full date', fullDate));
+
+    return errors;
+  }
+
+  static multipleClaims(data) {
+    const errors = [];
+    const { staffId, permittedMonths } = data;
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+      'October', 'November', 'December'
+    ];
+
+    errors.push(...ValidatorHelpers.checkPatternedFields('Staff ID', staffId, staffIdRegex));
+    if (!Array.isArray(permittedMonths)) {
+      errors.push('permittedMonths must be an array');
+    } else if (!permittedMonths.length) {
+      errors.push('List of permitted month is empty');
+    } else {
+      permittedMonths.forEach((month) => {
+        if (!months.includes(month)) errors.push(`${month} is not a recognised month`);
+      });
+    }
 
     return errors;
   }
