@@ -140,6 +140,18 @@ class Administration {
       return [500, 'An error occurred while fetching settings.', e];
     }
   }
+
+  static async authoriseMultipleClaimsApplication(req) {
+    const { body: { staffId, permittedMonths } } = req;
+
+    try {
+      const updated = await StaffService.updateStaffInfo(staffId, { permittedMonths });
+      return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
+    } catch (e) {
+      console.log(e);
+      return [500, 'An error occurred while authorising multiple claim application.', e];
+    }
+  }
 }
 
 export default Administration;
