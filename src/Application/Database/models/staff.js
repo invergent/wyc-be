@@ -55,6 +55,9 @@ const staff = (sequelize, DataTypes) => {
     changedPassword: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    permittedMonths: {
+      type: DataTypes.ARRAY(DataTypes.TEXT)
     }
   }, { freezeTableName: true });
 

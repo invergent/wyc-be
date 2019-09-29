@@ -153,6 +153,48 @@ describe('Admin Administration', () => {
     });
   });
 
+  describe('Authorise staff to submit overtime claim for previous months in the current claim cycle', () => {
+    it('should fail if permittedMonths is not an array.', async () => {
+      const response = await request
+        .put('/admin/staff/multiple-claims')
+        .send({ staffId: 'TN098432', permittedMonths: 'August' })
+        .set('cookie', token);
+
+      expect(response.status).toBe(400);
+      expect(response.body.errors[0]).toEqual('permittedMonths must be an array');
+    });
+
+    it('should fail if permittedMonths is an array but empty.', async () => {
+      const response = await request
+        .put('/admin/staff/multiple-claims')
+        .send({ staffId: 'TN098432', permittedMonths: [] })
+        .set('cookie', token);
+
+      expect(response.status).toBe(400);
+      expect(response.body.errors[0]).toEqual('List of permitted month is empty');
+    });
+
+    it('should fail if permittedMonths list contains a non-calendar month entry.', async () => {
+      const response = await request
+        .put('/admin/staff/multiple-claims')
+        .send({ staffId: 'TN098432', permittedMonths: ['July', 'Auguste'] })
+        .set('cookie', token);
+
+      expect(response.status).toBe(400);
+      expect(response.body.errors[0]).toEqual('Auguste is not a recognised month');
+    });
+
+    it('should authorise a staff to submit multiple overtime claims in a month.', async () => {
+      const response = await request
+        .put('/admin/staff/multiple-claims')
+        .send({ staffId: 'TN098432', permittedMonths: ['July', 'August'] })
+        .set('cookie', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Permission granted!');
+    });
+  });
+
   describe('Bulk Create Branches with excel upload.', () => {
     it('should fail if excel data set contain invalid entries.', async () => {
       const response = await request
