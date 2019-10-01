@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import ClaimService from '../../services/ClaimService';
 import StaffService from '../../services/StaffService';
 
@@ -17,7 +18,8 @@ class AdministrationHelpers {
         email: email.toLowerCase(),
         phone,
         altPhone,
-        accountNumber
+        accountNumber,
+        password: crypto.randomBytes(3).toString('hex')
       });
     });
 
