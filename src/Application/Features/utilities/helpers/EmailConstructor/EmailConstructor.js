@@ -42,9 +42,11 @@ class EmailConstructor {
 
   static personalizeMessage(reciepient, htmlMessage) {
     const {
+      staffId,
       firstname: staffFirstName,
       lastname: staffLastName,
       hash,
+      password,
       monthOfClaim,
       amount,
       lineManager
@@ -62,7 +64,9 @@ class EmailConstructor {
       .replace(/{{url}}/g, 'overtime.invergent-technologies.com')
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amountLocale)
-      .replace(/{{monthOfClaim}}/g, monthOfClaim);
+      .replace(/{{monthOfClaim}}/g, monthOfClaim)
+      .replace(/{{staffId}}/g, staffId)
+      .replace(/{{password}}/g, password);
   }
 }
 

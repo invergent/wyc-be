@@ -8,7 +8,8 @@ export const templateNames = Object.freeze({
   lineManagerDeclined: 'Line Manager Declined Staff',
   Cancelled: 'Claim Cancelled Staff',
   Completed: 'Claim Completed Staff',
-  Reminder: 'Pending Claim Reminder Staff'
+  Reminder: 'Pending Claim Reminder Staff',
+  Activation: 'Activation Email Staff'
 });
 
 export const roleNames = Object.freeze({
@@ -26,7 +27,8 @@ export const eventNames = Object.freeze({
   Cancelled: 'Cancelled',
   Reminder: 'Reminder',
   LogActivity: 'LogActivity',
-  Completed: 'Completed'
+  Completed: 'Completed',
+  Activation: 'Activation'
 });
 
 export const activityNames = Object.freeze({
