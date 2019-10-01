@@ -5,7 +5,6 @@ import {
 
 class Validator {
   static checkProps(reqObject, methodName) {
-    console.log(methodName)
     const expectedProps = formProperties[methodName];
     const receivedProps = Object.keys(reqObject);
 

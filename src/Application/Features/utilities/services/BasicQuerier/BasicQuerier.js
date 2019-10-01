@@ -22,7 +22,9 @@ class BasicQuerier {
   }
 
   static bulkCreate(model, list) {
-    return models[model].bulkCreate(list, { returning: true, raw: true, plain: false });
+    const options = { returning: true, raw: true, plain: false };
+    return models.sequelize.transaction(transaction => models[model]
+      .bulkCreate(list, options, { transaction }));
   }
 
   static findAll(model, options) {

@@ -3,7 +3,7 @@ import krypter from '../krypter';
 
 class AuthorisationHelpers {
   static comparePassword(passwordFromRequest, staff) {
-    if (staff.password === 'password') {
+    if (staff.password === passwordFromRequest) {
       return [200, 'okay'];
     }
 

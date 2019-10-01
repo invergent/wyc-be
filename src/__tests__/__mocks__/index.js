@@ -2,7 +2,8 @@ export const mockReq = {
   body: {
     staffId: 'someId',
     password: 'password',
-    confirmPassword: 'password'
+    confirmPassword: 'password',
+    permittedMonths: ['July']
   },
   query: {
     hash: 'someHash'

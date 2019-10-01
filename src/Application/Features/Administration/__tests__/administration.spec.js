@@ -127,4 +127,17 @@ describe('Administration Unit Tests', () => {
       expect(result[1]).toEqual(message);
     });
   });
+
+  describe('Multiple claim Authorisation', () => {
+    it('should send a 500 fail response if an error occurs while authorising mutlple claim.', async () => {
+      jest.spyOn(StaffService, 'updateStaffInfo').mockRejectedValueOnce('err');
+
+      const result = await Administration.authoriseMultipleClaimsApplication(mockReq);
+      const message = 'An error occurred while authorising multiple claim application.';
+
+      expect(result).toHaveLength(3);
+      expect(result[0]).toEqual(500);
+      expect(result[1]).toEqual(message);
+    });
+  });
 });

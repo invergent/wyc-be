@@ -75,6 +75,10 @@ class EmailNotifications {
     EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'Reminder');
   }
 
+  static sendActivationEmail(listOfStaff) {
+    EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'Activation');
+  }
+
   static async notifyStaffCompleted() {
     const completedClaimsWithStaff = await ClaimService.fetchCompletedClaim('Completed');
     const filteredListOfStaff = ClaimHelpers.filterCompletedClaims(completedClaimsWithStaff);
