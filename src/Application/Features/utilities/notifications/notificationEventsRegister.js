@@ -4,6 +4,8 @@ import EmailNotifications from './EmailNotifications';
 import InAppNotifications from './InAppNotifications';
 import ActivityLogger from './ActivityLogger';
 
+notify.register(eventNames.Activation, EmailNotifications.sendActivationEmail);
+
 notify.register(eventNames.ForgotPassword, EmailNotifications.sendPasswordResetEmail);
 
 notify.register(eventNames.NewClaim, EmailNotifications.notifyLineManagerOfNewClaim);

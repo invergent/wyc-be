@@ -17,7 +17,16 @@ class Administration {
     try {
       const staffArray = worksheetConverter(worksheet);
       const results = await StaffService.bulkCreateStaff(staffArray);
-      const createdStaff = results.map(result => result.dataValues);
+
+      const listOfCreatedStaff = results.map((result) => {
+        const { staffId, firstname, email, password } = result.dataValues;
+        return { staffId, firstname, email, password };
+      });
+
+      const createdStaff = listOfCreatedStaff.map(eachStaff => ({ ...eachStaff, password: undefined }));
+
+      notifications.emit(eventNames.Activation, [listOfCreatedStaff]);
+
       return [201, `${createdStaff.length} staff created successfully.`, createdStaff];
     } catch (e) {
       console.log(e);

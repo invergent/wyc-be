@@ -542,6 +542,60 @@ module.exports = {
     </html>`,
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    name: 'Activation Email Staff',
+    description: 'Send staff login details',
+    subject: 'Welcome to CleonTime',
+    htmlMessage: `<html lang="en" dir="ltr">
+      ${headerAndFooterContent('header')}
+      <body>
+        <table class="cover">
+          <tr>
+            <td>
+              <table class="content-wrapper">
+                <tr>
+                  <td>
+                    <table class="header">
+                      <tr>
+                        <td>
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                        </td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="body">
+                      <tr>
+                        <td>
+                          <h2>Welcome to CleonTime</h2>
+                          <table class="paragraphs">
+                            <tr>
+                              <td>
+                                <div>
+                                  <p>Hi {{staffFirstName}},</p>
+                                  <p>We are excited to welcome you to the new <a href="{{url}}/login" target="_blank">CleonTime</a> application for managing your overtime requests.</p>
+                                  <p>Below are your login details (unique to you). Please do not share!</p>
+                                  <p class="no-margin">StaffId: {{staffId}}</p>
+                                  <p class="no-margin">Password: {{password}}</p>
+                                  <p>Use the login credentials to login to your account <a href="{{url}}/login" target="_blank">here</a>.</p>
+                                  <p>See you inside!</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>`,
+    createdAt: new Date(),
+    updatedAt: new Date()
   }]),
   down: queryInterface => queryInterface.dropTable('EmailTemplate')
 };

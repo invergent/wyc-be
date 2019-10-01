@@ -63,6 +63,9 @@ module.exports = function headerAndFooterContent(section) {
           box-sizing: border-box;
           text-decoration: none;
         }
+        .no-margin {
+          margin-bottom: 5px;
+        }
         .footer {
           margin-top: 20px;
         }
