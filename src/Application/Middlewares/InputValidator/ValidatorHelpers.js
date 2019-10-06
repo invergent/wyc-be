@@ -62,17 +62,18 @@ class ValidatorHelpers {
       case (path === '/users/profile'):
         methodName = 'profile';
         break;
-      case (path.indexOf('users') !== -1):
+      case (path.includes('users')):
         methodName = path.slice(15);
         break;
-      case (path.indexOf('single') !== -1):
-      case (path.indexOf('multiple') !== -1):
-        methodName = path.slice(path.indexOf('branch') !== -1 ? 14 : 13);
+      case (path.includes('single')):
+      case (path.includes('multiple')):
+      case (path.includes('resend')):
+        methodName = path.slice(path.includes('branch') ? 14 : 13);
         break;
-      case (path.indexOf('login') !== -1):
-      case (path.indexOf('staff') !== -1):
-      case (path.indexOf('branch') !== -1):
-      case (path.indexOf('holidays') !== -1):
+      case (path.includes('login')):
+      case (path.includes('staff')):
+      case (path.includes('branch')):
+      case (path.includes('holidays')):
         methodName = path.slice(7);
         if (path.includes('holidays/')) methodName = methodName.substr(0, 8);
         break;

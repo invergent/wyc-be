@@ -348,5 +348,25 @@ describe('Admin Administration', () => {
       expect(response.body.data).toHaveProperty('claimElements');
       expect(response.body.data).toHaveProperty('monthOfClaim');
     });
+
+    it('should respond with a 403 fail error if staff has already changed password.', async () => {
+      const response = await request
+        .post('/admin/staff/resend-credentials')
+        .send({ staffId: 'TN098432' })
+        .set('cookie', token);
+
+      expect(response.status).toBe(403);
+      expect(response.body.message).toEqual('Password already changed');
+    });
+
+    it('should successfully resend activation email.', async () => {
+      const response = await request
+        .post('/admin/staff/resend-credentials')
+        .send({ staffId: 'TN012345' })
+        .set('cookie', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Activation email resent!');
+    });
   });
 });

@@ -140,4 +140,17 @@ describe('Administration Unit Tests', () => {
       expect(result[1]).toEqual(message);
     });
   });
+
+  describe('Activation email', () => {
+    it('should send a 500 fail response if an error occurrs while resending activation email.', async () => {
+      jest.spyOn(StaffService, 'findStaffByStaffIdOrEmail').mockImplementation('err');
+
+      const result = await Administration.resendLoginCredentials(mockReq);
+      const message = 'An error occurred while resending activation email.';
+
+      expect(result).toHaveLength(2);
+      expect(result[0]).toEqual(500);
+      expect(result[1]).toEqual(message);
+    });
+  });
 });

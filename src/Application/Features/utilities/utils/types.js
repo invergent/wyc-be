@@ -28,7 +28,8 @@ export const eventNames = Object.freeze({
   Reminder: 'Reminder',
   LogActivity: 'LogActivity',
   Completed: 'Completed',
-  Activation: 'Activation'
+  Activation: 'Activation',
+  ResendCrendentials: 'ResendCrendentials'
 });
 
 export const activityNames = Object.freeze({
