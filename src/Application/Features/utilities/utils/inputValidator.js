@@ -8,8 +8,8 @@ export const formProperties = {
   changePassword: ['currentPassword', 'newPassword', 'confirmPassword'],
   rpcOvertimeRequest: ['weekday', 'weekend', 'atm'],
   schedules: ['emailSchedule', 'overtimeWindowStart', 'overtimeWindowEnd', 'overtimeWindowIsActive'],
-  staff: ['excelDoc'],
-  branch: ['excelDoc'],
+  staff: ['doc'],
+  branch: ['doc'],
   single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone', 'accountNumber'],
   multipleClaims: ['staffId', 'permittedMonths']
 };
