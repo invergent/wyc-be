@@ -18,7 +18,13 @@ class ExportDocHelpers {
     const headerKey = GenericHelpers.createColumnHeaderKeys;
 
     const headerCreator = header => ({
-      header, key: headerKey(header), width: 10, style: { font: { name: 'Arial' } }
+      header,
+      key: headerKey(header),
+      width: 10,
+      style: {
+        font: { name: 'Arial' },
+        numFmt: header.includes('Account') ? '@' : ''
+      }
     });
     const columnHeaders = exportDocHeaders.map(headerCreator);
 

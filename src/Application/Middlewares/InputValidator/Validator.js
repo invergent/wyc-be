@@ -198,6 +198,10 @@ class Validator {
 
     return errors;
   }
+
+  static resendCredentials(data) {
+    return ValidatorHelpers.checkPatternedFields('Staff ID', data.staffId, staffIdRegex);
+  }
 }
 
 export default Validator;
