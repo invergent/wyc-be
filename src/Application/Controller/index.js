@@ -170,6 +170,10 @@ class Controller {
     return Responder.respond(req, res, Administration.authoriseMultipleClaimsApplication);
   }
 
+  static async resendLoginCredentials(req, res) {
+    return Responder.respond(req, res, Administration.resendLoginCredentials);
+  }
+
   static async addHoliday(req, res) {
     return Responder.respond(req, res, Holidays.add);
   }

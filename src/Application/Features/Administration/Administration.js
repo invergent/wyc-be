@@ -161,6 +161,21 @@ class Administration {
       return [500, 'An error occurred while authorising multiple claim application.', e];
     }
   }
+
+  static async resendLoginCredentials(req) {
+    const { body: { staffId } } = req;
+
+    try {
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
+      if (staff.changedPassword) return [403, 'Password already changed'];
+  
+      notifications.emit(eventNames.Activation, [[staff]]);
+      return [200, 'Activation email resent!'];
+    } catch (e) {
+      console.log(e);
+      return [500, 'An error occurred while resending activation email.'];
+    }
+  }
 }
 
 export default Administration;
