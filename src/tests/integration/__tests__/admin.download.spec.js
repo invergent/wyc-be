@@ -40,11 +40,11 @@ describe('Admin Claim Tests', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors[0]).toEqual('Invalid! DocType can only be "excel".');
+      expect(response.body.errors[0]).toEqual('Invalid! DocType can only be "xlsx" or "csv".');
     });
 
     it('should return readable excel document', async () => {
-      const response = await request.get('/admin/claims/export/excel').set('cookie', token);
+      const response = await request.get('/admin/claims/export/csv').set('cookie', token);
 
       expect(response.status).toBe(200);
     });

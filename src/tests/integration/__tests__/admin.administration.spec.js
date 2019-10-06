@@ -34,7 +34,7 @@ describe('Admin Administration', () => {
       jest.resetAllMocks();
     });
 
-    it('should fail if excelDoc field is not provided.', async () => {
+    it('should fail if doc field is not provided.', async () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
@@ -42,26 +42,26 @@ describe('Admin Administration', () => {
         .set('cookie', token);
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('The following fields are missing: excelDoc');
+      expect(response.body.message).toEqual('The following fields are missing: doc');
     });
 
-    it('should fail if file extension is not xlsx.', async () => {
+    it('should fail if file extension is neither csv nor xlsx.', async () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/invalidExcel.xlsx`, 'invalidExcel.else')
+        .attach('doc', `${__dirname}/testFiles/invalidExcel.xlsx`, 'invalidExcel.else')
         .set('cookie', token);
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors[0]).toEqual('file type must be xlsx');
+      expect(response.body.errors[0]).toEqual('file type must be .xlsx, .csv');
     });
 
-    it('should fail if upload document is an invalid xlsx file.', async () => {
+    it('should fail if upload document is an invalid excel file.', async () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/invalidExcel.xlsx`, 'invalidExcel.xlsx')
+        .attach('doc', `${__dirname}/testFiles/invalidExcel.xlsx`, 'invalidExcel.xlsx')
         .set('cookie', token);
 
       const message = `An error occurred while processing your request.${''
@@ -75,7 +75,7 @@ describe('Admin Administration', () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/validExcelWithErrors.xlsx`, 'staff.xlsx')
+        .attach('doc', `${__dirname}/testFiles/validExcelWithErrors.xlsx`, 'staff.xlsx')
         .set('cookie', token);
 
       expect(response.status).toBe(400);
@@ -89,7 +89,7 @@ describe('Admin Administration', () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/validExcel.xlsx`, 'staff.xlsx')
+        .attach('doc', `${__dirname}/testFiles/validExcel.xlsx`, 'staff.xlsx')
         .set('cookie', token);
 
       expect(response.status).toBe(201);
@@ -103,7 +103,7 @@ describe('Admin Administration', () => {
       const response = await request
         .post('/admin/staff')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/validExcel.xlsx`, 'staff.xlsx')
+        .attach('doc', `${__dirname}/testFiles/validExcel.xlsx`, 'staff.xlsx')
         .set('cookie', token);
 
       expect(response.status).toBe(409);
@@ -200,7 +200,7 @@ describe('Admin Administration', () => {
       const response = await request
         .post('/admin/branch')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/validBranchesWithErrors.xlsx`, 'branches.xlsx')
+        .attach('doc', `${__dirname}/testFiles/validBranchesWithErrors.xlsx`, 'branches.xlsx')
         .set('cookie', token);
 
       expect(response.status).toBe(400);
@@ -214,7 +214,7 @@ describe('Admin Administration', () => {
       const response = await request
         .post('/admin/branch')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/validBranches.xlsx`, 'branches.xlsx')
+        .attach('doc', `${__dirname}/testFiles/validBranches.xlsx`, 'branches.xlsx')
         .set('cookie', token);
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('10 branches created successfully.');
@@ -228,7 +228,7 @@ describe('Admin Administration', () => {
       const response = await request
         .post('/admin/branch')
         .set('Content-Type', 'multipart/form-data')
-        .attach('excelDoc', `${__dirname}/testFiles/validBranches.xlsx`, 'branches.xlsx')
+        .attach('doc', `${__dirname}/testFiles/validBranches.xlsx`, 'branches.xlsx')
         .set('cookie', token);
 
       expect(response.status).toBe(500);

@@ -14,23 +14,26 @@ class ValidatorHelpers {
   }
 
   static checkDocTypeParam(docType) {
-    if (!['excel'].includes(docType)) return ['Invalid! DocType can only be "excel".'];
+    if (!['xlsx', 'csv'].includes(docType)) return ['Invalid! DocType can only be "xlsx" or "csv".'];
     return [];
   }
 
   static checkFileType(files) {
-    const { excelDoc, image } = files;
+    const { doc, image } = files;
     const imageTypes = '.jpg, .jpeg, .png or .svg';
-    const expectedFileType = excelDoc ? 'xlsx' : imageTypes;
+    const sheetTypes = '.xlsx, .csv';
+    const expectedFileType = doc ? sheetTypes : imageTypes;
 
-    const file = excelDoc || image;
+    const file = doc || image;
     const fileNameSplits = file.name.split('.');
     const fileExtension = fileNameSplits[fileNameSplits.length - 1];
 
-    // if file is neither an excel doc or an image file, return an error
-    if ((fileExtension !== 'xlsx') && (!imageTypes.includes(fileExtension))) {
+    // if file is neither an sheet type or an image file, return an error
+    if ((doc && !sheetTypes.includes(fileExtension)) || (image && !imageTypes.includes(fileExtension))) {
       return [`file type must be ${expectedFileType}`];
     }
+
+    file.docType = fileExtension;
     return [];
   }
 

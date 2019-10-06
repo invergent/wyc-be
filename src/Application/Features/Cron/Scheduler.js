@@ -84,8 +84,8 @@ class Scheduler {
   }
 
   static scheduleStatsUpdateJob() {
-    // run statistics update by 2:00 WAT on the 27th of every month
-    const job = new CronJob('0 1 27 * *', Scheduler.updateCompanyStatistics);
+    // run statistics update by 1:03 WAT on the 27th of every month
+    const job = new CronJob('03 0 27 * *', Scheduler.updateCompanyStatistics);
     job.start();
   }
 }
