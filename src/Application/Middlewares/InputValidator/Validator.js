@@ -97,6 +97,7 @@ class Validator {
   }
 
   static staff(rowValues) {
+    console.log(rowValues)
     // eslint-disable-next-line
     const [emptyCell, staffId, firstname, lastname, middlename, emailAddress, phone, altPhone, accountNumber] = rowValues;
     const errors = [];

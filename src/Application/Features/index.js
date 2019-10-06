@@ -6,7 +6,7 @@ import Branch from './Branch';
 import PasswordReset from './PasswordReset';
 import ChangePassword from './ChangePassword';
 import Claim from './Claim';
-import exportDoc from './exportDoc';
+import Export from './Export';
 import Holidays from './Holidays';
 import Roles from './Roles';
 import Settings from './Settings';
@@ -23,7 +23,7 @@ export default {
   PasswordReset,
   ChangePassword,
   Claim,
-  exportDoc,
+  Export,
   Holidays,
   Notifications,
   Roles,
