@@ -4,7 +4,7 @@ import Responder from './Responder';
 
 const {
   Authorisation, Branch, LineManager, PasswordReset, ChangePassword, Claim,
-  exportDoc, Settings, Administration, Users, imageUpload, ProfileUpdate, Roles,
+  Export, Settings, Administration, Users, imageUpload, ProfileUpdate, Roles,
   Notifications, Holidays
 } = features;
 
@@ -87,7 +87,7 @@ class Controller {
   }
 
   static async exportDoc(req, res) {
-    return Responder.download(req, res, exportDoc);
+    return Responder.download(req, res, Export.claimReport);
   }
 
   static async updateSchedules(req, res) {
