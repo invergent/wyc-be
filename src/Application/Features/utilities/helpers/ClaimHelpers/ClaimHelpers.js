@@ -1,10 +1,8 @@
-import Dates from '../Dates';
 import ClaimService from '../../services/ClaimService';
 
 class ClaimHelpers {
   static createOvertimeRequestObject(overtimeRequest, staffId) {
     return {
-      monthOfClaim: Dates.convertPreviousYearMonthToString(),
       ...overtimeRequest,
       requester: staffId,
       amount: overtimeRequest.amount,
@@ -22,30 +20,34 @@ class ClaimHelpers {
   }
 
   static filterQueryResult(queryResult) {
-    const pendingClaims = queryResult.subordinates;
+    const results = queryResult.subordinates;
 
-    if (!pendingClaims.length) return [];
-    
-    return pendingClaims.map((result) => {
+    if (!results.length) return [];
+    return results.reduce((pendingClaims, staffWithClaims) => {
       const {
         staffId, firstname, lastname, middlename, image, Claims
-      } = result;
-      const {
-        id, monthOfClaim, claimElements, details, amount
-      } = Claims[0];
-      return {
-        staffId,
-        firstname,
-        lastname,
-        middlename,
-        image,
-        id,
-        monthOfClaim,
-        claimElements,
-        details,
-        amount
-      };
-    });
+      } = staffWithClaims;
+
+      Claims.forEach((staffClaim) => {
+        const {
+          id, monthOfClaim, claimElements, details, amount
+        } = staffClaim;
+        pendingClaims.push({
+          staffId,
+          firstname,
+          lastname,
+          middlename,
+          image,
+          id,
+          monthOfClaim,
+          claimElements,
+          details,
+          amount
+        });
+      });
+
+      return pendingClaims;
+    }, []);
   }
 
   static filterReminderPendingClaims(queryResult) {
@@ -70,6 +72,7 @@ class ClaimHelpers {
 
   static async pendingClaimsForlineManager(lineManager) {
     const results = await ClaimService.fetchPendingClaimsForLineManagers(lineManager);
+    console.log(results.toJSON())
     const { firstname, lastname } = results; // line manager details
     const filteredResults = ClaimHelpers.filterQueryResult(results.toJSON());
     return { lineManager: { firstname, lastname }, pendingClaims: filteredResults };
@@ -101,12 +104,14 @@ class ClaimHelpers {
     const pendingClaim = await ClaimService.fetchStaffClaims(staffId, 'ing');
     if (!pendingClaim.length) return [];
 
-    const {
-      id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
-    } = pendingClaim[0];
-    return [{
-      id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
-    }];
+    return pendingClaim.map((claim) => {
+      const {
+        id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+      } = claim;
+      return {
+        id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+      };
+    });
   }
 }
 
