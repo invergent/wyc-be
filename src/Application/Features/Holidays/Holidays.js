@@ -36,9 +36,9 @@ class Holidays {
   }
 
   static async getAll(req) {
-    const { query: { month } } = req;
+    const { query: { yearMonth } } = req;
     const queryOptions = {};
-    if (month) queryOptions.where = { month };
+    if (yearMonth) queryOptions.where = { yearMonth };
     try {
       const holidays = await models.Holidays.findAll(queryOptions);
       return [200, `Found ${holidays.length} holidays`, holidays];

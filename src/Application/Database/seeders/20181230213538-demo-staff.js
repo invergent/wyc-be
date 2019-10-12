@@ -143,6 +143,7 @@ module.exports = {
     image: 'https://res.cloudinary.com/dbsxxymfz/image/upload/v1536757459/dummy-profile.png',
     phone: '08077772109',
     accountNumber: '0012223451',
+    permittedMonths: ['2019/06', '2019/07', '2019/08', '2019/09'],
     changedPassword: true,
     lineManagerId: 6,
     branchId: 2,
