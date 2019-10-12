@@ -9,12 +9,8 @@ module.exports = {
     name: {
       type: Sequelize.STRING
     },
-    month: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    date: {
-      type: Sequelize.INTEGER,
+    yearMonth: {
+      type: Sequelize.STRING,
       allowNull: false
     },
     fullDate: {

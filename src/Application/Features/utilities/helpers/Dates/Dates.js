@@ -17,13 +17,6 @@ class Dates {
     const month = today.getMonth();
     return { year, month };
   }
-
-  static convertPreviousYearMonthToString() {
-    const previousYearMonth = this.getPreviousYearMonth().toDateString().split(' ');
-    const month = previousYearMonth[1];
-    const year = previousYearMonth[3];
-    return `${month}, ${year}`;
-  }
 }
 
 export default Dates;
