@@ -275,17 +275,17 @@ describe('Admin Administration', () => {
   });
 
   describe('Manage holidays.', () => {
-    const holiday = { month: 6, date: 8, fullDate: 'some date string' };
+    const holiday = { yearMonth: '2019/10', fullDate: 'some date string' };
 
     it('should fail if a field\'s value is invalid or not set.', async () => {
       const response = await request.post('/admin/holidays')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send({ name: '', date: 41, month: 16 });
+        .send({ name: '', yearMonth: '2019' });
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors).toHaveLength(3);
+      expect(response.body.errors).toHaveLength(1);
     });
 
     it('should add holiday.', async () => {
@@ -296,8 +296,8 @@ describe('Admin Administration', () => {
 
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('Holiday added!');
-      expect(response.body.data.month).toEqual(holiday.month);
-      expect(response.body.data.date).toEqual(holiday.date);
+      expect(response.body.data.yearMonth).toEqual(holiday.yearMonth);
+      expect(response.body.data.fullDate).toEqual(holiday.fullDate);
     });
 
     it('should respond with a conflict response if day already exists.', async () => {
@@ -308,16 +308,16 @@ describe('Admin Administration', () => {
 
       expect(response.status).toBe(409);
       expect(response.body.message).toEqual('Holiday already exists');
-      expect(response.body.data.month).toEqual(holiday.month);
-      expect(response.body.data.date).toEqual(holiday.date);
+      expect(response.body.data.yearMonth).toEqual(holiday.yearMonth);
+      expect(response.body.data.fullDate).toEqual(holiday.fullDate);
     });
 
     it('should fetch all holidays.', async () => {
       const response = await request.get('/admin/holidays').set('cookie', token);
 
       expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Found 2 holidays');
-      expect(response.body.data).toHaveLength(2);
+      expect(response.body.message).toEqual('Found 1 holidays');
+      expect(response.body.data).toHaveLength(1);
     });
 
     it('should fail if holiday not found.', async () => {
@@ -331,7 +331,7 @@ describe('Admin Administration', () => {
 
     it('should remove holiday.', async () => {
       const response = await request
-        .delete('/admin/holidays?fullDate=2019-08-09T22:23:33.739Z')
+        .delete('/admin/holidays?fullDate=some date string')
         .set('cookie', token);
 
       expect(response.status).toBe(200);

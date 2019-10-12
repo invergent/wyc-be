@@ -21,6 +21,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2018/10",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -52,6 +53,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2018/11",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -81,6 +83,7 @@ module.exports = {
         "selectedDates": ["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]
       },
       "outstation": "55000",
+      "applyingMonth": "2018/12",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
       "currentlyPressedBtn": "outstation",
@@ -112,6 +115,7 @@ module.exports = {
         "selectedDates": ["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]
       },
       "outstation": "55000",
+      "applyingMonth": "2018/12",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
       "currentlyPressedBtn": "outstation",
@@ -145,6 +149,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/01",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -176,6 +181,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/01",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -207,6 +213,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/01",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -238,6 +245,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/01",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -269,6 +277,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/03",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -300,6 +309,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/04",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -331,6 +341,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/03",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -362,6 +373,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/03",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -374,7 +386,29 @@ module.exports = {
   {
     monthOfClaim: 'March, 2019',
     claimElements: 4,
-    details: `{"overtime":{"selectedDates":["2019-06-30T23:00:00.000Z","2019-07-01T23:00:00.000Z","2019-07-02T23:00:00.000Z","2019-07-07T23:00:00.000Z","2019-07-08T23:00:00.000Z"]},"shiftDuty":{"selectedDates":["2019-07-21T23:00:00.000Z","2019-07-28T23:00:00.000Z","2019-07-29T23:00:00.000Z","2019-07-22T23:00:00.000Z"]},"atmDuty":{"selectedDates":["2019-07-17T23:00:00.000Z","2019-07-23T23:00:00.000Z","2019-07-25T23:00:00.000Z","2019-07-19T23:00:00.000Z"]},"atmSupport":{"selectedDates":["2019-07-18T23:00:00.000Z","2019-07-16T23:00:00.000Z","2019-07-24T23:00:00.000Z"]},"holiday":{"selectedDates":["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]},"outstation":"55000","allSelectedDates":[1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],"total":80050,"currentlyPressedBtn":"outstation","visiblePaneItems":6}`,
+    details: `{
+      "overtime": {
+        "selectedDates":["2019-06-30T23:00:00.000Z","2019-07-01T23:00:00.000Z","2019-07-02T23:00:00.000Z","2019-07-07T23:00:00.000Z","2019-07-08T23:00:00.000Z"]
+      },
+      "shiftDuty": {
+        "selectedDates":["2019-07-21T23:00:00.000Z","2019-07-28T23:00:00.000Z","2019-07-29T23:00:00.000Z","2019-07-22T23:00:00.000Z"]
+      },
+      "atmDuty": {
+        "selectedDates":["2019-07-17T23:00:00.000Z","2019-07-23T23:00:00.000Z","2019-07-25T23:00:00.000Z","2019-07-19T23:00:00.000Z"]
+      },
+      "atmSupport": {
+        "selectedDates":["2019-07-18T23:00:00.000Z","2019-07-16T23:00:00.000Z","2019-07-24T23:00:00.000Z"]
+      },
+      "holiday": {
+        "selectedDates":["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]
+      },
+      "outstation": "55000",
+      "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
+      "total":80050,
+      "applyingMonth": "2019/03",
+      "currentlyPressedBtn": "outstation",
+      "visiblePaneItems":6
+    }`,
     amount: 9400,
     requester: 6,
     status: 'Declined',
@@ -403,6 +437,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/03",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -434,6 +469,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2018/10",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -465,6 +501,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2018/10",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -496,6 +533,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2018/11",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -527,6 +565,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2018/12",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -558,6 +597,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/01",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -589,6 +629,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/01",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -620,6 +661,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/03",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,
@@ -651,6 +693,7 @@ module.exports = {
       "outstation": "55000",
       "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
       "total": 80050,
+      "applyingMonth": "2019/03",
       "currentlyPressedBtn": "outstation",
       "visiblePaneItems":6
     }`,

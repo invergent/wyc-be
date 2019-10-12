@@ -168,11 +168,10 @@ class Validator {
 
   static holidays(data) {
     const errors = [];
-    const { name, month, date, fullDate } = data;
-    
+    const { name, yearMonth, fullDate } = data;
+    const [year, month] = yearMonth.split('/');
     errors.push(...ValidatorHelpers.checkForEmptyFields('Holiday name', name, true));
-    if (month < 0 || month > 11) errors.push('month is invalid');
-    if (date < 1 || date > 31) errors.push('date is invalid');
+    if (month < 1 || month > 12 || year < 2019) errors.push('yearMonth value is invalid');
     errors.push(...ValidatorHelpers.checkForEmptyFields('Full date', fullDate));
 
     return errors;
