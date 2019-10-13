@@ -56,8 +56,12 @@ const staff = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    permittedMonths: {
-      type: DataTypes.ARRAY(DataTypes.TEXT)
+    extraMonthsPermitted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    extraMonthsData: {
+      type: DataTypes.JSON
     }
   }, { freezeTableName: true });
 

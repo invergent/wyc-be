@@ -11,7 +11,7 @@ export const formProperties = {
   staff: ['doc'],
   branch: ['doc'],
   single: ['staffId', 'firstname', 'lastname', 'middlename', 'email', 'phone', 'accountNumber'],
-  multipleClaims: ['staffId', 'permittedMonths'],
+  multipleClaims: ['staffId', 'extraMonthsPermitted', 'extraMonthsData'],
   resendCredentials: ['staffId']
 };
 
