@@ -82,12 +82,20 @@ class Claim {
 
   static async cancel(req) {
     const { params: { claimId }, claim } = req;
+    let newExtraMonthsData;
 
     if (claim.status !== 'Pending') {
       return [403, 'Operation failed. Only pending claims can be cancelled.'];
     }
+
+    // if staff applied for multiple months, replace cancelled claim
+    if (claim.claimer.extraMonthsPermitted) {
+      newExtraMonthsData = Claim.replaceCancelledClaim(claim);
+      StaffService.updateStaffInfo(claim.claimer.staffId, newExtraMonthsData);
+    }
+    
     try {
-      const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId);
+      const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId, newExtraMonthsData);
       if (updated) {
         notifications.emit(eventNames.Cancelled, [claim.claimer, claimId, activityNames.Cancelled]);
       }
@@ -96,6 +104,19 @@ class Claim {
       console.log(e);
       return [500, 'There was a problem cancelling your claim ERR500CLMCNL.'];
     }
+  }
+
+  static replaceCancelledClaim(claim) {
+    // re-adds the cancelled claim back to the list of permittedMonths
+    const { details, claimer: { extraMonthsData: { permittedMonths, appliedMonths } } } = claim;
+    const { applyingMonth } = JSON.parse(details);
+
+    return {
+      extraMonthsData: {
+        permittedMonths: [...permittedMonths, applyingMonth].sort(),
+        appliedMonths: appliedMonths.filter(month => month !== applyingMonth)
+      }
+    };
   }
 
   static async requestEdit(req) {

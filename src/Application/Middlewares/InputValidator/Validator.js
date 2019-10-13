@@ -97,7 +97,6 @@ class Validator {
   }
 
   static staff(rowValues) {
-    console.log(rowValues)
     // eslint-disable-next-line
     const [emptyCell, staffId, firstname, lastname, middlename, emailAddress, phone, altPhone, accountNumber] = rowValues;
     const errors = [];
@@ -179,21 +178,21 @@ class Validator {
 
   static multipleClaims(data) {
     const errors = [];
-    const { staffId, permittedMonths } = data;
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-      'October', 'November', 'December'
-    ];
+    const { staffId, extraMonthsData: { permittedMonths } } = data;
 
     errors.push(...ValidatorHelpers.checkPatternedFields('Staff ID', staffId, staffIdRegex));
-    if (!Array.isArray(permittedMonths)) {
-      errors.push('permittedMonths must be an array');
+    if (!permittedMonths || !Array.isArray(permittedMonths)) {
+      errors.push('permittedMonths is required and must be an array');
     } else if (!permittedMonths.length) {
-      errors.push('List of permitted month is empty');
+      errors.push('List of permitted months is empty');
     } else {
-      permittedMonths.forEach((month) => {
-        if (!months.includes(month)) errors.push(`${month} is not a recognised month`);
-      });
+      const numberOfErrors = permittedMonths.reduce((acc, yearMonth) => {
+        const [year, month] = yearMonth.split('/');
+        if (+year < 2019 || Number.isNaN(+month) || +month < 0 || +month > 11) acc += 1;
+        return acc;
+      }, 0);
+
+      if (numberOfErrors) errors.push('permittedMonths contain invalid month entries');
     }
 
     return errors;

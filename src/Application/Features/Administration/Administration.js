@@ -115,6 +115,7 @@ class Administration {
     const { params: { claimId } } = req;
     try {
       const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
+      if (!claim) return [200, 'Request successful!', {}];
       const refinedUClaim = AdministrationHelpers.refineSingleClaimData(claim);
       return [200, 'Request successful!', refinedUClaim];
     } catch (e) {
@@ -126,6 +127,7 @@ class Administration {
   static async markClaimsAsCompleted() {
     try {
       const [updated] = await ClaimService.markClaimsAsCompleted();
+      await StaffService.resetMultipleClaimsAuthorisations();
       if (updated) notifications.emit(eventNames.Completed, []);
 
       return [
@@ -151,10 +153,10 @@ class Administration {
   }
 
   static async authoriseMultipleClaimsApplication(req) {
-    const { body: { staffId, permittedMonths } } = req;
+    const { body: { staffId, extraMonthsPermitted, extraMonthsData } } = req;
 
     try {
-      const updated = await StaffService.updateStaffInfo(staffId, { permittedMonths });
+      const updated = await StaffService.updateStaffInfo(staffId, { extraMonthsPermitted, extraMonthsData });
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
     } catch (e) {
       console.log(e);

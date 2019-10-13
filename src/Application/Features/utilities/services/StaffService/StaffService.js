@@ -40,6 +40,11 @@ class StaffService {
     const options = { where: { staffId: { [Op.notLike]: 'ADMIN%' } }, attributes };
     return Staff.findAll(options);
   }
+
+  static resetMultipleClaimsAuthorisations() {
+    const options = { where: { extraMonthsPermitted: true } };
+    return Staff.update({ extraMonthsPermitted: false, extraMonthsData: null }, options);
+  }
 }
 
 export default StaffService;

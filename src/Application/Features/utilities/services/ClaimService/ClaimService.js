@@ -58,8 +58,10 @@ class ClaimService {
     return ClaimService.runClaimApproval(lineManager, claimId, 'decline');
   }
 
-  static cancelClaim(claimId) {
+  static cancelClaim(claimId, extraMonthsData) {
     const updatePayload = { status: 'Cancelled' };
+    if (extraMonthsData) updatePayload.extraMonthsData = extraMonthsData;
+    console.log('the payload', updatePayload)
     return ClaimService.updateClaim(updatePayload, claimId);
   }
 
