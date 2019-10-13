@@ -81,8 +81,12 @@ module.exports = {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     },
-    permittedMonths: {
-      type: Sequelize.ARRAY(Sequelize.TEXT)
+    extraMonthsPermitted: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    extraMonthsData: {
+      type: Sequelize.JSON
     },
     createdAt: {
       allowNull: false,

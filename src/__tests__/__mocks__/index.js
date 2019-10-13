@@ -3,7 +3,7 @@ export const mockReq = {
     staffId: 'someId',
     password: 'password',
     confirmPassword: 'password',
-    permittedMonths: ['July']
+    extraMonthsPermitted: { permittedMonths: ['July'] }
   },
   query: {
     hash: 'someHash'

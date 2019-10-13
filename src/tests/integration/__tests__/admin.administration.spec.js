@@ -157,37 +157,37 @@ describe('Admin Administration', () => {
     it('should fail if permittedMonths is not an array.', async () => {
       const response = await request
         .put('/admin/staff/multiple-claims')
-        .send({ staffId: 'TN098432', permittedMonths: 'August' })
+        .send({ staffId: 'TN098432', extraMonthsPermitted: true, extraMonthsData: { permittedMonths: 'some string' } })
         .set('cookie', token);
 
       expect(response.status).toBe(400);
-      expect(response.body.errors[0]).toEqual('permittedMonths must be an array');
+      expect(response.body.errors[0]).toEqual('permittedMonths is required and must be an array');
     });
 
     it('should fail if permittedMonths is an array but empty.', async () => {
       const response = await request
         .put('/admin/staff/multiple-claims')
-        .send({ staffId: 'TN098432', permittedMonths: [] })
+        .send({ staffId: 'TN098432', extraMonthsPermitted: true, extraMonthsData: { permittedMonths: [] } })
         .set('cookie', token);
 
       expect(response.status).toBe(400);
-      expect(response.body.errors[0]).toEqual('List of permitted month is empty');
+      expect(response.body.errors[0]).toEqual('List of permitted months is empty');
     });
 
-    it('should fail if permittedMonths list contains a non-calendar month entry.', async () => {
+    it('should fail if permittedMonths list contains an invalid month entry.', async () => {
       const response = await request
         .put('/admin/staff/multiple-claims')
-        .send({ staffId: 'TN098432', permittedMonths: ['July', 'Auguste'] })
+        .send({ staffId: 'TN098432', extraMonthsPermitted: true, extraMonthsData: { permittedMonths: ['2019/you', 'Auguste'] } })
         .set('cookie', token);
 
       expect(response.status).toBe(400);
-      expect(response.body.errors[0]).toEqual('Auguste is not a recognised month');
+      expect(response.body.errors[0]).toEqual('permittedMonths contain invalid month entries');
     });
 
     it('should authorise a staff to submit multiple overtime claims in a month.', async () => {
       const response = await request
         .put('/admin/staff/multiple-claims')
-        .send({ staffId: 'TN098432', permittedMonths: ['July', 'August'] })
+        .send({ staffId: 'TN098432', extraMonthsPermitted: true, extraMonthsData: { permittedMonths: ['2019/07', '2019/08'] } })
         .set('cookie', token);
 
       expect(response.status).toBe(200);
