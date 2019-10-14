@@ -19,7 +19,7 @@ const setupApp = async () => {
   app.use(cookieParser());
 
   if (process.env.NODE_ENV !== 'test') {
-    app.use(cors({ allowedOrigins: ['localhost:4200', 'overtime.invergent-technologies.com'] }));
+    app.use(cors({ allowedOrigins: ['localhost:4200', 'overtime.invergent-technologies.com', 'overtime.whytecleon.ng'] }));
   }
 
   app.use(fileUpload({
