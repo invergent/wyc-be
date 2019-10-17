@@ -21,14 +21,14 @@ describe('ChangePassword Unit test', () => {
   });
 
   it('should return true if initial plaintext password hasn"t been changed', async () => {
-    const isCorrect = await ChangePassword.currentPasswordIsCorrect('password', 'password');
+    const [isCorrect] = await ChangePassword.currentPasswordIsCorrect('password', 'password');
     expect(isCorrect).toBe(true);
   });
 
   it('should return a status of 500 if update fails', async () => {
     jest.spyOn(StaffService, 'findStaffByStaffIdOrEmail').mockResolvedValue('good');
     jest.spyOn(StaffService, 'updateStaffInfo').mockResolvedValue(false);
-    jest.spyOn(ChangePassword, 'currentPasswordIsCorrect').mockReturnValue(true);
+    jest.spyOn(ChangePassword, 'currentPasswordIsCorrect').mockReturnValue([true]);
     jest.spyOn(bcrypt, 'hashSync').mockReturnValue('somehash');
     const mockRequest = { body: { currentPassword: 'passworded' }, currentStaff: {} };
 
