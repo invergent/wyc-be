@@ -61,7 +61,7 @@ class EmailConstructor {
       .replace(/{{staffFirstName}}/g, staffFirstName)
       .replace(/{{staffLastName}}/g, staffLastName)
       .replace(/{{lineManagerFirstName}}/g, lineManagerFirstName)
-      .replace(/{{url}}/g, 'overtime.invergent-technologies.com')
+      .replace(/{{url}}/g, 'overtime.whytecleon.ng')
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amountLocale)
       .replace(/{{monthOfClaim}}/g, monthOfClaim)
