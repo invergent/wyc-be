@@ -15,7 +15,7 @@ export const formProperties = {
   resendCredentials: ['staffId']
 };
 
-export const staffIdRegex = /^[TtSs][Nn][0-9]{6}$/;
+export const staffIdRegex = /^[DdFfGgSsTt][DdCcEeRrSsNn][0-9]{5,6}$/;
 export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
 export const accNumRegex = /^\d{10}$/;
 export const solIdRegex = /^\d{4}$/;
