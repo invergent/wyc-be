@@ -32,7 +32,7 @@ describe('INIT tests', () => {
     it('should fail if details are provided but incorrect', async () => {
       const response = await request
         .post('/signin')
-        .send({ staffId: 'TN01234', password: '' })
+        .send({ staffId: 'TN0123474', password: '' })
         .set('Accept', 'application/json');
 
       expect(response.status).toBe(400);
