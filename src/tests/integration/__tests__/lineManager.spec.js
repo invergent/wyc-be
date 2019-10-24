@@ -15,7 +15,7 @@ const lineManagerDetails = {
   idNumber: 'SN773456',
   firstname: 'firstname',
   lastname: 'lastname',
-  phone: '08057632182',
+  phone: '8057632182',
   email: 'email@email.com'
 };
 
@@ -23,7 +23,7 @@ const supervisorsIncorrectDetails = {
   idNumber: 'SN773456',
   firstname: '   ',
   lastname: '   ',
-  phone: '08057632182',
+  phone: '8057632182',
   email: 'email'
 };
 

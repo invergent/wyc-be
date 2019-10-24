@@ -1,6 +1,6 @@
 import ValidatorHelpers from './ValidatorHelpers';
 import {
-  emailRegex, accNumRegex, staffIdRegex, solIdRegex, formProperties, phoneRegex, numberRegex
+  emailRegex, staffIdRegex, solIdRegex, formProperties, phoneAccRegex, numberRegex
 } from '../../Features/utilities/utils/inputValidator';
 
 class Validator {
@@ -15,7 +15,7 @@ class Validator {
       return acc;
     }, '');
   }
-  
+
   static errorDecider(errors) {
     if (errors.length) return { rowIsValid: false, errors };
     return { rowIsValid: true };
@@ -40,7 +40,7 @@ class Validator {
     errors.push(...ValidatorHelpers.checkPatternedFields('email', email, emailRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('idNumber', idNumber, staffIdRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('email', email, emailRegex));
-    errors.push(...ValidatorHelpers.checkPatternedFields('phone', phone, phoneRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('phone', phone, phoneAccRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('firstname', firstname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('lastname', lastname));
 
@@ -103,9 +103,9 @@ class Validator {
 
     errors.push(...ValidatorHelpers.checkPatternedFields('Staff ID', staffId, staffIdRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', emailAddress, emailRegex));
-    errors.push(...ValidatorHelpers.checkPatternedFields('Phone Number', phone, phoneRegex));
-    errors.push(...ValidatorHelpers.checkPatternedFields('Alternate Phone Number', altPhone, phoneRegex));
-    errors.push(...ValidatorHelpers.checkPatternedFields('Account Number', accountNumber, accNumRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Phone Number', phone, phoneAccRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Alternate Phone Number', altPhone, phoneAccRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Account Number', accountNumber, phoneAccRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename, true));
@@ -134,9 +134,9 @@ class Validator {
     errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname, true));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname, true));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename, true));
-    errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneRegex));
-    errors.push(...ValidatorHelpers.checkForEmptyFields('Alternate Phone', altPhone, phoneRegex));
-    errors.push(...ValidatorHelpers.checkForEmptyFields('Account Number', accountNumber, accNumRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneAccRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Alternate Phone', altPhone, phoneAccRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Account Number', accountNumber, phoneAccRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('roleId', roleId, numberRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('Branch ID', branchId, numberRegex));
 
@@ -158,8 +158,8 @@ class Validator {
       errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', email, emailRegex));
       errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname));
       errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname));
-      errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename));
-      errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneRegex));
+      errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename, true));
+      errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneAccRegex));
     }
 
     return errors;
