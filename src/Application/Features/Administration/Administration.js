@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import helpers from '../utilities/helpers';
 import services from '../utilities/services';
 import notifications from '../utilities/notifications';
@@ -38,11 +39,15 @@ class Administration {
   static async createSingleBranchOrStaff(req) {
     const { body } = req;
     const resourceName = req.path.includes('branch') ? 'Branch' : 'Staff';
+    if (resourceName === 'Staff') body.password = crypto.randomBytes(3).toString('hex');
+
     try {
       const [resource, created] = resourceName === 'Branch'
         ? await BranchService.findOrCreateSingleBranch(body)
         : await StaffService.findOrCreateSingleStaff(body);
 
+      if (resourceName === 'Staff') notifications.emit(eventNames.Activation, [[resource]]);
+      resource.password = undefined;
       return created
         ? [201, `${resourceName} created successfully.`, resource]
         : [409, `${resourceName} already exists.`, resource];
@@ -108,6 +113,20 @@ class Administration {
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem fetching claims ERR500FETSTF.'];
+    }
+  }
+
+  static async removeSingleStaff(req) {
+    const { params: { staffId } } = req;
+    try {
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
+      if (!staff) return [404, 'Staff not found'];
+      await staff.destroy();
+
+      return [200, 'Staff removed!'];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem removing staff ERR500RMVSTF.'];
     }
   }
 

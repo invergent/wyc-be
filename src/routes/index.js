@@ -18,7 +18,7 @@ const {
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
-  fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials
+  fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -78,6 +78,7 @@ router.put('/admin/settings/schedules', authenticateAdmin, checkScheduleProps, u
 
 router.get('/admin/staff', authenticateAdmin, fetchStaff);
 router.get('/admin/staff/:staffId', authenticateAdmin, fetchSingleStaff);
+router.delete('/admin/staff/:staffId', authenticateAdmin, removeSingleStaff);
 router.post('/admin/staff', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createStaff);
 router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, createSingleBranchOrStaff);
 router.put('/admin/staff/multiple-claims', authenticateAdmin, checkProps, checkEntries, authoriseMultipleClaimsApplication);

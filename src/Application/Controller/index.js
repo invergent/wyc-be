@@ -158,6 +158,10 @@ class Controller {
     return Responder.respond(req, res, Administration.fetchSingleStaff);
   }
 
+  static async removeSingleStaff(req, res) {
+    return Responder.respond(req, res, Administration.removeSingleStaff);
+  }
+
   static async markNotificationsAsReadAndViewed(req, res) {
     return Responder.respond(req, res, Notifications.markAsViewedAndRead);
   }

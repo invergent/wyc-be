@@ -116,7 +116,7 @@ describe('Admin Administration', () => {
         .set('cookie', token)
         .set('Accept', 'application/json')
         .send({
-          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '080234567890', accountNumber: '00234567890'
+          staffId: 'TN343434', firstname: 'Joana', lastname: 'Molara', middlename: 'Rolis', email: 'this@email.com', phone: '80234567890', accountNumber: '00234567890'
         });
 
       expect(response.status).toBe(201);
@@ -240,7 +240,7 @@ describe('Admin Administration', () => {
         .post('/admin/branch/single')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send({ solId: '9898', name: 'Molara', address: 'this is an address' });
+        .send({ solId: '989', name: 'Molara', address: 'this is an address' });
 
       expect(response.status).toBe(201);
       expect(response.body.message).toEqual('Branch created successfully.');
@@ -251,7 +251,7 @@ describe('Admin Administration', () => {
         .post('/admin/branch/single')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send({ solId: '9898', name: 'Molara', address: 'this is an address' });
+        .send({ solId: '989', name: 'Molara', address: 'this is an address' });
 
       expect(response.status).toBe(409);
       expect(response.body.message).toEqual('Branch already exists.');
