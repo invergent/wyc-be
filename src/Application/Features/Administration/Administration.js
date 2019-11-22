@@ -46,7 +46,9 @@ class Administration {
         ? await BranchService.findOrCreateSingleBranch(body)
         : await StaffService.findOrCreateSingleStaff(body);
 
-      if (resourceName === 'Staff') notifications.emit(eventNames.Activation, [[resource]]);
+      if (resourceName === 'Staff' && created) {
+        notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
+      }
       resource.password = undefined;
       return created
         ? [201, `${resourceName} created successfully.`, resource]
