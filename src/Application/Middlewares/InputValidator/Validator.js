@@ -129,7 +129,7 @@ class Validator {
     const {
       firstname, lastname, middlename, email, phone, altPhone, roleId, branchId, accountNumber
     } = profileInfo;
-
+    
     errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', email, emailRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname, true));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname, true));
