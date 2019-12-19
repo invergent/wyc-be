@@ -2,7 +2,7 @@ export const formProperties = {
   signin: ['staffId', 'password'],
   login: ['email', 'password'],
   claim: ['overtime', 'weekend', 'shift', 'atm', 'outstation'],
-  lineManager: ['idNumber', 'phone', 'firstname', 'lastname', 'email'],
+  lineManager: ['idNumber', 'phone', 'firstname', 'lastname'],
   image: ['image'],
   reset: ['password', 'confirmPassword'],
   changePassword: ['currentPassword', 'newPassword', 'confirmPassword'],
@@ -12,7 +12,8 @@ export const formProperties = {
   branch: ['doc'],
   single: ['staffId', 'firstname', 'lastname', 'email', 'phone', 'accountNumber'],
   multipleClaims: ['staffId', 'extraMonthsPermitted', 'extraMonthsData'],
-  resendCredentials: ['staffId']
+  resendCredentials: ['staffId'],
+  managerEdit: ['staffId']
 };
 
 export const staffIdRegex = /^[DdFfGgSsTt][DdCcEeRrSsNn][0-9]{5,6}$/;

@@ -6,12 +6,13 @@ const { LineManagerService, StaffService } = services;
 
 class LineManager {
   static async addOrChangeLineManager(req) {
-    const { currentStaff: { staffId }, body: lineManagerDetails } = req;
+    const { currentStaff: { staffId }, body: { idNumber } } = req;
+    const lineManagerDetails = { ...req.body, email: `${idNumber}@firstbanknigeria.com` };
     
     try {
       const [lineManagerData, created] = await LineManagerService.findOrCreateLineManager(lineManagerDetails);
       const lineManager = lineManagerData.toJSON();
-      const payload = { lineManagerId: lineManager.id };
+      const payload = { lineManagerId: lineManager.id, canUpdateLineManager: false };
       await StaffService.updateStaffInfo(staffId, payload);
     
       notifications.emit(

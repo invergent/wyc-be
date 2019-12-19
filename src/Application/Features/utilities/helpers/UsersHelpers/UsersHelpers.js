@@ -1,7 +1,7 @@
 class UsersHelpers {
   static refineUserData(user) {
     const {
-      staffId, firstname, lastname, middlename, email: emailAddress, phone, altPhone, accountNumber, image, changedPassword, extraMonthsPermitted, extraMonthsData
+      staffId, firstname, lastname, middlename, email: emailAddress, phone, altPhone, accountNumber, image, changedPassword, extraMonthsPermitted, extraMonthsData, canUpdateLineManager
     } = user;
     const branch = user.branch ? user.branch.name : null;
     const role = user.role ? user.role.name : null;
@@ -34,6 +34,7 @@ class UsersHelpers {
       role,
       branch,
       changedPassword,
+      canUpdateLineManager,
       lineManagerIdNumber,
       lineManagerFirstName,
       lineManagerLastName,

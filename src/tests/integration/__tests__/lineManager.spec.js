@@ -15,16 +15,14 @@ const lineManagerDetails = {
   idNumber: 'SN773456',
   firstname: 'firstname',
   lastname: 'lastname',
-  phone: '8057632182',
-  email: 'email@email.com'
+  phone: '8057632182'
 };
 
 const supervisorsIncorrectDetails = {
   idNumber: 'SN773456',
   firstname: '   ',
   lastname: '   ',
-  phone: '8057632182',
-  email: 'email'
+  phone: '8057632182'
 };
 
 companyInfo.emailAddress = 'someEmailAddress';
@@ -82,19 +80,18 @@ describe('Line Manager', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('validationErrors');
-      expect(response.body.errors.length).toEqual(5);
+      expect(response.body.errors.length).toEqual(2);
     });
 
     it('should fail if fields are missing', async () => {
-      const supervisor = { ...lineManagerDetails };
-      delete supervisor.email;
+      const { phone, ...rest } = lineManagerDetails;
       const response = await request
         .post('/users/profile/line-manager')
         .set('cookie', token)
         .set('Accept', 'application/json')
-        .send(supervisor);
+        .send(rest);
 
-      const expectedMessage = 'The following fields are missing: email';
+      const expectedMessage = 'The following fields are missing: phone';
 
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual(expectedMessage);

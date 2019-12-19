@@ -7,7 +7,7 @@ class Validator {
   static checkProps(reqObject, methodName) {
     const expectedProps = formProperties[methodName];
     const receivedProps = Object.keys(reqObject);
-
+console.log(methodName)
     return expectedProps.reduce((acc, item) => {
       if (!receivedProps.includes(item)) {
         acc = `${acc}, ${item}`;
@@ -32,14 +32,9 @@ class Validator {
   }
 
   static lineManager(reqObject) {
-    const { idNumber, firstname, lastname, email, phone } = reqObject;
+    const { idNumber, firstname, lastname, phone } = reqObject;
     const errors = [];
-
-    if (!emailRegex.test(email)) errors.push('Email is invalid');
-
-    errors.push(...ValidatorHelpers.checkPatternedFields('email', email, emailRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('idNumber', idNumber, staffIdRegex));
-    errors.push(...ValidatorHelpers.checkPatternedFields('email', email, emailRegex));
     errors.push(...ValidatorHelpers.checkPatternedFields('phone', phone, phoneAccRegex));
     errors.push(...ValidatorHelpers.checkForEmptyFields('firstname', firstname));
     errors.push(...ValidatorHelpers.checkForEmptyFields('lastname', lastname));
@@ -188,7 +183,7 @@ class Validator {
     } else {
       const numberOfErrors = permittedMonths.reduce((acc, yearMonth) => {
         const [year, month] = yearMonth.split('/');
-        if (+year < 2019 || Number.isNaN(+month) || +month < 0 || +month > 11) acc += 1;
+        if (+year < 2019 || Number.isNaN(+month) || +month < 1 || +month > 12) acc += 1;
         return acc;
       }, 0);
 
@@ -199,6 +194,10 @@ class Validator {
   }
 
   static resendCredentials(data) {
+    return ValidatorHelpers.checkPatternedFields('Staff ID', data.staffId, staffIdRegex);
+  }
+
+  static managerEdit(data) {
     return ValidatorHelpers.checkPatternedFields('Staff ID', data.staffId, staffIdRegex);
   }
 }

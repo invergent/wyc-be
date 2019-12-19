@@ -72,7 +72,6 @@ class ClaimHelpers {
 
   static async pendingClaimsForlineManager(lineManager) {
     const results = await ClaimService.fetchPendingClaimsForLineManagers(lineManager);
-    console.log(results.toJSON())
     const { firstname, lastname } = results; // line manager details
     const filteredResults = ClaimHelpers.filterQueryResult(results.toJSON());
     return { lineManager: { firstname, lastname }, pendingClaims: filteredResults };

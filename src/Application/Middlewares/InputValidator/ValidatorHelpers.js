@@ -68,6 +68,7 @@ class ValidatorHelpers {
       case (path.includes('single')):
       case (path.includes('multiple')):
       case (path.includes('resend')):
+      case (path.includes('manager-edit')):
         methodName = path.slice(path.includes('branch') ? 14 : 13);
         break;
       case (path.includes('login')):

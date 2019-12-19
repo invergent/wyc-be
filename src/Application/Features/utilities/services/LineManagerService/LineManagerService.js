@@ -4,9 +4,9 @@ const { LineManagers } = models;
 
 class LineManagerService {
   static findOrCreateLineManager(lineManagerDetails) {
-    const { email } = lineManagerDetails;
+    const { idNumber } = lineManagerDetails;
     return LineManagers.findOrCreate({
-      where: { email },
+      where: { idNumber },
       defaults: lineManagerDetails
     });
   }

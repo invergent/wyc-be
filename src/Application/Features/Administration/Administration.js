@@ -199,6 +199,18 @@ class Administration {
       return [500, 'An error occurred while resending activation email.'];
     }
   }
+
+  static async authoriseLineManagerEdit(req) {
+    const { body: { staffId } } = req;
+
+    try {
+      const updated = await StaffService.updateStaffInfo(staffId, { canUpdateLineManager: true });
+      return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
+    } catch (e) {
+      console.log(e);
+      return [500, 'An error occurred while granting permission.'];
+    }
+  }
 }
 
 export default Administration;
