@@ -596,6 +596,63 @@ module.exports = {
     </html>`,
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    name: 'Line Manager Profile Update',
+    description: 'Line Manager Profile Update Authorisation',
+    subject: 'Line Manager Profile Update Authorisation',
+    htmlMessage: `<html lang="en" dir="ltr">
+      ${headerAndFooterContent('header')}
+      <body>
+        <table class="cover">
+          <tr>
+            <td>
+              <table class="content-wrapper">
+                <tr>
+                  <td>
+                    <table class="header">
+                      <tr>
+                        <td>
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                        </td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="body">
+                      <tr>
+                        <td>
+                          <h2>Profile Update Authorisation</h2>
+                          <table class="paragraphs">
+                            <tr>
+                              <td>
+                                <div>
+                                  <p>Hi {{staffFirstName}},</p>
+                                  <p>You have been authorised by admin to update your line manager details.</p>
+                                  <p>Be sure to fill in the correct information. If you make a mistake, you would have to request for permission again.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="button-wrapper">
+                            <tr>
+                              <td>
+                                <a href="{{url}}/staff/profile" target="_blank">Go to profile</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>`,
+    createdAt: new Date(),
+    updatedAt: new Date()
   }]),
   down: queryInterface => queryInterface.dropTable('EmailTemplate')
 };

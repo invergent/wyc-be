@@ -205,6 +205,9 @@ class Administration {
 
     try {
       const updated = await StaffService.updateStaffInfo(staffId, { canUpdateLineManager: true });
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
+
+      notifications.emit(eventNames.CanUpdateLineManager, [[staff]]);
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
     } catch (e) {
       console.log(e);

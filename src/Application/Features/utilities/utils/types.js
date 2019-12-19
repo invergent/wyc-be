@@ -9,7 +9,8 @@ export const templateNames = Object.freeze({
   Cancelled: 'Claim Cancelled Staff',
   Completed: 'Claim Completed Staff',
   Reminder: 'Pending Claim Reminder Staff',
-  Activation: 'Activation Email Staff'
+  Activation: 'Activation Email Staff',
+  CanUpdateLineManager: 'Line Manager Profile Update'
 });
 
 export const roleNames = Object.freeze({

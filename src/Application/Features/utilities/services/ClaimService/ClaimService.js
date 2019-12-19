@@ -92,8 +92,11 @@ class ClaimService {
   }
 
   static getChartStatistics() {
-    const currentYear = new Date().getFullYear();
-    const options = { where: { year: currentYear } };
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const itsJanuary = currentMonth === 0;
+    const options = { where: { year: itsJanuary ? (currentYear - 1) : currentYear } };
     return ClaimsStatistics.findOne(options);
   }
 
