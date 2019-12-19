@@ -178,6 +178,10 @@ class Controller {
     return Responder.respond(req, res, Administration.resendLoginCredentials);
   }
 
+  static async authoriseLineManagerEdit(req, res) {
+    return Responder.respond(req, res, Administration.authoriseLineManagerEdit);
+  }
+
   static async addHoliday(req, res) {
     return Responder.respond(req, res, Holidays.add);
   }

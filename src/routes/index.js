@@ -18,7 +18,8 @@ const {
   uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
-  fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff
+  fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
+  authoriseLineManagerEdit
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -83,6 +84,7 @@ router.post('/admin/staff', authenticateAdmin, checkProps, checkFileType, valida
 router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, createSingleBranchOrStaff);
 router.put('/admin/staff/multiple-claims', authenticateAdmin, checkProps, checkEntries, authoriseMultipleClaimsApplication);
 router.post('/admin/staff/resend-credentials', authenticateAdmin, checkProps, checkEntries, resendLoginCredentials);
+router.post('/admin/staff/manager-edit', authenticateAdmin, checkProps, checkEntries, authoriseLineManagerEdit);
 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);
