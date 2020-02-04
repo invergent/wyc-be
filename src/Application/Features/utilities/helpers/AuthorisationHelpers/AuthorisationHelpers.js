@@ -16,9 +16,7 @@ class AuthorisationHelpers {
 
   static createStaffToken(staff, tokenType) {
     const payloadName = tokenType === 'adminToken' ? 'admin' : 'staff';
-    let staffRole = staff.role ? staff.role.name : null;
-    if (tokenType === 'adminToken') staffRole = 'Admin';
-
+    const staffRole = staff.role ? staff.role.name : null;
     const payload = { id: staff.id, staffId: staff.staffId, staffRole };
     const hashedToken = krypter.authenticationEncryption(payloadName, payload);
     const data = { hashedToken };

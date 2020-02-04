@@ -62,9 +62,12 @@ describe('Cron Unit Tests', () => {
     const updateStat = jest.spyOn(ClaimService, 'updateChartStatistics').mockReturnValue([{}]);
 
     await Scheduler.updateCompanyStatistics();
-
-    expect(claimservice).toHaveBeenCalled();
-    expect(updateStat).toHaveBeenCalled();
+    const { month } = Dates.getLastMonthYearAndMonth();
+    if (month) {
+      expect(updateStat).toHaveBeenCalled();
+    } else {
+      expect(claimservice).toHaveBeenCalled();
+    }
   });
 
   it('should schedule a job for running and saving claim analytics on the DB[create].', async () => {

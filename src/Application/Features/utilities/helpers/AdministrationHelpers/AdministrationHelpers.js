@@ -104,8 +104,8 @@ class AdministrationHelpers {
     return ClaimService.getChartStatistics();
   }
 
-  static fetchStaff(attributes) {
-    return StaffService.fetchStaff(attributes);
+  static fetchStaff(options, staffOnly) {
+    return StaffService.fetchStaff(options, staffOnly);
   }
 
   static refineSingleClaimData(claim) {

@@ -19,7 +19,7 @@ const {
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
-  authoriseLineManagerEdit
+  authoriseLineManagerEdit, fetchLogs
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -27,7 +27,7 @@ const {
 } = InputValidator;
 const {
   authenticateAdmin, authenticateStaff, authenticateLineManager, verifyLineManager,
-  destroyToken, authenticatePasswordReset, authenticateAdminOrStaff
+  destroyToken, authenticatePasswordReset, authenticateAdminOrStaff, onlySuperAdminAuditor
 } = Authenticator;
 
 router.post('/signin', checkProps, checkEntries, authoriseStaff);
@@ -93,5 +93,6 @@ router.post('/admin/holidays', authenticateAdmin, customValidator, addHoliday);
 // router.put('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, customValidator, updateOrDelete);
 router.delete('/admin/holidays', authenticateAdmin, remove);
 router.get('/admin/holidays', authenticateAdminOrStaff, fetchAllHolidays);
+router.get('/admin/logs', authenticateAdmin, onlySuperAdminAuditor, fetchLogs);
 
 export default router;

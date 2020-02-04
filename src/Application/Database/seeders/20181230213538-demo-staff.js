@@ -12,7 +12,7 @@ module.exports = {
     accountNumber: '0012233432',
     branchId: 1,
     lineManagerId: 1,
-    roleId: 2,
+    roleId: 5,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -27,7 +27,7 @@ module.exports = {
     accountNumber: '0012273432',
     branchId: 2,
     lineManagerId: 2,
-    roleId: 3,
+    roleId: 6,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -42,7 +42,7 @@ module.exports = {
     accountNumber: '0012273495',
     branchId: 1,
     lineManagerId: 6,
-    roleId: 4,
+    roleId: 7,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -57,7 +57,7 @@ module.exports = {
     accountNumber: '0012273888',
     branchId: 2,
     lineManagerId: 6,
-    roleId: 3,
+    roleId: 5,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -72,7 +72,7 @@ module.exports = {
     accountNumber: '0012273654',
     branchId: 2,
     lineManagerId: 6,
-    roleId: 3,
+    roleId: 7,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -87,7 +87,7 @@ module.exports = {
     accountNumber: '0012273633',
     branchId: 2,
     lineManagerId: 6,
-    roleId: 3,
+    roleId: 6,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -123,14 +123,40 @@ module.exports = {
   },
   {
     staffId: 'ADMIN001',
+    firstname: 'SuperAdmin',
+    lastname: 'JustAdmin',
+    email: 'thesuperadmin@init.com',
+    password: bcrypt.hashSync('password', 7),
+    image: 'https://res.cloudinary.com/dbsxxymfz/image/upload/v1536757459/dummy-profile.png',
+    phone: '08065432999',
+    accountNumber: '0012276666',
+    roleId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    staffId: 'ADMIN002',
     firstname: 'TheAdmin',
     lastname: 'JustAdmin',
     email: 'theadmin@init.com',
     password: bcrypt.hashSync('password', 7),
     image: 'https://res.cloudinary.com/dbsxxymfz/image/upload/v1536757459/dummy-profile.png',
-    phone: '08065432122',
-    accountNumber: '0012276453',
-    roleId: 1,
+    phone: '08065432888',
+    accountNumber: '0012276555',
+    roleId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    staffId: 'ADMIN003',
+    firstname: 'TheAuditor',
+    lastname: 'JustAdmin',
+    email: 'theauditor@init.com',
+    password: bcrypt.hashSync('password', 7),
+    image: 'https://res.cloudinary.com/dbsxxymfz/image/upload/v1536757459/dummy-profile.png',
+    phone: '08065432777',
+    accountNumber: '0012276444',
+    roleId: 3,
     createdAt: new Date(),
     updatedAt: new Date()
   },

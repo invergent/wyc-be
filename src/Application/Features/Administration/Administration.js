@@ -7,7 +7,7 @@ import UsersHelpers from '../utilities/helpers/UsersHelpers';
 
 const { AdministrationHelpers } = helpers;
 const {
-  StaffService, BranchService, ClaimService, SettingService
+  StaffService, BranchService, ClaimService, SettingService, ActivityService
 } = services;
 
 class Administration {
@@ -95,10 +95,12 @@ class Administration {
     }
   }
 
-  static async fetchStaff() {
+  static async fetchStaff(req) {
+    const { query: { staffId, limit } } = req;
     const attributes = ['staffId', 'firstname', 'middlename', 'lastname', ['email', 'emailAddress'], 'image'];
+    const options = { attributes, limit, staffId };
     try {
-      const staffList = await AdministrationHelpers.fetchStaff(attributes);
+      const staffList = await AdministrationHelpers.fetchStaff(options, !staffId);
       return [200, 'Request successful', staffList];
     } catch (e) {
       console.log(e);
@@ -212,6 +214,22 @@ class Administration {
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred while granting permission.'];
+    }
+  }
+
+  static async fetchLogs(req) {
+    const { query, currentAdmin: { staffId } } = req;
+
+    try {
+      const logs = await ActivityService.fetchLogs(query);
+      if (+query.page === 1) {
+        // record view log activity only when first viewed
+        notifications.emit(eventNames.LogActivity, ['Viewed logs', staffId]);
+      }
+      return [200, 'success', logs];
+    } catch (e) {
+      console.log(e);
+      return [500, 'An error occurred while fetching logs.'];
     }
   }
 }
