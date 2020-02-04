@@ -24,6 +24,15 @@ class Authenticator {
     return Authenticator.authenticate(req, res, next, 'passwordReset', passwordResetError);
   }
 
+  static onlySuperAdminAuditor(req, res, next) {
+    const { currentAdmin } = req;
+    if (!currentAdmin) return res.status(401).json({ message: 'unauthenticated' });
+    if (!['Super Admin', 'Auditor'].includes(currentAdmin.staffRole)) {
+      return res.status(401).json({ message: 'unauthenticated' });
+    }
+    return next();
+  }
+
   static authenticateAdminOrStaff(req, res, next) {
     if (req.cookies.staffToken) return Authenticator.authenticateStaff(req, res, next);
     if (req.cookies.adminToken) return Authenticator.authenticateAdmin(req, res, next);

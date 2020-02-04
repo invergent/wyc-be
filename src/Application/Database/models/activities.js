@@ -10,7 +10,7 @@ const activities = (sequelize, DataTypes) => {
   }, { freezeTableName: true });
 
   Activities.associate = (models) => {
-    Activities.belongsTo(models.Staff, { foreignKey: 'staffId' });
+    Activities.belongsTo(models.Staff, { as: 'creator', foreignKey: 'staffId', targetKey: 'staffId' });
   };
 
   return Activities;

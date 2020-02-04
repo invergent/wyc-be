@@ -25,7 +25,7 @@ describe('Administration Unit Tests', () => {
     it('should send a 500 fail response if an error occurs while fetching all staff.', async () => {
       jest.spyOn(AdministrationHelpers, 'fetchStaff').mockRejectedValue('value');
       
-      const result = await Administration.fetchStaff();
+      const result = await Administration.fetchStaff(mockReq);
       const message = 'There was a problem fetching claims ERR500FETSTF.';
 
       expect(result).toHaveLength(2);

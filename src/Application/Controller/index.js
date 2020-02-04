@@ -193,6 +193,10 @@ class Controller {
   static async fetchAllHolidays(req, res) {
     return Responder.respond(req, res, Holidays.getAll);
   }
+
+  static async fetchLogs(req, res) {
+    return Responder.respond(req, res, Administration.fetchLogs);
+  }
 }
 
 export default Controller;

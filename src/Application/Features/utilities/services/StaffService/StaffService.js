@@ -36,8 +36,13 @@ class StaffService {
     });
   }
 
-  static fetchStaff(attributes) {
-    const options = { where: { staffId: { [Op.notLike]: 'ADMIN%' } }, attributes };
+  static fetchStaff(reqOptions, staffOnly) {
+    const { attributes, limit, staffId } = reqOptions;
+    const options = { attributes, limit };
+
+    if (staffId) options.where = { staffId: { [Op.like]: `${staffId}%` } };
+    if (staffOnly) options.where = { staffId: { [Op.notLike]: 'ADMIN%' } };
+
     return Staff.findAll(options);
   }
 
