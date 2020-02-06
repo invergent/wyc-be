@@ -6,6 +6,9 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
+    year: {
+      type: Sequelize.INTEGER
+    },
     monthOfClaim: {
       type: Sequelize.STRING
     },

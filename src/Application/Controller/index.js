@@ -106,10 +106,6 @@ class Controller {
     return Responder.respond(req, res, Administration.createBranches);
   }
 
-  static async markClaimsAsCompleted(req, res) {
-    return Responder.respond(req, res, Administration.markClaimsAsCompleted);
-  }
-
   static async staffClaimStats(req, res) {
     return Responder.respond(req, res, Users.Staff.dashboardData);
   }

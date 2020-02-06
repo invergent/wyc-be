@@ -14,8 +14,8 @@ const {
   updateBranch, confirmPasswordResetRequest, resetPassword, addOrChangeLineManager,
   createOvertimeClaim, pendingClaimsForlineManagers, approveClaim, declineClaim, cancelClaim,
   submittedClaims, exportDoc, updateSchedules, createStaff, createBranches, fetchSingleClaim,
-  markClaimsAsCompleted, staffClaimStats, staffActivities, staffProfileData, staffClaimHistory,
-  uploadImage, updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
+  staffClaimStats, staffActivities, staffProfileData, staffClaimHistory, uploadImage,
+  updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
@@ -72,7 +72,6 @@ router.get('/admin/claims', authenticateAdmin, submittedClaims);
 router.get('/admin/claims/chart-statistics', authenticateAdmin, chartStatistics);
 router.get('/admin/claims/:claimId', authenticateAdmin, fetchSingleClaim);
 router.get('/admin/claims/export/:docType', authenticateAdmin, checkDocType, exportDoc);
-router.put('/admin/claims/completed', authenticateAdmin, markClaimsAsCompleted);
 
 router.get('/admin/settings', authenticateAdminOrStaff, companySettings);
 router.put('/admin/settings/schedules', authenticateAdmin, checkScheduleProps, updateSchedules);

@@ -50,7 +50,7 @@ describe('Claim Approval Tests', () => {
       const response = await request.put('/line-manager/claims/pending/2/approve').set('cookie', lineManagerToken);
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Claim approved.');
-      expect(response.body.data.status).toEqual('Processing');
+      expect(response.body.data.status).toEqual('Completed');
     });
 
     it('should decline claim.', async () => {
@@ -87,7 +87,7 @@ describe('Claim Approval Tests', () => {
       // signin a user
       const response2 = await request
         .post('/signin')
-        .send({ staffId: 'TN075595', password: 'password' })
+        .send({ staffId: 'TN042995', password: 'password' })
         .set('Accept', 'application/json');
 
       staffToken2 = response2.header['set-cookie'];

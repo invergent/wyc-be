@@ -11,11 +11,12 @@ class ClaimHelpers {
   }
 
   static responseMessage(overtimeRequest) {
+    const { year, monthOfClaim } = overtimeRequest;
     return {
       messageWhenCreated: 'Your claim request was created successfully.',
       messageWhenNotCreated: `You have already submitted a claim request for ${
-        overtimeRequest.monthOfClaim
-      }. If you wish to make changes, please cancel the current claim and create a new one.`
+        monthOfClaim
+      }, ${year}. If you wish to make changes, please cancel the current claim and create a new one.`
     };
   }
 
@@ -30,7 +31,7 @@ class ClaimHelpers {
 
       Claims.forEach((staffClaim) => {
         const {
-          id, monthOfClaim, claimElements, details, amount
+          id, year, monthOfClaim, claimElements, details, amount
         } = staffClaim;
         pendingClaims.push({
           staffId,
@@ -39,6 +40,7 @@ class ClaimHelpers {
           middlename,
           image,
           id,
+          year,
           monthOfClaim,
           claimElements,
           details,
@@ -53,11 +55,11 @@ class ClaimHelpers {
   static filterReminderPendingClaims(queryResult) {
     return queryResult.map((result) => {
       const {
-        id: claimId, monthOfClaim, amount, 'claimer.firstname': firstname, 'claimer.email': email,
+        id: claimId, year, monthOfClaim, amount, 'claimer.firstname': firstname, 'claimer.email': email,
         'claimer.staffId': staffId
       } = result;
       return {
-        claimId, staffId, monthOfClaim, amount, firstname, email
+        claimId, staffId, year, monthOfClaim, amount, firstname, email
       };
     });
   }
@@ -99,16 +101,16 @@ class ClaimHelpers {
   }
 
   static async fetchStaffPendingClaim(staffId) {
-    // a hack for a claim that is either pending or processing
-    const pendingClaim = await ClaimService.fetchStaffClaims(staffId, 'ing');
+    // a hack for a claim that is either pending
+    const pendingClaim = await ClaimService.fetchStaffClaims(staffId, 'Pending');
     if (!pendingClaim.length) return [];
 
     return pendingClaim.map((claim) => {
       const {
-        id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+        id, year, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
       } = claim;
       return {
-        id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+        id, year, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
       };
     });
   }

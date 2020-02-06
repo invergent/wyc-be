@@ -78,19 +78,6 @@ describe('Administration Unit Tests', () => {
     });
   });
 
-  describe('markClaimsAsCompleted', () => {
-    it('should send a 500 fail response if an error occurs while marking claims.', async () => {
-      jest.spyOn(ClaimService, 'markClaimsAsCompleted').mockRejectedValue('err');
-
-      const result = await Administration.markClaimsAsCompleted();
-      const message = 'An error occurred while marking claims as completed ERR500CLMMCC.';
-
-      expect(result).toHaveLength(3);
-      expect(result[0]).toEqual(500);
-      expect(result[1]).toEqual(message);
-    });
-  });
-
   describe('fetch Tenant settings', () => {
     it('should send a 200 response on successful claim fetch.', async () => {
       jest.spyOn(SettingService, 'fetchSettings').mockResolvedValueOnce({});

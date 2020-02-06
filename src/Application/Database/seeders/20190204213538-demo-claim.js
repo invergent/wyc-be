@@ -1,6 +1,7 @@
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('Claims', [{
-    monthOfClaim: 'Oct, 2018',
+    year: 2018,
+    monthOfClaim: 'Oct',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -32,7 +33,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Nov, 2018',
+    year: 2018,
+    monthOfClaim: 'Nov',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -64,7 +66,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Dec, 2018',
+    year: 2018,
+    monthOfClaim: 'Dec',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -96,7 +99,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Dec, 2018',
+    year: 2018,
+    monthOfClaim: 'Dec',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -128,7 +132,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Jan, 2019',
+    year: 2019,
+    monthOfClaim: 'Jan',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -160,7 +165,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Jan, 2019',
+    year: 2019,
+    monthOfClaim: 'Jan',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -192,7 +198,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Jan, 2019',
+    year: 2019,
+    monthOfClaim: 'Jan',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -224,103 +231,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Jan, 2019',
-    claimElements: 4,
-    details: `{
-      "overtime": {
-        "selectedDates": ["2019-06-30T23:00:00.000Z","2019-07-01T23:00:00.000Z","2019-07-02T23:00:00.000Z","2019-07-07T23:00:00.000Z","2019-07-08T23:00:00.000Z"]
-      },
-      "shiftDuty": {
-        "selectedDates": ["2019-07-21T23:00:00.000Z","2019-07-28T23:00:00.000Z","2019-07-29T23:00:00.000Z","2019-07-22T23:00:00.000Z"]
-      },
-      "atmDuty": {
-        "selectedDates": ["2019-07-17T23:00:00.000Z","2019-07-23T23:00:00.000Z","2019-07-25T23:00:00.000Z","2019-07-19T23:00:00.000Z"]
-      },
-      "atmSupport": {
-        "selectedDates":["2019-07-18T23:00:00.000Z","2019-07-16T23:00:00.000Z","2019-07-24T23:00:00.000Z"]
-      },
-      "holiday": {
-        "selectedDates": ["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]
-      },
-      "outstation": "55000",
-      "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
-      "total": 80050,
-      "applyingMonth": "2019/01",
-      "currentlyPressedBtn": "outstation",
-      "visiblePaneItems":6
-    }`,
-    amount: 6400,
-    requester: 8,
-    status: 'Processing',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    monthOfClaim: 'March, 2019',
-    claimElements: 4,
-    details: `{
-      "overtime": {
-        "selectedDates": ["2019-06-30T23:00:00.000Z","2019-07-01T23:00:00.000Z","2019-07-02T23:00:00.000Z","2019-07-07T23:00:00.000Z","2019-07-08T23:00:00.000Z"]
-      },
-      "shiftDuty": {
-        "selectedDates": ["2019-07-21T23:00:00.000Z","2019-07-28T23:00:00.000Z","2019-07-29T23:00:00.000Z","2019-07-22T23:00:00.000Z"]
-      },
-      "atmDuty": {
-        "selectedDates": ["2019-07-17T23:00:00.000Z","2019-07-23T23:00:00.000Z","2019-07-25T23:00:00.000Z","2019-07-19T23:00:00.000Z"]
-      },
-      "atmSupport": {
-        "selectedDates":["2019-07-18T23:00:00.000Z","2019-07-16T23:00:00.000Z","2019-07-24T23:00:00.000Z"]
-      },
-      "holiday": {
-        "selectedDates": ["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]
-      },
-      "outstation": "55000",
-      "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
-      "total": 80050,
-      "applyingMonth": "2019/03",
-      "currentlyPressedBtn": "outstation",
-      "visiblePaneItems":6
-    }`,
-    amount: 8200,
-    requester: 6,
-    status: 'Processing',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    monthOfClaim: 'April, 2019',
-    claimElements: 4,
-    details: `{
-      "overtime": {
-        "selectedDates": ["2019-06-30T23:00:00.000Z","2019-07-01T23:00:00.000Z","2019-07-02T23:00:00.000Z","2019-07-07T23:00:00.000Z","2019-07-08T23:00:00.000Z"]
-      },
-      "shiftDuty": {
-        "selectedDates": ["2019-07-21T23:00:00.000Z","2019-07-28T23:00:00.000Z","2019-07-29T23:00:00.000Z","2019-07-22T23:00:00.000Z"]
-      },
-      "atmDuty": {
-        "selectedDates": ["2019-07-17T23:00:00.000Z","2019-07-23T23:00:00.000Z","2019-07-25T23:00:00.000Z","2019-07-19T23:00:00.000Z"]
-      },
-      "atmSupport": {
-        "selectedDates":["2019-07-18T23:00:00.000Z","2019-07-16T23:00:00.000Z","2019-07-24T23:00:00.000Z"]
-      },
-      "holiday": {
-        "selectedDates": ["2019-07-14T23:00:00.000Z","2019-07-15T23:00:00.000Z"]
-      },
-      "outstation": "55000",
-      "allSelectedDates": [1,2,3,8,9,22,29,30,23,18,24,26,20,19,17,25,15,16],
-      "total": 80050,
-      "applyingMonth": "2019/04",
-      "currentlyPressedBtn": "outstation",
-      "visiblePaneItems":6
-    }`,
-    amount: 9400,
-    requester: 6,
-    status: 'Processing',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    monthOfClaim: 'March, 2019',
+    year: 2019,
+    monthOfClaim: 'Mar',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -352,7 +264,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'March, 2019',
+    year: 2019,
+    monthOfClaim: 'Mar',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -384,7 +297,8 @@ module.exports = {
     updatedAt: new Date(2018, 10, 15)
   },
   {
-    monthOfClaim: 'March, 2019',
+    year: 2019,
+    monthOfClaim: 'Mar',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -416,7 +330,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'March, 2019',
+    year: 2019,
+    monthOfClaim: 'Mar',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -448,7 +363,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    monthOfClaim: 'Oct, 2018',
+    year: 2018,
+    monthOfClaim: 'Oct',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -480,7 +396,8 @@ module.exports = {
     updatedAt: new Date(2018, 10, 15)
   },
   {
-    monthOfClaim: 'Oct, 2018',
+    year: 2018,
+    monthOfClaim: 'Oct',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -512,7 +429,8 @@ module.exports = {
     updatedAt: new Date(2018, 10, 15)
   },
   {
-    monthOfClaim: 'Nov, 2018',
+    year: 2018,
+    monthOfClaim: 'Nov',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -544,7 +462,8 @@ module.exports = {
     updatedAt: new Date(2018, 11, 15)
   },
   {
-    monthOfClaim: 'Dec, 2018',
+    year: 2018,
+    monthOfClaim: 'Dec',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -576,7 +495,8 @@ module.exports = {
     updatedAt: new Date(2019, 0, 15)
   },
   {
-    monthOfClaim: 'Jan, 2019',
+    year: 2019,
+    monthOfClaim: 'Jan',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -608,7 +528,8 @@ module.exports = {
     updatedAt: new Date(2019, 1, 15)
   },
   {
-    monthOfClaim: 'Jan, 2019',
+    year: 2019,
+    monthOfClaim: 'Jan',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -640,7 +561,8 @@ module.exports = {
     updatedAt: new Date(2019, 1, 17)
   },
   {
-    monthOfClaim: 'March, 2019',
+    year: 2019,
+    monthOfClaim: 'Mar',
     claimElements: 4,
     details: `{
       "overtime": {
@@ -672,7 +594,8 @@ module.exports = {
     updatedAt: new Date(2019, 2, 13)
   },
   {
-    monthOfClaim: 'March, 2019',
+    year: 2019,
+    monthOfClaim: 'Mar',
     claimElements: 4,
     details: `{
       "overtime": {

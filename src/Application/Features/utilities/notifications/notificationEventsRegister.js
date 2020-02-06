@@ -28,9 +28,6 @@ notify.register(eventNames.lineManagerDeclined, InAppNotifications.notifyStaffLi
 notify.register(eventNames.Cancelled, EmailNotifications.notifyStaffCancelled);
 notify.register(eventNames.Cancelled, ActivityLogger.logClaimActivity);
 
-notify.register(eventNames.Completed, EmailNotifications.notifyStaffCompleted);
-notify.register(eventNames.Completed, InAppNotifications.notifyStaffCompleted);
-
 notify.register(eventNames.Reminder, EmailNotifications.remindStaffOfPendingClaim);
 
 // Activity logger events

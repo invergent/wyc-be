@@ -44,6 +44,7 @@ class AdministrationHelpers {
         details,
         amount,
         status,
+        year,
         monthOfClaim,
         claimer: {
           firstname, lastname, middlename, staffId, accountNumber,
@@ -72,6 +73,7 @@ class AdministrationHelpers {
         solId,
         branch,
         accountNumber,
+        year,
         monthOfClaim,
         role,
         approvedby: `${lmFirstname} ${lmLastname}`,
@@ -81,7 +83,7 @@ class AdministrationHelpers {
   }
 
   static async exportableClaims() {
-    const claims = await ClaimService.fetchClaimsInProcessingForExports('Processing');
+    const claims = await ClaimService.fetchCompletedClaimsForExports();
     return AdministrationHelpers.filterAdminClaimsQueryResult(claims);
   }
 
@@ -93,7 +95,7 @@ class AdministrationHelpers {
   }
 
   static statAccumulator(acc, claim) {
-    if (['Processing', 'Completed'].includes(claim.status)) acc.approved += 1;
+    if (claim.status === 'Completed') acc.approved += 1;
     if (claim.status === 'Pending') acc.pending += 1;
     if (claim.status === 'Declined') acc.declined += 1;
     if (claim.status === 'Cancelled') acc.total -= 1;
@@ -110,13 +112,13 @@ class AdministrationHelpers {
 
   static refineSingleClaimData(claim) {
     const {
-      id, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt
+      id, year, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt
     } = claim;
     const {
       staffId, firstname, lastname, middlename
     } = claim.claimer;
     return {
-      id, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt, staffId, firstname, lastname, middlename
+      id, year, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt, staffId, firstname, lastname, middlename
     };
   }
 }

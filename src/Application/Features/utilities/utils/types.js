@@ -7,15 +7,9 @@ export const templateNames = Object.freeze({
   lineManagerApproved: 'Line Manager Approved Staff',
   lineManagerDeclined: 'Line Manager Declined Staff',
   Cancelled: 'Claim Cancelled Staff',
-  Completed: 'Claim Completed Staff',
   Reminder: 'Pending Claim Reminder Staff',
   Activation: 'Activation Email Staff',
   CanUpdateLineManager: 'Line Manager Profile Update'
-});
-
-export const roleNames = Object.freeze({
-  supervisor: 'supervisor',
-  BSM: 'BSM'
 });
 
 export const eventNames = Object.freeze({
@@ -28,7 +22,6 @@ export const eventNames = Object.freeze({
   Cancelled: 'Cancelled',
   Reminder: 'Reminder',
   LogActivity: 'LogActivity',
-  Completed: 'Completed',
   Activation: 'Activation',
   ResendCrendentials: 'ResendCrendentials'
 });
