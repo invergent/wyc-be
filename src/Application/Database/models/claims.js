@@ -1,5 +1,8 @@
 const claims = (sequelize, DataTypes) => {
   const Claims = sequelize.define('Claims', {
+    year: {
+      type: DataTypes.INTEGER
+    },
     monthOfClaim: {
       type: DataTypes.STRING
     },

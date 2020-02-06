@@ -147,24 +147,6 @@ class Administration {
     }
   }
 
-  static async markClaimsAsCompleted() {
-    try {
-      const [updated] = await ClaimService.markClaimsAsCompleted();
-      await StaffService.resetMultipleClaimsAuthorisations();
-      if (updated) notifications.emit(eventNames.Completed, []);
-
-      return [
-        200,
-        updated
-          ? `Successfully marked ${updated} claims as completed.`
-          : 'No claims were marked as completed.'
-      ];
-    } catch (e) {
-      console.log(e);
-      return [500, 'An error occurred while marking claims as completed ERR500CLMMCC.', e];
-    }
-  }
-
   static async fetchSettings() {
     try {
       const settings = await SettingService.fetchSettings();

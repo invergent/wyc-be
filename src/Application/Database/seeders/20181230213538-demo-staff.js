@@ -172,7 +172,7 @@ module.exports = {
     extraMonthsPermitted: true,
     extraMonthsData: `{
       "permittedMonths": ["2019/06", "2019/07", "2019/08", "2019/09"],
-      "monthsApplied": []
+      "appliedMonths": []
     }`,
     changedPassword: true,
     lineManagerId: 6,

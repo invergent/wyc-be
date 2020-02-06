@@ -10,7 +10,7 @@ class GenericHelpers {
     if (approvalType === 'decline') {
       payload.status = 'Declined';
     } else {
-      payload.status = 'Processing';
+      payload.status = 'Completed';
     }
     return payload;
   }
@@ -83,11 +83,6 @@ class GenericHelpers {
       plain: false,
       raw: true
     };
-  }
-
-  static claimsInProcessingOptions() {
-    const options = GenericHelpers.adminBulkSortQueryOptions('Processing');
-    return options;
   }
 
   static fetchCompletedClaimsQueryOptions() {

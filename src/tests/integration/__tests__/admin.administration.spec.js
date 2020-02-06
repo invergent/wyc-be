@@ -258,22 +258,6 @@ describe('Admin Administration', () => {
     });
   });
 
-  describe('Mark Claim As Completed.', () => {
-    it('should mark claims with status "Processing" as "Completed".', async () => {
-      const response = await request.put('/admin/claims/completed').set('cookie', token);
-
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Successfully marked 3 claims as completed.');
-    });
-
-    it('should not update if there are no claims with "Processing" status.', async () => {
-      const response = await request.put('/admin/claims/completed').set('cookie', token);
-
-      expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('No claims were marked as completed.');
-    });
-  });
-
   describe('Manage holidays.', () => {
     const holiday = { yearMonth: '2019/10', fullDate: 'some date string' };
 

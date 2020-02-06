@@ -10,9 +10,10 @@ class ClaimService {
   static findOrCreateClaim(overtimeRequest) {
     return Claims.findOrCreate({
       where: {
+        year: overtimeRequest.year,
         monthOfClaim: overtimeRequest.monthOfClaim,
         requester: overtimeRequest.requester,
-        status: { [Op.like]: { [Op.any]: ['Completed', 'Processing', 'Pending'] } }
+        status: { [Op.like]: { [Op.any]: ['Completed', 'Pending'] } }
       },
       defaults: overtimeRequest,
       raw: true
@@ -61,7 +62,6 @@ class ClaimService {
   static cancelClaim(claimId, extraMonthsData) {
     const updatePayload = { status: 'Cancelled' };
     if (extraMonthsData) updatePayload.extraMonthsData = extraMonthsData;
-    console.log('the payload', updatePayload)
     return ClaimService.updateClaim(updatePayload, claimId);
   }
 
@@ -75,15 +75,9 @@ class ClaimService {
     return Claims.findAll(options);
   }
 
-  static fetchClaimsInProcessingForExports(statusType) {
-    const options = GenericHelpers.adminFetchClaimOptions(statusType);
+  static fetchCompletedClaimsForExports() {
+    const options = GenericHelpers.adminFetchClaimOptions('Completed');
     return Claims.findAll(options);
-  }
-
-  static markClaimsAsCompleted() {
-    const options = GenericHelpers.claimsInProcessingOptions();
-    const payload = { status: 'Completed' };
-    return Claims.update(payload, options);
   }
 
   static fetchStaffClaims(staffId, status) {

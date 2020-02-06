@@ -36,6 +36,7 @@ class ExportDocHelpers {
   static populateRowsWithClaimData(worksheet, claims) {
     claims.forEach((claim, index) => {
       claim.sn = index + 1;
+      claim.monthOfClaim = `${claim.monthOfClaim}, ${claim.year}`;
       worksheet.addRow(claim);
     });
     return worksheet;

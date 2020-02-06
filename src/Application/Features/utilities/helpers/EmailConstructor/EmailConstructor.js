@@ -47,6 +47,7 @@ class EmailConstructor {
       lastname: staffLastName,
       hash,
       password,
+      year,
       monthOfClaim,
       amount,
       lineManager
@@ -65,6 +66,7 @@ class EmailConstructor {
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amountLocale)
       .replace(/{{monthOfClaim}}/g, monthOfClaim)
+      .replace(/{{year}}/g, year)
       .replace(/{{staffId}}/g, staffId)
       .replace(/{{password}}/g, password);
   }
