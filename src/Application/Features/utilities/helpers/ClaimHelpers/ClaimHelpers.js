@@ -107,10 +107,10 @@ class ClaimHelpers {
 
     return pendingClaim.map((claim) => {
       const {
-        id, year, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+        id, year, monthOfClaim, claimer: { image, firstname, lastname }, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
       } = claim;
       return {
-        id, year, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+        id, year, monthOfClaim, image, fullname: `${firstname}, ${lastname}`, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
       };
     });
   }

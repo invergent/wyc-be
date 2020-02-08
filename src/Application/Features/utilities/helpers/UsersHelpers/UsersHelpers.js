@@ -42,6 +42,22 @@ class UsersHelpers {
       lineManagerEmailAddress
     };
   }
+
+  static refineUserClaim(user) {
+    const {
+      staffId, firstname, lastname, image, Claims
+    } = user;
+
+    return Claims.map((claim) => {
+      const {
+        id, amount, status, createdAt, claimElements, details
+      } = claim;
+
+      return {
+        id, staffId, fullname: `${firstname} ${lastname}`, image, amount, status, createdAt, claimElements, details
+      };
+    });
+  }
 }
 
 export default UsersHelpers;

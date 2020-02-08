@@ -52,7 +52,8 @@ class Staff {
     const { currentStaff: { id } } = req;
     try {
       const staffClaimsData = await StaffService.fetchStaffByPk(id, [Claims], [[Claims, 'createdAt', 'DESC']]);
-      return [200, 'Request successful', staffClaimsData.Claims];
+      const refinedStaffData = UsersHelpers.refineUserClaim(staffClaimsData);
+      return [200, 'Request successful', refinedStaffData];
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred ERR500CLMHTY.'];

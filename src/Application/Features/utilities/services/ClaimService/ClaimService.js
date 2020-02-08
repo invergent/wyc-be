@@ -65,8 +65,8 @@ class ClaimService {
     return ClaimService.updateClaim(updatePayload, claimId);
   }
 
-  static fetchSubmittedClaims(statusType, period) {
-    const options = GenericHelpers.adminFetchClaimOptions(statusType, period);
+  static fetchSubmittedClaims(query) {
+    const options = GenericHelpers.adminFetchClaimOptions(undefined, undefined, query);
     return Claims.findAll(options);
   }
 

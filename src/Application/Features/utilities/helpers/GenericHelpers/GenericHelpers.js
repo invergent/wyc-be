@@ -44,18 +44,32 @@ class GenericHelpers {
     return statusFilter;
   }
 
-  static adminFetchClaimOptions(statusType, period) {
-    const options = {
-      where: {
-        createdAt: { [Op.gte]: GenericHelpers.periodToFetch(period) },
-        ...GenericHelpers.claimStatusFilter(statusType)
-      },
+  static adminFetchClaimOptions(statusType, period, query) {
+    let options = {
       include: [{
         model: Staff,
         as: 'claimer',
         include: ['branch', 'role', 'lineManager']
       }]
     };
+    if (query) {
+      const { year, status, month: monthOfClaim } = query;
+      const limit = 10;
+      const offset = ((query.page || 1) - 1) * limit;
+      const where = { year };
+
+      if (query.requester) where.requester = query.requester;
+      if (status) where.status = status;
+      if (monthOfClaim) where.monthOfClaim = monthOfClaim;
+      options = {
+        ...options, limit, offset, where
+      };
+    } else {
+      options.where = {
+        createdAt: { [Op.gte]: GenericHelpers.periodToFetch(period) },
+        ...GenericHelpers.claimStatusFilter(statusType)
+      };
+    }
     return options;
   }
 
