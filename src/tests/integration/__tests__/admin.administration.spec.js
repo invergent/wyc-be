@@ -136,9 +136,9 @@ describe('Admin Administration', () => {
       expect(conflictResponse.body.message).toEqual('Staff already exists.');
     });
 
-    it('should fetch all staff.', async () => {
-      const response = await request.get('/admin/staff').set('cookie', token);
-
+    it('should fetch all staff (without admins).', async () => {
+      const response = await request.get('/admin/staff?staffId=&limit=10000000&staffOnly=false').set('cookie', token);
+      
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Request successful');
     });

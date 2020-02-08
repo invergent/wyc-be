@@ -36,12 +36,14 @@ class StaffService {
     });
   }
 
-  static fetchStaff(reqOptions, staffOnly) {
-    const { attributes, limit, staffId } = reqOptions;
-    const options = { attributes, limit };
+  static fetchStaff(reqOptions) {
+    const {
+      attributes, limit, staffId, staffOnly
+    } = reqOptions;
+    const options = { attributes, limit: limit || 100000000, where: { staffId: {} } };
 
-    if (staffId) options.where = { staffId: { [Op.like]: `${staffId}%` } };
-    if (staffOnly) options.where = { staffId: { [Op.notLike]: 'ADMIN%' } };
+    if (staffId) options.where.staffId = { [Op.like]: `%${staffId}%` };
+    if (staffOnly) options.where.staffId = { ...options.where.staffId, [Op.notLike]: 'ADMIN%' };
 
     return Staff.findAll(options);
   }

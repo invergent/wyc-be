@@ -47,7 +47,7 @@ class AdministrationHelpers {
         year,
         monthOfClaim,
         claimer: {
-          firstname, lastname, middlename, staffId, accountNumber,
+          firstname, lastname, middlename, staffId, accountNumber, image,
           branch: { solId, name: branch },
           role: { name: role },
           lineManager: { firstname: lmFirstname, lastname: lmLastname, email: lmEmail }
@@ -70,6 +70,7 @@ class AdministrationHelpers {
         status,
         staffId,
         fullname: `${firstname} ${lastname}${middlename ? ' ' : ''}${middlename || ''}`,
+        image,
         solId,
         branch,
         accountNumber,
@@ -106,8 +107,8 @@ class AdministrationHelpers {
     return ClaimService.getChartStatistics();
   }
 
-  static fetchStaff(options, staffOnly) {
-    return StaffService.fetchStaff(options, staffOnly);
+  static fetchStaff(options) {
+    return StaffService.fetchStaff(options);
   }
 
   static refineSingleClaimData(claim) {
@@ -120,6 +121,35 @@ class AdministrationHelpers {
     return {
       id, year, monthOfClaim, claimElements, amount, details, status, editRequested, editMessage, createdAt, updatedAt, staffId, firstname, lastname, middlename
     };
+  }
+
+  static filterAdminClaims(claims) {
+    return claims.map((claim) => {
+      const {
+        details,
+        claimElements,
+        amount,
+        status,
+        year,
+        monthOfClaim,
+        createdAt,
+        claimer: {
+          firstname, lastname, middlename, staffId, image,
+        },
+      } = claim;
+      return {
+        details,
+        claimElements,
+        amount,
+        status,
+        staffId,
+        createdAt,
+        fullname: `${firstname} ${lastname}${middlename ? ' ' : ''}${middlename || ''}`,
+        image,
+        year,
+        monthOfClaim
+      };
+    });
   }
 }
 

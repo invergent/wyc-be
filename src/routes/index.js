@@ -19,7 +19,7 @@ const {
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
-  authoriseLineManagerEdit, fetchLogs
+  authoriseLineManagerEdit, fetchLogs, dashboardStats
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -69,6 +69,7 @@ router.post('/users/profile/reset', authenticatePasswordReset, checkProps, check
 
 
 router.get('/admin/claims', authenticateAdmin, submittedClaims);
+router.get('/admin/claims/dashboard-statistics', authenticateAdmin, dashboardStats);
 router.get('/admin/claims/chart-statistics', authenticateAdmin, chartStatistics);
 router.get('/admin/claims/:claimId', authenticateAdmin, fetchSingleClaim);
 router.get('/admin/claims/export/:docType', authenticateAdmin, checkDocType, exportDoc);

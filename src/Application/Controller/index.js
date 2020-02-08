@@ -193,6 +193,10 @@ class Controller {
   static async fetchLogs(req, res) {
     return Responder.respond(req, res, Administration.fetchLogs);
   }
+
+  static async dashboardStats(req, res) {
+    return Responder.respond(req, res, Administration.dashboardStats);
+  }
 }
 
 export default Controller;

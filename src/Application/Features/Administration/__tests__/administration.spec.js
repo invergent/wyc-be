@@ -60,11 +60,11 @@ describe('Administration Unit Tests', () => {
     it('should send a 500 fail response if an error occurs while fetching submitted claims.', async () => {
       jest.spyOn(ClaimService, 'fetchSubmittedClaims').mockRejectedValue('err');
 
-      const result = await Administration.submittedClaims();
+      const result = await Administration.submittedClaims(mockReq);
 
       expect(result).toHaveLength(2);
       expect(result[0]).toEqual(500);
-      expect(result[1]).toEqual('There was a problem fetching claims ERR500ADMDSH.');
+      expect(result[1]).toEqual('There was a problem fetching claims ERR500ASUBCLM.');
     });
 
     it('should send a 500 fail response if an error occurs while fetching chart statistics data.', async () => {

@@ -74,11 +74,23 @@ class Administration {
     }
   }
 
-  static async submittedClaims() {
+  static async submittedClaims(req) {
+    const { query } = req;
     try {
-      const submittedClaims = await ClaimService.fetchSubmittedClaims();
-      const statistics = await AdministrationHelpers.getClaimStatistics(submittedClaims);
-      return [200, 'Request successful', { submittedClaims, statistics }];
+      const claims = await ClaimService.fetchSubmittedClaims(query);
+      const submittedClaims = AdministrationHelpers.filterAdminClaims(claims);
+      return [200, 'Request successful', submittedClaims];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem fetching claims ERR500ASUBCLM.'];
+    }
+  }
+
+  static async dashboardStats() {
+    try {
+      const claims = await ClaimService.fetchSubmittedClaims();
+      const statistics = await AdministrationHelpers.getClaimStatistics(claims);
+      return [200, 'Request successful', statistics];
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem fetching claims ERR500ADMDSH.'];
@@ -96,11 +108,13 @@ class Administration {
   }
 
   static async fetchStaff(req) {
-    const { query: { staffId, limit } } = req;
-    const attributes = ['staffId', 'firstname', 'middlename', 'lastname', ['email', 'emailAddress'], 'image'];
-    const options = { attributes, limit, staffId };
+    const { query: { staffId, limit, staffOnly } } = req;
+    const attributes = ['id', 'staffId', 'firstname', 'middlename', 'lastname', ['email', 'emailAddress'], 'image'];
+    const options = {
+      attributes, limit, staffId, staffOnly
+    };
     try {
-      const staffList = await AdministrationHelpers.fetchStaff(options, !staffId);
+      const staffList = await AdministrationHelpers.fetchStaff(options);
       return [200, 'Request successful', staffList];
     } catch (e) {
       console.log(e);
