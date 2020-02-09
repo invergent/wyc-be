@@ -23,7 +23,6 @@ const staff = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true
     },
     altPhone: {
@@ -32,7 +31,6 @@ const staff = (sequelize, DataTypes) => {
     },
     accountNumber: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true
     },
     password: {

@@ -36,6 +36,14 @@ class StaffService {
     });
   }
 
+  static fetchAdmins() {
+    return Staff.findAll({
+      where: { staffId: { [Op.iLike]: 'Admin%' } },
+      attributes: ['id', 'staffId', 'firstname', 'lastname', ['email', 'emailAddress'], 'image'],
+      include: ['role']
+    });
+  }
+
   static fetchStaff(reqOptions) {
     const {
       attributes, limit, staffId, staffOnly

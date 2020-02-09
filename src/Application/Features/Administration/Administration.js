@@ -59,6 +59,23 @@ class Administration {
     }
   }
 
+  static async createAdmin(req) {
+    const { body } = req;
+    body.password = crypto.randomBytes(3).toString('hex');
+
+    try {
+      const [resource, created] = await StaffService.findOrCreateSingleStaff(body);
+      if (created) notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
+      resource.password = undefined;
+      return created
+        ? [201, 'Admin created successfully.', resource]
+        : [409, 'Admin already exists.', resource];
+    } catch (error) {
+      console.log(error);
+      return [500, 'There was an error while creating admin.', error];
+    }
+  }
+
   static async createBranches(req) {
     const { worksheet } = req;
     const worksheetConverter = AdministrationHelpers.convertBranchWorksheetToObjectsArray;
@@ -116,6 +133,16 @@ class Administration {
     try {
       const staffList = await AdministrationHelpers.fetchStaff(options);
       return [200, 'Request successful', staffList];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem fetching claims ERR500FETSTF.'];
+    }
+  }
+
+  static async fetchAdmins() {
+    try {
+      const admins = await StaffService.fetchAdmins();
+      return [200, 'Request successful', admins];
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem fetching claims ERR500FETSTF.'];
