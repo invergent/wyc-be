@@ -154,6 +154,10 @@ class Controller {
     return Responder.respond(req, res, Administration.fetchSingleStaff);
   }
 
+  static async createAdmin(req, res) {
+    return Responder.respond(req, res, Administration.createAdmin);
+  }
+
   static async removeSingleStaff(req, res) {
     return Responder.respond(req, res, Administration.removeSingleStaff);
   }
@@ -192,6 +196,14 @@ class Controller {
 
   static async fetchLogs(req, res) {
     return Responder.respond(req, res, Administration.fetchLogs);
+  }
+
+  static async fetchAdmins(req, res) {
+    return Responder.respond(req, res, Administration.fetchAdmins);
+  }
+
+  static async removeAdmin(req, res) {
+    return Responder.respond(req, res, Administration.removeAdmin);
   }
 
   static async dashboardStats(req, res) {

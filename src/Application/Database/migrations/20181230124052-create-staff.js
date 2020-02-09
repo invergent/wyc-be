@@ -29,7 +29,6 @@ module.exports = {
     },
     phone: {
       type: Sequelize.STRING,
-      allowNull: false,
       unique: true
     },
     altPhone: {
@@ -38,7 +37,6 @@ module.exports = {
     },
     accountNumber: {
       type: Sequelize.STRING,
-      allowNull: false,
       unique: true
     },
     password: {
