@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import models from '../../../../Database/models';
 import Dates from '../Dates';
 
-const { Claims, Staff } = models;
+const { Claims, Staff, Branch } = models;
 
 class GenericHelpers {
   static createUpdatePayload(approvalType) {
@@ -61,6 +61,17 @@ class GenericHelpers {
       if (query.requester) where.requester = query.requester;
       if (status) where.status = status;
       if (monthOfClaim) where.monthOfClaim = monthOfClaim;
+      if (query.solId) {
+        const branchWhere = { solId: query.solId };
+        options.include[0].include[0] = {
+          model: Branch,
+          as: 'branch',
+          where: branchWhere
+        };
+
+        // return only staff in the branch
+        options.include[0].required = true;
+      }
       options = {
         ...options, limit, offset, where
       };

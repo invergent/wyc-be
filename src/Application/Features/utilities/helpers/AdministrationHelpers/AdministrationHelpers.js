@@ -126,6 +126,7 @@ class AdministrationHelpers {
   static filterAdminClaims(claims) {
     return claims.map((claim) => {
       const {
+        id,
         details,
         claimElements,
         amount,
@@ -134,10 +135,15 @@ class AdministrationHelpers {
         monthOfClaim,
         createdAt,
         claimer: {
-          firstname, lastname, middlename, staffId, image,
+          firstname, lastname, middlename, staffId, image, branch: staffBranch
         },
       } = claim;
+
+      let branch;
+
+      if (staffBranch) branch = staffBranch.name;
       return {
+        id,
         details,
         claimElements,
         amount,
@@ -147,7 +153,8 @@ class AdministrationHelpers {
         fullname: `${firstname} ${lastname}${middlename ? ' ' : ''}${middlename || ''}`,
         image,
         year,
-        monthOfClaim
+        monthOfClaim,
+        branch
       };
     });
   }
