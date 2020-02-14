@@ -19,7 +19,8 @@ const {
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
-  authoriseLineManagerEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin
+  authoriseLineManagerEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin, createSingleSupervisor,
+  createSupervisors, removeSingleSupervisor
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -92,6 +93,10 @@ router.post('/admin/staff/manager-edit', authenticateAdmin, checkProps, checkEnt
 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);
+
+router.post('/admin/supervisors', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createSupervisors);
+router.post('/admin/supervisors/single', authenticateAdmin, checkEntries, createSingleSupervisor);
+router.delete('/admin/supervisors/:supervisorId', authenticateAdmin, onlySuperAdminAuditor, removeSingleSupervisor);
 
 router.post('/admin/holidays', authenticateAdmin, customValidator, addHoliday);
 // router.put('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, customValidator, updateOrDelete);

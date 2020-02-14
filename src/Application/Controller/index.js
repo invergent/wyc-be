@@ -158,6 +158,18 @@ class Controller {
     return Responder.respond(req, res, Administration.createAdmin);
   }
 
+  static async createSingleSupervisor(req, res) {
+    return Responder.respond(req, res, Administration.createSingleSupervisor);
+  }
+
+  static async createSupervisors(req, res) {
+    return Responder.respond(req, res, Administration.createSupervisors);
+  }
+
+  static async removeSingleSupervisor(req, res) {
+    return Responder.respond(req, res, Administration.removeSingleSupervisor);
+  }
+
   static async removeSingleStaff(req, res) {
     return Responder.respond(req, res, Administration.removeSingleStaff);
   }

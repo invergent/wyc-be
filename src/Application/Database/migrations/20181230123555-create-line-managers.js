@@ -11,6 +11,10 @@ module.exports = {
       allowNull: false,
       unique: true
     },
+    solId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
     firstname: {
       type: Sequelize.STRING,
       allowNull: false

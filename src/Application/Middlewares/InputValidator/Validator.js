@@ -119,6 +119,19 @@ class Validator {
     return Validator.errorDecider(errors);
   }
 
+  static supervisors(rowValues) {
+    const [emptyCell, idNumber, solId, firstname, lastname, email, phone] = rowValues; // eslint-disable-line
+    const errors = [];
+    errors.push(...ValidatorHelpers.checkPatternedFields('Supervisor ID', idNumber, staffIdRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Sol ID', solId, solIdRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname, true));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname, true));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', email, emailRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneAccRegex));
+
+    return Validator.errorDecider(errors);
+  }
+
   static profile(profileInfo) {
     const errors = [];
     const {
@@ -156,6 +169,22 @@ class Validator {
       errors.push(...ValidatorHelpers.checkForEmptyFields('Middlename', middlename, true));
       errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneAccRegex));
     }
+
+    return errors;
+  }
+
+  static supervisor(data) {
+    const errors = [];
+    const {
+      idNumber, firstname, lastname, email, phone, solId
+    } = data;
+
+    errors.push(...ValidatorHelpers.checkPatternedFields('SOL ID', solId, solIdRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Supervisor ID', idNumber, staffIdRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', email, emailRegex));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname));
+    errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneAccRegex));
 
     return errors;
   }

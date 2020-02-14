@@ -38,6 +38,25 @@ class AdministrationHelpers {
     return arrayOfBranches;
   }
 
+  static convertSupervisorWorksheetToObjectsArray(worksheet) {
+    const supervisors = [];
+
+    worksheet.eachRow((row) => {
+      // eslint-disable-next-line
+      const [emptyCell, idNumber, solId, firstname, lastname, email, phone] = row.values;
+      supervisors.push({
+        idNumber: idNumber.toUpperCase(),
+        solId,
+        firstname,
+        lastname,
+        email: email.toLowerCase(),
+        phone
+      });
+    });
+
+    return supervisors;
+  }
+
   static filterAdminClaimsQueryResult(queryResult) {
     return queryResult.map((result) => {
       const {
