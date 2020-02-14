@@ -59,6 +59,9 @@ class ValidatorHelpers {
     let methodName;
 
     switch (true) {
+      case (path.includes('supervisor')):
+        methodName = 'supervisor';
+        break;
       case (path === '/users/profile'):
         methodName = 'profile';
         break;

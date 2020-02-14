@@ -7,7 +7,7 @@ import UsersHelpers from '../utilities/helpers/UsersHelpers';
 
 const { AdministrationHelpers } = helpers;
 const {
-  StaffService, BranchService, ClaimService, SettingService, ActivityService
+  StaffService, BranchService, LineManagerService, ClaimService, SettingService, ActivityService
 } = services;
 
 class Administration {
@@ -88,6 +88,35 @@ class Administration {
     } catch (e) {
       console.log(e);
       return [500, 'There was an error creating branches ERR500CRTBRC.', e];
+    }
+  }
+
+  static async createSupervisors(req) {
+    const { worksheet } = req;
+    const worksheetConverter = AdministrationHelpers.convertSupervisorWorksheetToObjectsArray;
+
+    try {
+      const lineManagers = worksheetConverter(worksheet);
+      const results = await LineManagerService.bulkCreateLineManagers(lineManagers);
+      const createdLineManagers = results.map(result => result.dataValues);
+      return [201, `${lineManagers.length} supervisors created successfully.`, createdLineManagers];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was an error creating branches ERR500CRTLMGR.', e];
+    }
+  }
+
+  static async createSingleSupervisor(req) {
+    const { body } = req;
+
+    try {
+      const [resource, created] = await LineManagerService.findOrCreateLineManager(body);
+      return created
+        ? [201, 'Supervisor created successfully.', resource]
+        : [409, 'supervisor already exists.', resource];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was an error creating branches ERR500CRTLMGR.', e];
     }
   }
 
@@ -172,6 +201,20 @@ class Administration {
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem removing staff ERR500RMVSTF.'];
+    }
+  }
+
+  static async removeSingleSupervisor(req) {
+    const { params: { supervisorId } } = req;
+    try {
+      const staff = await LineManagerService.findLineManagerByPk(supervisorId);
+      if (!staff) return [404, 'Supervisor not found'];
+      await staff.destroy();
+
+      return [200, 'Supervisor removed!'];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem removing staff ERR500RMVSUP.'];
     }
   }
 

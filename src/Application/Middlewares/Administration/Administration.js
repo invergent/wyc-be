@@ -12,18 +12,18 @@ class AdministrationMiddleware {
 
   static checkRowValues(methodName, worksheet) {
     const rowsWithErrors = [];
-
     worksheet.eachRow((row, index) => {
       const { rowIsValid, errors } = Validator[methodName](row.values);
       if (!rowIsValid) rowsWithErrors.push({ line: index, errors });
     });
-
+    
     return rowsWithErrors;
   }
-
+  
   static async validateExcelValues(req, res, next) {
     const { path, files: { doc } } = req;
     const methodName = path.slice(7); // take out /admin/ from path, use name as method to call
+    console.log(methodName)
 
     try {
       const worksheet = await AdministrationMiddleware.getWorksheetFromExcelFile(doc);

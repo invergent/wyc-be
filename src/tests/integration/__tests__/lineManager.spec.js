@@ -13,8 +13,10 @@ const { LineManagers } = models;
 
 const lineManagerDetails = {
   idNumber: 'SN773456',
+  solId: 333,
   firstname: 'firstname',
   lastname: 'lastname',
+  email: 'email@email.com',
   phone: '8057632182'
 };
 

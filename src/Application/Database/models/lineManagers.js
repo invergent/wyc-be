@@ -5,6 +5,10 @@ const lineManagers = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    solId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     firstname: {
       type: DataTypes.STRING,
       allowNull: false

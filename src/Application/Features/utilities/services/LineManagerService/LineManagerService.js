@@ -1,4 +1,5 @@
 import models from '../../../../Database/models';
+import BasicQuerier from '../BasicQuerier';
 
 const { LineManagers } = models;
 
@@ -17,6 +18,10 @@ class LineManagerService {
 
   static findLineManagerByPk(id) {
     return LineManagers.findByPk(id);
+  }
+
+  static bulkCreateLineManagers(lineManagers) {
+    return BasicQuerier.bulkCreate('LineManagers', lineManagers);
   }
 }
 

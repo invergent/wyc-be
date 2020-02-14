@@ -10,6 +10,7 @@ export const formProperties = {
   schedules: ['emailSchedule', 'overtimeWindowStart', 'overtimeWindowEnd', 'overtimeWindowIsActive'],
   staff: ['doc'],
   branch: ['doc'],
+  supervisor: ['doc'],
   single: ['staffId', 'firstname', 'lastname', 'email', 'phone', 'accountNumber'],
   multipleClaims: ['staffId', 'extraMonthsPermitted', 'extraMonthsData'],
   resendCredentials: ['staffId'],
