@@ -102,9 +102,9 @@ class AdministrationHelpers {
     });
   }
 
-  static async exportableClaims() {
-    const claims = await ClaimService.fetchCompletedClaimsForExports();
-    return AdministrationHelpers.filterAdminClaimsQueryResult(claims);
+  static async exportableClaims(query) {
+    const claims = await ClaimService.fetchSubmittedClaims(query);
+    return AdministrationHelpers.filterAdminClaimsQueryResult(claims.rows);
   }
 
   static getClaimStatistics(filteredClaims) {

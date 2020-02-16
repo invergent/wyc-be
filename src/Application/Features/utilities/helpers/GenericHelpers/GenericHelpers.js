@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import models from '../../../../Database/models';
 import Dates from '../Dates';
+import { months } from '../../utils/general';
 
 const { Claims, Staff, Branch } = models;
 
@@ -44,7 +45,22 @@ class GenericHelpers {
     return statusFilter;
   }
 
-  static adminFetchClaimOptions(statusType, period, query) {
+  static createdAtClause(year, month) {
+    if (!month) {
+      return {
+        [Op.gte]: new Date(year, 0, 1),
+        [Op.lte]: new Date(year, 11, 31)
+      };
+    }
+    const monthIndex = months.indexOf(month);
+    // claims created between the first and last day of the month
+    return {
+      [Op.gte]: new Date(year, monthIndex + 1, 1),
+      [Op.lte]: new Date(year, monthIndex + 2, 0)
+    }
+  }
+
+  static adminFetchClaimOptions(query) {
     let options = {
       include: [{
         model: Staff,
@@ -53,14 +69,13 @@ class GenericHelpers {
       }]
     };
     if (query) {
-      const { year, status, month: monthOfClaim } = query;
+      const { year, status, month } = query;
       const limit = 10;
       const offset = ((query.page || 1) - 1) * limit;
-      const where = { year };
+      const where = { createdAt: GenericHelpers.createdAtClause(year, month) };
 
       if (query.requester) where.requester = query.requester;
       if (status) where.status = status;
-      if (monthOfClaim) where.monthOfClaim = monthOfClaim;
       if (query.solId) {
         const branchWhere = { solId: query.solId };
         options.include[0].include[0] = {
@@ -77,8 +92,7 @@ class GenericHelpers {
       };
     } else {
       options.where = {
-        createdAt: { [Op.gte]: GenericHelpers.periodToFetch(period) },
-        ...GenericHelpers.claimStatusFilter(statusType)
+        createdAt: { [Op.gte]: GenericHelpers.periodToFetch() }
       };
     }
     return options;

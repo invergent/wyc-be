@@ -123,9 +123,9 @@ class Administration {
   static async submittedClaims(req) {
     const { query } = req;
     try {
-      const claims = await ClaimService.fetchSubmittedClaims(query);
-      const submittedClaims = AdministrationHelpers.filterAdminClaims(claims);
-      return [200, 'Request successful', submittedClaims];
+      const { count, rows } = await ClaimService.fetchSubmittedClaims(query);
+      const submittedClaims = AdministrationHelpers.filterAdminClaims(rows);
+      return [200, 'Request successful', { count, submittedClaims }];
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem fetching claims ERR500ASUBCLM.'];

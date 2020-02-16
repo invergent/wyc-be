@@ -42,8 +42,8 @@ class ExportDocHelpers {
     return worksheet;
   }
 
-  static async populateWorkbooksSheetWithData() {
-    const claims = await AdministrationHelpers.exportableClaims();
+  static async populateWorkbooksSheetWithData(query) {
+    const claims = await AdministrationHelpers.exportableClaims(query);
     const preparedWorksheet = await ExportDocHelpers.setWorkBookPropertiesAndCreateSheet();
     const worksheetWithHeader = ExportDocHelpers.createDocColumnHeaders(preparedWorksheet);
     ExportDocHelpers.populateRowsWithClaimData(worksheetWithHeader, claims);

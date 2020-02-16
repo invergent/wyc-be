@@ -10,9 +10,9 @@ class Export {
   }
 
   static async claimReport(req) {
-    const { params: { docType } } = req;
+    const { params: { docType }, query } = req;
     try {
-      const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData();
+      const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData(query);
       const pathToDocument = await Export.createExcelDocument(populatedWorkbook, docType);
       return [pathToDocument, `cleontimeReport.${docType}`];
     } catch (e) {

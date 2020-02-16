@@ -66,17 +66,12 @@ class ClaimService {
   }
 
   static fetchSubmittedClaims(query) {
-    const options = GenericHelpers.adminFetchClaimOptions(undefined, undefined, query);
-    return Claims.findAll(options);
+    const options = GenericHelpers.adminFetchClaimOptions(query);
+    return query ? Claims.findAndCountAll(options) : Claims.findAll(options);
   }
 
   static fetchCompletedClaim() {
     const options = GenericHelpers.fetchCompletedClaimsQueryOptions();
-    return Claims.findAll(options);
-  }
-
-  static fetchCompletedClaimsForExports() {
-    const options = GenericHelpers.adminFetchClaimOptions('Completed');
     return Claims.findAll(options);
   }
 
