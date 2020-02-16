@@ -30,6 +30,10 @@ export const claimTypes = [
   'Amount', 'Status', 'Month of Claim', 'Approved By', 'Approver Email Address'
 ];
 
+export const months = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+];
+
 export const notificationActivities = {
   lineManagerApproved: 'Your claim was approved by your line manager. It is now being processed by Admin.',
   lineManagerDeclined: 'Your claim was declined by your line manager.',

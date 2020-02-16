@@ -50,11 +50,11 @@ class UsersHelpers {
 
     return Claims.map((claim) => {
       const {
-        id, amount, status, createdAt, claimElements, details
+        id, amount, status, createdAt, claimElements, details, year, monthOfClaim
       } = claim;
 
       return {
-        id, staffId, fullname: `${firstname} ${lastname}`, image, amount, status, createdAt, claimElements, details
+        id, year, monthOfClaim, staffId, fullname: `${firstname} ${lastname}`, image, amount, status, createdAt, claimElements, details
       };
     });
   }
