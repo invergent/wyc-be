@@ -60,7 +60,7 @@ class GenericHelpers {
     }
   }
 
-  static adminFetchClaimOptions(query) {
+  static adminFetchClaimOptions(query, forExports) {
     let options = {
       include: [{
         model: Staff,
@@ -87,9 +87,12 @@ class GenericHelpers {
         // return only staff in the branch
         options.include[0].required = true;
       }
-      options = {
-        ...options, limit, offset, where
-      };
+      options.where = where;
+
+      if (!forExports) {
+        options.limit = limit;
+        options.offset = offset;
+      }
     } else {
       options.where = {
         createdAt: { [Op.gte]: GenericHelpers.periodToFetch() }

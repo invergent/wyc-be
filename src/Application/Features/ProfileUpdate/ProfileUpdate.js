@@ -5,6 +5,8 @@ class ProfileUpdate {
     const { currentStaff, currentAdmin, body } = req;
     const requester = currentStaff || currentAdmin;
 
+    if (body.branchId) body.canUpdateBranch = false;
+
     try {
       const updated = await StaffService.updateStaffInfo(requester.staffId, body);
       

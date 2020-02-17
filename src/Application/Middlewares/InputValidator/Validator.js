@@ -226,7 +226,7 @@ class Validator {
     return ValidatorHelpers.checkPatternedFields('Staff ID', data.staffId, staffIdRegex);
   }
 
-  static managerEdit(data) {
+  static branchEdit(data) {
     return ValidatorHelpers.checkPatternedFields('Staff ID', data.staffId, staffIdRegex);
   }
 }

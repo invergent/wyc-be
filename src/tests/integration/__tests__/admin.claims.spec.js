@@ -36,11 +36,11 @@ describe('Admin Claim Tests', () => {
     });
 
     it('should fetch claims submitted in the current month', async () => {
-      const response = await request.get('/admin/claims?year=2019&month=Jan&page=1').set('cookie', token);
+      const response = await request.get('/admin/claims?year=2020&month=Jan&page=1').set('cookie', token);
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Request successful');
-      expect(response.body.data).toHaveLength(5);
+      expect(response.body.data.submittedClaims).toHaveLength(10);
     });
 
     it('should get claims statistics for charts on admin dashboard', async () => {

@@ -44,7 +44,7 @@ describe('Admin Claim Tests', () => {
     });
 
     it('should return readable excel document', async () => {
-      const response = await request.get('/admin/claims/export/csv').set('cookie', token);
+      const response = await request.get('/admin/claims/export/csv?year=2018&month=Jan&page=1').set('cookie', token);
 
       expect(response.status).toBe(200);
     });
