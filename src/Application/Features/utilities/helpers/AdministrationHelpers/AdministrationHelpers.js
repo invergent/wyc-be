@@ -103,7 +103,8 @@ class AdministrationHelpers {
   }
 
   static async exportableClaims(query) {
-    const claims = await ClaimService.fetchSubmittedClaims(query);
+    const forExports = true;
+    const claims = await ClaimService.fetchSubmittedClaims(query, forExports);
     return AdministrationHelpers.filterAdminClaimsQueryResult(claims.rows);
   }
 

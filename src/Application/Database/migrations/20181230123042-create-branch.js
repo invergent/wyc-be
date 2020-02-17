@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     solId: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
       unique: true
     },

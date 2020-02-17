@@ -548,9 +548,9 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Line Manager Profile Update',
-    description: 'Line Manager Profile Update Authorisation',
-    subject: 'Line Manager Profile Update Authorisation',
+    name: 'Branch Update',
+    description: 'Branch Update Authorisation',
+    subject: 'Authorisation To Update Branch',
     htmlMessage: `<html lang="en" dir="ltr">
       ${headerAndFooterContent('header')}
       <body>
@@ -571,13 +571,13 @@ module.exports = {
                     <table class="body">
                       <tr>
                         <td>
-                          <h2>Profile Update Authorisation</h2>
+                          <h2>Authorisation To Update Branch</h2>
                           <table class="paragraphs">
                             <tr>
                               <td>
                                 <div>
                                   <p>Hi {{staffFirstName}},</p>
-                                  <p>You have been authorised by admin to update your line manager details.</p>
+                                  <p>You have been authorised by admin to update your branch details.</p>
                                   <p>Be sure to fill in the correct information. If you make a mistake, you would have to request for permission again.</p>
                                 </div>
                               </td>
@@ -587,6 +587,63 @@ module.exports = {
                             <tr>
                               <td>
                                 <a href="{{url}}/staff/profile" target="_blank">Go to profile</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>`,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'Request To Update Branch',
+    description: 'Branch Update Authorisation Request',
+    subject: 'Request To Update Branch',
+    htmlMessage: `<html lang="en" dir="ltr">
+      ${headerAndFooterContent('header')}
+      <body>
+        <table class="cover">
+          <tr>
+            <td>
+              <table class="content-wrapper">
+                <tr>
+                  <td>
+                    <table class="header">
+                      <tr>
+                        <td>
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                        </td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="body">
+                      <tr>
+                        <td>
+                          <h2>Request To Update Branch</h2>
+                          <table class="paragraphs">
+                            <tr>
+                              <td>
+                                <div>
+                                  <p>Dear {{adminFirstName}},</p>
+                                  <p>{{staffFirstName}} is requesting permission to update the branch details on their profile.</p>
+                                  <p>To grant permission, log in to CleonTime, go to staff, go to {{staffFirstName}}'s profile, then click "Authorise branch update".</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="button-wrapper">
+                            <tr>
+                              <td>
+                                <a href="{{url}}/admin/staff/{{staffId}}" target="_blank">Go to {{staffFirstName}}'s profile</a>
                               </td>
                             </tr>
                           </table>

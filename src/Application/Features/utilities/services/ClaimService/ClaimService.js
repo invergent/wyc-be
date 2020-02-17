@@ -65,8 +65,8 @@ class ClaimService {
     return ClaimService.updateClaim(updatePayload, claimId);
   }
 
-  static fetchSubmittedClaims(query) {
-    const options = GenericHelpers.adminFetchClaimOptions(query);
+  static fetchSubmittedClaims(query, forExports) {
+    const options = GenericHelpers.adminFetchClaimOptions(query, forExports);
     return query ? Claims.findAndCountAll(options) : Claims.findAll(options);
   }
 
