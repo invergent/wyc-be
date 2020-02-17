@@ -79,8 +79,18 @@ class EmailNotifications {
     EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'Activation');
   }
 
-  static sendCanUpdateLineManagerEmail(listOfStaff) {
-    EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'CanUpdateLineManager');
+  static sendCanUpdateBranchEmail(listOfStaff) {
+    EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'CanUpdateBranch');
+  }
+
+  static sendBranchUpdatePermissionRequest(listOfAdmins, staff) {
+    const newList = listOfAdmins.map(admin => ({
+      adminFirstName: admin.firstname,
+      firstname: staff.firstname,
+      staffId: staff.staffId,
+      email: admin.emailAddress
+    }));
+    EmailNotifications.sendNotificationEmailToMany(newList, 'RequestToUpdateBranch');
   }
 
   static async notifyStaffCompleted() {

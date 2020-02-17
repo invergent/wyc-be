@@ -19,8 +19,8 @@ const {
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
-  authoriseLineManagerEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin, createSingleSupervisor,
-  createSupervisors, removeSingleSupervisor
+  authoriseBranchEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin, createSingleSupervisor,
+  createSupervisors, removeSingleSupervisor, requestBranchEdit
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -67,6 +67,7 @@ router.post('/users/profile/image', authenticateAdminOrStaff, checkProps, checkF
 router.post('/users/profile/line-manager', authenticateStaff, checkProps, checkEntries, addOrChangeLineManager);
 router.put('/users/profile/branch', authenticateStaff, checkBranchId, updateBranch);
 router.post('/users/profile/reset', authenticatePasswordReset, checkProps, checkEntries, resetPassword);
+router.put('/users/profile/edit-branch/request', authenticateStaff, requestBranchEdit);
 
 
 router.get('/admin/claims', authenticateAdmin, submittedClaims);
@@ -89,7 +90,7 @@ router.post('/admin/staff', authenticateAdmin, checkProps, checkFileType, valida
 router.post('/admin/staff/single', authenticateAdmin, checkProps, checkEntries, createSingleBranchOrStaff);
 router.put('/admin/staff/multiple-claims', authenticateAdmin, checkProps, checkEntries, authoriseMultipleClaimsApplication);
 router.post('/admin/staff/resend-credentials', authenticateAdmin, checkProps, checkEntries, resendLoginCredentials);
-router.post('/admin/staff/manager-edit', authenticateAdmin, checkProps, checkEntries, authoriseLineManagerEdit);
+router.post('/admin/staff/edit-branch/authorise', authenticateAdmin, customValidator, authoriseBranchEdit);
 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);

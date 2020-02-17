@@ -62,6 +62,9 @@ class ValidatorHelpers {
       case (path.includes('supervisor')):
         methodName = 'supervisor';
         break;
+      case (path.includes('edit-branch')):
+        methodName = 'branchEdit';
+        break;
       case (path === '/users/profile'):
         methodName = 'profile';
         break;
