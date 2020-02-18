@@ -19,12 +19,22 @@ class ProfileUpdate {
       if (body.branchId && (staff.lineManagerId !== body.lineManagerId)) {
         notifications.emit(eventNames.ChangedLineManager, [staff.toJSON()]);
       }
+      notifications.emit(eventNames.LogActivity, [`Updated ${ProfileUpdate.changedField(body)}`, requester.staffId]);
+
       
       return [updated ? 200 : 500, `Profile ${updated ? '' : 'not '}updated!`];
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred ERR500PRFUPD'];
     }
+  }
+
+  static changedField(updatePayload) {
+    const fields = { phone: 'phone number', branchId: 'branch', roleId: 'role' };
+    return Object.keys(updatePayload).reduce((acc, field) => {
+      if (fields[field]) acc += fields[field];
+      return acc;
+    }, '');
   }
 }
 

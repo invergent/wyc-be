@@ -6,7 +6,7 @@ describe('Excel Unit Tests', () => {
     jest.spyOn(ExportDocHelpers, 'populateWorkbooksSheetWithData').mockRejectedValue('err');
     jest.spyOn(Export, 'createExcelDocument');
 
-    const result = await Export.claimReport({ params: { doctype: 'csv' } });
+    const result = await Export.claimReport({ params: { doctype: 'csv' }, currentAdmin: { staffId: 'someId' } });
 
     expect(result).toHaveLength(2);
     expect(result[0]).toBe(500);

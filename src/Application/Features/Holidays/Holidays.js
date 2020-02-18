@@ -1,16 +1,21 @@
 import models from '../../Database/models';
+import notifications from '../utilities/notifications';
+import { eventNames } from '../utilities/utils/types';
 
 class Holidays {
   static async add(req) {
-    const { body: { fullDate } } = req;
+    const { body: { fullDate }, currentAdmin: { staffId } } = req;
 
     try {
       const [holiday, created] = await models.Holidays.findOrCreate({
         where: { fullDate },
         defaults: req.body
       });
-
-      return created ? [201, 'Holiday added!', holiday] : [409, 'Holiday already exists', holiday];
+      if (created) {
+        notifications.emit(eventNames.LogActivity, [`Added ${fullDate} as holiday`, staffId]);
+        return [201, 'Holiday added!', holiday];
+      }
+      return [409, 'Holiday already exists', holiday];
     } catch (error) {
       console.log(error);
       return [500, 'There was a problem creating holiday ERR500HOLCRT'];
@@ -18,7 +23,7 @@ class Holidays {
   }
 
   static async remove(req) {
-    const { query: { fullDate } } = req;
+    const { query: { fullDate }, currentAdmin: { staffId } } = req;
 
     if (!fullDate) return [400, 'query params missing or invalid'];
 
@@ -27,7 +32,7 @@ class Holidays {
       if (!holiday) return [200, 'Holiday not found.'];
       
       await holiday.destroy();
-
+      notifications.emit(eventNames.LogActivity, [`Removed ${fullDate} as holiday`, staffId]);
       return [200, 'Holiday removed!'];
     } catch (error) {
       console.log(error);

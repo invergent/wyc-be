@@ -81,8 +81,7 @@ describe('Staff Dashboard Info', () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Request successful');
-      expect(response.body.data[0].id).toBe(2);
-      expect(response.body.data[1].id).toBe(1);
+      expect(response.body.data).toHaveLength(4);
     });
 
     it('should return all activities in descending order of occurrence if limit is not provided.', async () => {
@@ -92,7 +91,7 @@ describe('Staff Dashboard Info', () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Request successful');
-      expect(response.body.data.length).toBe(2);
+      expect(response.body.data.length).toBe(4);
     });
 
     it("should return staff's profile information.", async () => {

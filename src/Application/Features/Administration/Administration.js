@@ -12,7 +12,7 @@ const {
 
 class Administration {
   static async createStaff(req) {
-    const { worksheet } = req;
+    const { worksheet, currentAdmin: { staffId: adminStaffId } } = req;
     const worksheetConverter = AdministrationHelpers.convertStaffWorksheetToObjectsArray;
 
     try {
@@ -27,6 +27,7 @@ class Administration {
       const createdStaff = listOfCreatedStaff.map(eachStaff => ({ ...eachStaff, password: undefined }));
 
       notifications.emit(eventNames.Activation, [listOfCreatedStaff]);
+      notifications.emit(eventNames.LogActivity, [`Created ${createdStaff.length} staff`, adminStaffId]);
 
       return [201, `${createdStaff.length} staff created successfully.`, createdStaff];
     } catch (e) {
@@ -37,7 +38,7 @@ class Administration {
   }
 
   static async createSingleBranchOrStaff(req) {
-    const { body } = req;
+    const { body, currentAdmin: { staffId } } = req;
     const resourceName = req.path.includes('branch') ? 'Branch' : 'Staff';
     if (resourceName === 'Staff') body.password = crypto.randomBytes(3).toString('hex');
 
@@ -48,6 +49,9 @@ class Administration {
 
       if (resourceName === 'Staff' && created) {
         notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
+      }
+      if (created) {
+        notifications.emit(eventNames.LogActivity, [`Created ${resourceName === 'Staff' ? 'staff' : 'branch'}`, staffId]);
       }
       resource.password = undefined;
       return created
@@ -60,12 +64,15 @@ class Administration {
   }
 
   static async createAdmin(req) {
-    const { body } = req;
+    const { body, currentAdmin: { staffId } } = req;
     body.password = crypto.randomBytes(3).toString('hex');
 
     try {
       const [resource, created] = await StaffService.findOrCreateSingleStaff(body);
-      if (created) notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
+      if (created) {
+        notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
+        notifications.emit(eventNames.LogActivity, [`Created ${body.staffId}`, staffId]);
+      }
       resource.password = undefined;
       return created
         ? [201, 'Admin created successfully.', resource]
@@ -77,13 +84,14 @@ class Administration {
   }
 
   static async createBranches(req) {
-    const { worksheet } = req;
+    const { worksheet, currentAdmin: { staffId } } = req;
     const worksheetConverter = AdministrationHelpers.convertBranchWorksheetToObjectsArray;
 
     try {
       const branchesArray = worksheetConverter(worksheet);
       const results = await BranchService.bulkCreateBranches(branchesArray);
       const createdBranches = results.map(result => result.dataValues);
+      notifications.emit(eventNames.LogActivity, [`Created ${createdBranches.length} branches`, staffId]);
       return [201, `${createdBranches.length} branches created successfully.`, createdBranches];
     } catch (e) {
       console.log(e);
@@ -92,13 +100,14 @@ class Administration {
   }
 
   static async createSupervisors(req) {
-    const { worksheet } = req;
+    const { worksheet, currentAdmin: { staffId } } = req;
     const worksheetConverter = AdministrationHelpers.convertSupervisorWorksheetToObjectsArray;
 
     try {
       const lineManagers = worksheetConverter(worksheet);
       const results = await LineManagerService.bulkCreateLineManagers(lineManagers);
       const createdLineManagers = results.map(result => result.dataValues);
+      notifications.emit(eventNames.LogActivity, [`Created ${lineManagers.length} line managers`, staffId]);
       return [201, `${lineManagers.length} supervisors created successfully.`, createdLineManagers];
     } catch (e) {
       console.log(e);
@@ -107,10 +116,11 @@ class Administration {
   }
 
   static async createSingleSupervisor(req) {
-    const { body } = req;
+    const { body, currentAdmin: { staffId } } = req;
 
     try {
       const [resource, created] = await LineManagerService.findOrCreateLineManager(body);
+      notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, staffId]);
       return created
         ? [201, 'Supervisor created successfully.', resource]
         : [409, 'supervisor already exists.', resource];
@@ -121,10 +131,14 @@ class Administration {
   }
 
   static async submittedClaims(req) {
-    const { query } = req;
+    const { query, currentAdmin: { staffId } } = req;
     try {
       const { count, rows } = await ClaimService.fetchSubmittedClaims(query);
       const submittedClaims = AdministrationHelpers.filterAdminClaims(rows);
+
+      if (+query.page === 1) {
+        notifications.emit(eventNames.LogActivity, ['Viewed claims', staffId]);
+      }
       return [200, 'Request successful', { count, submittedClaims }];
     } catch (e) {
       console.log(e);
@@ -168,9 +182,11 @@ class Administration {
     }
   }
 
-  static async fetchAdmins() {
+  static async fetchAdmins(req) {
+    const { currentAdmin: { staffId } } = req;
     try {
       const admins = await StaffService.fetchAdmins();
+      notifications.emit(eventNames.LogActivity, ['Viewed admins', staffId]);
       return [200, 'Request successful', admins];
     } catch (e) {
       console.log(e);
@@ -179,10 +195,11 @@ class Administration {
   }
 
   static async fetchSingleStaff(req) {
-    const { params: { staffId } } = req;
+    const { params: { staffId }, currentAdmin: { staffId: adminStaffId } } = req;
     try {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['lineManager', 'role', 'branch']);
       const refinedUser = UsersHelpers.refineUserData(staff);
+      notifications.emit(eventNames.LogActivity, [`Viewed ${staffId} profile`, adminStaffId]);
       return [200, 'Request successful', refinedUser];
     } catch (e) {
       console.log(e);
@@ -191,12 +208,12 @@ class Administration {
   }
 
   static async removeSingleStaff(req) {
-    const { params: { staffId } } = req;
+    const { params: { staffId }, currentAdmin: { staffId: adminStaffId } } = req;
     try {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
       if (!staff) return [404, 'Staff not found'];
       await staff.destroy();
-
+      notifications.emit(eventNames.LogActivity, [`Deleted ${staffId}`, adminStaffId]);
       return [200, 'Staff removed!'];
     } catch (e) {
       console.log(e);
@@ -205,12 +222,12 @@ class Administration {
   }
 
   static async removeSingleSupervisor(req) {
-    const { params: { supervisorId } } = req;
+    const { params: { supervisorId }, currentAdmin: { staffId } } = req;
     try {
       const staff = await LineManagerService.findLineManagerByPk(supervisorId);
       if (!staff) return [404, 'Supervisor not found'];
       await staff.destroy();
-
+      notifications.emit(eventNames.LogActivity, [`Deleted ${staff.idNumber}`, staffId]);
       return [200, 'Supervisor removed!'];
     } catch (e) {
       console.log(e);
@@ -242,10 +259,11 @@ class Administration {
   }
 
   static async authoriseMultipleClaimsApplication(req) {
-    const { body: { staffId, extraMonthsPermitted, extraMonthsData } } = req;
+    const { body: { staffId, extraMonthsPermitted, extraMonthsData }, currentAdmin: { staffId: adminStaffId } } = req;
 
     try {
       const updated = await StaffService.updateStaffInfo(staffId, { extraMonthsPermitted, extraMonthsData });
+      notifications.emit(eventNames.LogActivity, [`Authorised extra months for ${staffId}`, adminStaffId]);
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
     } catch (e) {
       console.log(e);
@@ -254,13 +272,14 @@ class Administration {
   }
 
   static async resendLoginCredentials(req) {
-    const { body: { staffId } } = req;
+    const { body: { staffId }, currentAdmin: { staffId: adminStaffId } } = req;
 
     try {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
       if (staff.changedPassword) return [403, 'Password already changed'];
   
       notifications.emit(eventNames.Activation, [[staff]]);
+      notifications.emit(eventNames.LogActivity, [`Resent login credentials for ${staffId}`, adminStaffId]);
       return [200, 'Activation email resent!'];
     } catch (e) {
       console.log(e);
@@ -269,13 +288,14 @@ class Administration {
   }
 
   static async authoriseBranchEdit(req) {
-    const { body: { staffId } } = req;
+    const { body: { staffId }, currentAdmin: { staffId: adminStaffId } } = req;
 
     try {
       const updated = await StaffService.updateStaffInfo(staffId, { canUpdateBranch: true });
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
 
       notifications.emit(eventNames.CanUpdateBranch, [[staff]]);
+      notifications.emit(eventNames.LogActivity, [`Authorised branch edit for ${staffId}`, adminStaffId]);
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
     } catch (e) {
       console.log(e);
@@ -292,6 +312,7 @@ class Administration {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
 
       notifications.emit(eventNames.RequestToUpdateBranch, [admins, staff]);
+      notifications.emit(eventNames.LogActivity, ['Requested branch edit', staffId]);
       return [200, 'Permission email sent!'];
     } catch (e) {
       console.log(e);

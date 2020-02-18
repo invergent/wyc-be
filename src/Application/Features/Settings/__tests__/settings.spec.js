@@ -12,7 +12,7 @@ describe('Settings Unit Test', () => {
 
     const result = await Settings.updateSchedules(mockReq);
 
-    expect(result).toHaveLength(3);
+    expect(result).toHaveLength(2);
     expect(result[0]).toEqual(500);
     expect(result[1]).toEqual('Schedule was not updated.');
   });

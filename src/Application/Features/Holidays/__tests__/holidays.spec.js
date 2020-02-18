@@ -1,8 +1,9 @@
 import Holidays from '../Holidays';
 import models from '../../../Database/models';
+import { mockReq } from '../../../../__tests__/__mocks__';
 
 describe('Holidays Unit Tests', () => {
-  const req = { body: 'claim request object', query: { fullDate: 'some date' } };
+  const req = { body: 'claim request object', query: { fullDate: 'some date' }, currentAdmin: { staffId: 'someId' } };
   it('should send a 500 fail response if an error occurs while adding holiday.', async () => {
     jest.spyOn(models.Holidays, 'findOrCreate').mockRejectedValue('err');
 

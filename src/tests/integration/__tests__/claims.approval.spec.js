@@ -64,7 +64,7 @@ describe('Claim Approval Tests', () => {
       const response = await request
         .put('/line-manager/claims/pending/3/request-edit')
         .set('cookie', lineManagerToken)
-        .send({});
+        .send({ lineManager: { idNumber: 'someId' } });
 
       expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Edit requested.');

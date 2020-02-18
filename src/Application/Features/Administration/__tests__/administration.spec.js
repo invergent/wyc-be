@@ -36,7 +36,7 @@ describe('Administration Unit Tests', () => {
     it('should send a 500 fail response if an error occurs while fetching single staff.', async () => {
       jest.spyOn(StaffService, 'findStaffByStaffIdOrEmail').mockRejectedValue('value');
 
-      const result = await Administration.fetchSingleStaff({ params: { staffId: 'someId' } });
+      const result = await Administration.fetchSingleStaff(mockReq);
       const message = 'There was a problem fetching claims ERR500FETSTF.';
 
       expect(result).toHaveLength(2);
@@ -47,7 +47,7 @@ describe('Administration Unit Tests', () => {
     it('should send a 500 fail response if an error occurs while creating single staff or branch.', async () => {
       jest.spyOn(StaffService, 'findOrCreateSingleStaff').mockRejectedValue('value');
 
-      const result = await Administration.createSingleBranchOrStaff({ body: {}, path: 'staff' });
+      const result = await Administration.createSingleBranchOrStaff(mockReq);
       const message = 'There was an error while creating resource.';
 
       expect(result).toHaveLength(3);
