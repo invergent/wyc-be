@@ -1,5 +1,7 @@
 import services from '../utilities/services';
 import AuthorisationHelpers from '../utilities/helpers/AuthorisationHelpers';
+import notifications from '../utilities/notifications';
+import { eventNames, activityNames } from '../utilities/utils/types';
 
 const { StaffService } = services;
 
@@ -13,8 +15,7 @@ class Authorisation {
     try {
       const staff = await StaffService.findStaffByStaffIdOrEmail(identifier, ['role']);
       if (!staff) return [404, 'Staff not found'];
-      
-      
+
       const [statusCode, message] = AuthorisationHelpers.comparePassword(password, staff);
       if (statusCode !== 200) return [statusCode, message];
 

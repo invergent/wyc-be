@@ -3,8 +3,23 @@ import models from '../../../../Database/models';
 
 class RoleService {
   static fetchRoles(adminsOnly) {
-    const options = { where: { name: { [Op.notILike]: '%ADMIN%' } } };
-    if (adminsOnly) options.where.name = { [Op.iLike]: { [Op.any]: ['%ADMIN%', '%Auditor%'] } };
+    const options = {
+      where: {
+        [Op.and]: [
+          { name: { [Op.notILike]: '%Admin%' } },
+          { name: { [Op.notILike]: '%Auditor%' } }
+        ]
+      }
+    };
+    if (adminsOnly) {
+      options.where = {
+        name: {
+          [Op.iLike]: {
+            [Op.any]: ['%Admin%', '%Auditor%']
+          }
+        }
+      };
+    }
     return models.Roles.findAll(options);
   }
 }

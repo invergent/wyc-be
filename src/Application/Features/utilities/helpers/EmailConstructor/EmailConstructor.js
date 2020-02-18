@@ -58,7 +58,6 @@ class EmailConstructor {
 
     if (lineManager) lineManagerFirstName = lineManager.firstname;
     if (amount) amountLocale = amount.toLocaleString();
-
     return htmlMessage
       .replace(/{{staffFirstName}}/g, staffFirstName)
       .replace(/{{staffLastName}}/g, staffLastName)
