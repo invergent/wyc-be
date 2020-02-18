@@ -40,7 +40,6 @@ class Authenticator {
   }
 
   static authenticate(req, res, next, requester, message) {
-    console.log(req.cookies)
     const token = req.cookies[`${requester}Token`];
     if (!token) {
       return res.status(401).json({ message });

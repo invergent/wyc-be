@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import models from '../../../../Database/models';
 import BasicQuerier from '../BasicQuerier';
 
-const { Staff, Roles } = models;
+const { Staff } = models;
 
 class StaffService {
   static async updateStaffInfo(staffId, payload) {
@@ -36,24 +36,12 @@ class StaffService {
     });
   }
 
-  static fetchAdmins(excludeAuditor) {
-    const options = {
+  static fetchAdmins() {
+    return Staff.findAll({
       where: { staffId: { [Op.iLike]: 'Admin%' } },
       attributes: ['id', 'staffId', 'firstname', 'lastname', ['email', 'emailAddress'], 'image'],
       include: ['role']
-    };
-
-    if (excludeAuditor) {
-      options.include = [{
-        model: Roles,
-        as: 'role',
-        where: { name: { [Op.notILike]: '%Auditor%' } }
-      }];
-      options.raw = true;
-      options.plain = false;
-    }
-
-    return Staff.findAll(options);
+    });
   }
 
   static fetchStaff(reqOptions) {

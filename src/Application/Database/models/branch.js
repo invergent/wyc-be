@@ -1,7 +1,7 @@
 const branch = (sequelize, DataTypes) => {
   const Branch = sequelize.define('Branch', {
     solId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
@@ -19,7 +19,6 @@ const branch = (sequelize, DataTypes) => {
 
   Branch.associate = (models) => {
     Branch.hasMany(models.Staff, { foreignKey: 'branchId' });
-    Branch.hasMany(models.LineManagers, { as: 'supervisors', foreignKey: 'solId', sourceKey: 'solId' });
   };
   return Branch;
 };

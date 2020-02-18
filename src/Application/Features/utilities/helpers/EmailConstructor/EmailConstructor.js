@@ -45,7 +45,6 @@ class EmailConstructor {
       staffId,
       firstname: staffFirstName,
       lastname: staffLastName,
-      adminFirstName,
       hash,
       password,
       year,
@@ -63,7 +62,6 @@ class EmailConstructor {
       .replace(/{{staffFirstName}}/g, staffFirstName)
       .replace(/{{staffLastName}}/g, staffLastName)
       .replace(/{{lineManagerFirstName}}/g, lineManagerFirstName)
-      .replace(/{{adminFirstName}}/g, adminFirstName)
       .replace(/{{url}}/g, 'overtime.whytecleon.ng')
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amountLocale)

@@ -12,7 +12,7 @@ class BranchService {
   }
 
   static fetchBranches() {
-    return BasicQuerier.findAll('Branch', { include: 'supervisors' });
+    return BasicQuerier.findAll('Branch');
   }
 
   static findOrCreateSingleBranch(branch) {

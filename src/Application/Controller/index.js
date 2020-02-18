@@ -190,12 +190,8 @@ class Controller {
     return Responder.respond(req, res, Administration.resendLoginCredentials);
   }
 
-  static async requestBranchEdit(req, res) {
-    return Responder.respond(req, res, Administration.requestBranchEdit);
-  }
-
-  static async authoriseBranchEdit(req, res) {
-    return Responder.respond(req, res, Administration.authoriseBranchEdit);
+  static async authoriseLineManagerEdit(req, res) {
+    return Responder.respond(req, res, Administration.authoriseLineManagerEdit);
   }
 
   static async addHoliday(req, res) {

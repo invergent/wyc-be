@@ -61,7 +61,7 @@ const staff = (sequelize, DataTypes) => {
     extraMonthsData: {
       type: DataTypes.JSON
     },
-    canUpdateBranch: {
+    canUpdateLineManager: {
       type: DataTypes.BOOLEAN
     }
   }, { freezeTableName: true });
