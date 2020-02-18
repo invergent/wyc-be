@@ -3,7 +3,9 @@ export const mockReq = {
     staffId: 'someId',
     password: 'password',
     confirmPassword: 'password',
-    extraMonthsPermitted: { permittedMonths: ['July'] }
+    extraMonthsPermitted: { permittedMonths: ['July'] },
+    editMessage: '',
+    lineManager: { idNumber: 'someId' }
   },
   query: {
     hash: 'someHash'
@@ -13,7 +15,8 @@ export const mockReq = {
   params: { claimId: 'someClaim' },
   worksheet: 'worksheet',
   path: '',
-  claim: { status: 'Pending', claimer: {} }
+  claim: { status: 'Pending', claimer: {} },
+  currentAdmin: { staffId: 'someId' },
 };
 
 export const mockStaff = {

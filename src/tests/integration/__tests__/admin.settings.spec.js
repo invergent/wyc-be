@@ -75,8 +75,8 @@ describe('Admin Claim Tests', () => {
         .set('cookie', token);
 
       expect(response.status).toBe(200);
-      expect(response.body.message).toEqual('Update successful!');
-      expect(response.body.data[0].emailSchedule).toEqual(scheduleRequest.emailSchedule);
+      expect(response.body.message).toEqual('Update successful');
+      expect(response.body.data.emailSchedule).toEqual(scheduleRequest.emailSchedule);
     });
   });
 });

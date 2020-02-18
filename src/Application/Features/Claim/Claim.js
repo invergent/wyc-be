@@ -1,7 +1,7 @@
 import helpers from '../utilities/helpers';
 import services from '../utilities/services';
 import notifications from '../utilities/notifications';
-import { eventNames, activityNames } from '../utilities/utils/types';
+import { eventNames } from '../utilities/utils/types';
 
 
 const { ClaimService, StaffService, LineManagerService } = services;
@@ -20,7 +20,8 @@ class Claim {
 
       const [claim, created] = await ClaimService.findOrCreateClaim(overtimeRequest);
       if (created) {
-        notifications.emit(eventNames.NewClaim, [staff.toJSON(), claim.id, activityNames.NewClaim]);
+        const { monthOfClaim, year } = claim;
+        notifications.emit(eventNames.NewClaim, [staff.toJSON(), claim.id, `Created ${monthOfClaim}, ${year} claim`]);
       }
 
       return created ? [201, messageWhenCreated, claim] : [409, messageWhenNotCreated, claim];
@@ -63,11 +64,12 @@ class Claim {
   static async runApprovalAndNotifyUsers(req, approvalType) {
     const [statusCode, message, data] = await Claim.runClaimApproval(req, approvalType);
     if (statusCode !== 200) return [statusCode, message];
-
+    
     const staff = await StaffService.fetchStaffByPk(data.requester, ['lineManager']);
-    notifications.emit(
-      eventNames[`lineManager${approvalType}`], [staff.toJSON()]
-    );
+    notifications.emit(eventNames[`lineManager${approvalType}`], [staff.toJSON()]);
+    notifications.emit(eventNames.LogActivity, [
+      `${approvalType} ${data.monthOfClaim}, ${data.year} claim for ${staff.staffId}`, staff.staffId
+    ]);
 
     return [statusCode, message, data];
   }
@@ -97,7 +99,8 @@ class Claim {
     try {
       const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId, newExtraMonthsData);
       if (updated) {
-        notifications.emit(eventNames.Cancelled, [claim.claimer, claimId, activityNames.Cancelled]);
+        const { monthOfClaim, year } = updatedClaim[0];
+        notifications.emit(eventNames.Cancelled, [claim.claimer, claimId, `Cancelled ${monthOfClaim}, ${year} claim`]);
       }
       return [200, `Claim${updated ? '' : ' not'} cancelled.`, updatedClaim[0]];
     } catch (e) {
@@ -120,13 +123,18 @@ class Claim {
   }
 
   static async requestEdit(req) {
-    const { params: { claimId }, body: { editMessage } } = req;
+    const { params: { claimId }, body: { editMessage, lineManager: { idNumber } } } = req;
 
     try {
       const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
       const [updated, updatedClaim] = await ClaimService.updateClaim({ editMessage, editRequested: true }, claimId);
       if (updated) {
-        notifications.emit(eventNames.EditRequested, [claim.claimer.toJSON(), claimId]);
+        const { year, monthOfClaim, claimer } = claim;
+        const { staffId } = claimer.toJSON();
+        notifications.emit(eventNames.EditRequested, [staffId, claimId]);
+        notifications.emit(eventNames.LogActivity, [
+          `${idNumber} requested edit on ${staffId} ${monthOfClaim}, ${year} claim`, staffId
+        ]);
       }
       return [200, `Edit${updated ? '' : ' not'} requested.`, updatedClaim[0]];
     } catch (e) {
@@ -144,7 +152,8 @@ class Claim {
       if (updated) {
         const lineManager = await LineManagerService.findLineManagerByPk(staff.lineManagerId);
         staff.lineManager = lineManager;
-        notifications.emit(eventNames.Updated, [staff, claimId, activityNames.Updated]);
+        const { monthOfClaim, year } = claim[0];
+        notifications.emit(eventNames.Updated, [staff, claimId, `Updated ${monthOfClaim}, ${year} claim`]);
       }
       return [200, `Claim${updated ? '' : ' not'} updated.`, claim[0]];
     } catch (e) {

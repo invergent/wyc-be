@@ -9,6 +9,12 @@ module.exports = {
     Jun: '4950',
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    year: '2020',
+    Jan: '4500',
+    createdAt: new Date(),
+    updatedAt: new Date()
   }]),
   down: queryInterface => queryInterface.bulkDelete('ClaimsStatistics')
 };

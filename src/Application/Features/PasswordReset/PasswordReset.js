@@ -15,6 +15,7 @@ class PasswordReset {
     if (!staff) return [404, 'Staff does not exist'];
 
     notifications.emit(eventNames.ForgotPassword, [staff.toJSON()]);
+    notifications.emit(eventNames.LogActivity, ['Requested forgot password', staff.staffId]);
     return [200, `We just sent an email to ${staff.email}`];
   }
 
