@@ -93,6 +93,11 @@ class EmailNotifications {
     EmailNotifications.sendNotificationEmailToMany(newList, 'RequestToUpdateBranch');
   }
 
+  static notifyLineManagerOfChange(staff) {
+    const templateName = 'Notify New Line Manager';
+    return EmailNotifications.sendNotificationEmail(staff, templateName);
+  }
+
   static async notifyStaffCompleted() {
     const completedClaimsWithStaff = await ClaimService.fetchCompletedClaim('Completed');
     const filteredListOfStaff = ClaimHelpers.filterCompletedClaims(completedClaimsWithStaff);

@@ -8,6 +8,8 @@ notify.register(eventNames.Activation, EmailNotifications.sendActivationEmail);
 notify.register(eventNames.CanUpdateBranch, EmailNotifications.sendCanUpdateBranchEmail);
 notify.register(eventNames.RequestToUpdateBranch, EmailNotifications.sendBranchUpdatePermissionRequest);
 
+notify.register(eventNames.ChangedLineManager, EmailNotifications.notifyLineManagerOfChange);
+
 notify.register(eventNames.ForgotPassword, EmailNotifications.sendPasswordResetEmail);
 
 notify.register(eventNames.NewClaim, EmailNotifications.notifyLineManagerOfNewClaim);

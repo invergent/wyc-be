@@ -660,6 +660,56 @@ module.exports = {
     </html>`,
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    name: 'Notify New Line Manager',
+    description: 'New Line Manager Notification',
+    subject: 'Notification',
+    htmlMessage: `<html lang="en" dir="ltr">
+      ${headerAndFooterContent('header')}
+      <body>
+        <table class="cover">
+          <tr>
+            <td>
+              <table class="content-wrapper">
+                <tr>
+                  <td>
+                    <table class="header">
+                      <tr>
+                        <td>
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                        </td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="body">
+                      <tr>
+                        <td>
+                          <h2>Line Manager Notification</h2>
+                          <table class="paragraphs">
+                            <tr>
+                              <td>
+                                <div>
+                                  <p>Hello {{lineManagerFirstName}},</p>
+                                  <p>{{staffFirstName}} {{staffLastName}} just added you as their line manager on CleonTime. Henceforth, you'd be notified whenever {{staffFirstName}} makes claim requests.</p>
+                                  <p>Thank you.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>`,
+    createdAt: new Date(),
+    updatedAt: new Date()
   }]),
   down: queryInterface => queryInterface.dropTable('EmailTemplate')
 };

@@ -10,7 +10,8 @@ export const templateNames = Object.freeze({
   Reminder: 'Pending Claim Reminder Staff',
   Activation: 'Activation Email Staff',
   CanUpdateBranch: 'Branch Update',
-  RequestToUpdateBranch: 'Request To Update Branch'
+  RequestToUpdateBranch: 'Request To Update Branch',
+  ChangedLineManager: 'Notify New Line Manager'
 });
 
 export const eventNames = Object.freeze({
@@ -26,7 +27,8 @@ export const eventNames = Object.freeze({
   Activation: 'Activation',
   ResendCrendentials: 'ResendCrendentials',
   CanUpdateBranch: 'CanUpdateBranch',
-  RequestToUpdateBranch: 'RequestToUpdateBranch'
+  RequestToUpdateBranch: 'RequestToUpdateBranch',
+  ChangedLineManager: 'ChangedLineManager'
 });
 
 export const activityNames = Object.freeze({
