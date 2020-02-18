@@ -1,7 +1,7 @@
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('LineManagers', [{
     idNumber: 'SN234567',
-    solId: '2345',
+    solId: '203',
     firstname: 'SuperJohn',
     lastname: 'Johnny',
     email: 'super.john@init.com',
@@ -41,7 +41,7 @@ module.exports = {
   },
   {
     idNumber: 'SN112223',
-    solId: '2715',
+    solId: '873',
     firstname: 'James',
     lastname: 'Enejo',
     email: 'spec.en.james@gmail.com',
@@ -51,7 +51,7 @@ module.exports = {
   },
   {
     idNumber: 'SN876300',
-    solId: '2715',
+    solId: '300',
     firstname: 'James',
     lastname: 'Enejo',
     email: 'jillandroid@gmail.com',

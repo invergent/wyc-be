@@ -86,7 +86,7 @@ module.exports = {
     extraMonthsData: {
       type: Sequelize.JSON
     },
-    canUpdateBranch: {
+    canUpdateLineManager: {
       type: Sequelize.BOOLEAN
     },
     createdAt: {

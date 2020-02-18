@@ -268,31 +268,15 @@ class Administration {
     }
   }
 
-  static async authoriseBranchEdit(req) {
+  static async authoriseLineManagerEdit(req) {
     const { body: { staffId } } = req;
 
     try {
-      const updated = await StaffService.updateStaffInfo(staffId, { canUpdateBranch: true });
+      const updated = await StaffService.updateStaffInfo(staffId, { canUpdateLineManager: true });
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
 
-      notifications.emit(eventNames.CanUpdateBranch, [[staff]]);
+      notifications.emit(eventNames.CanUpdateLineManager, [[staff]]);
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
-    } catch (e) {
-      console.log(e);
-      return [500, 'An error occurred while granting permission.'];
-    }
-  }
-
-  static async requestBranchEdit(req) {
-    const { currentStaff: { staffId } } = req;
-    const excludeAuditors = true;
-
-    try {
-      const admins = await StaffService.fetchAdmins(excludeAuditors);
-      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
-
-      notifications.emit(eventNames.RequestToUpdateBranch, [admins, staff]);
-      return [200, 'Permission email sent!'];
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred while granting permission.'];
