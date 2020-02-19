@@ -1,5 +1,5 @@
 {
-  "development": {
+  "developmentt": {
     "host": "localhost",
     "port": 5432,
     "database": "wyc-dev",
@@ -7,6 +7,9 @@
     "password": null,
     "dialect": "postgres",
     "logging": true
+  },
+  "development": {
+    "use_env_variable": "DATABASE_URL"
   },
   "cloud_local": {
     "host": "localhost",
@@ -17,7 +20,7 @@
     "dialect": "postgres",
     "logging": false
   },
-  "test": {
+  "testt": {
     "host": "localhost",
     "port": 5432,
     "database": "wyc_test",
@@ -26,7 +29,10 @@
     "dialect": "postgres",
     "logging": false
   },
-  "production": {
+  "test": {
+    "use_env_variable": "TEST_DATABASE_URL"
+  },
+  "productionn": {
     "host": "/cloudsql/cleontime-api:us-central1:cleontime",
     "port": 5432,
     "database": "cleontime",
@@ -34,5 +40,8 @@
     "password": "pass",
     "dialect": "postgres",
     "logging": false
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL"
   }
 }
