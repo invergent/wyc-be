@@ -9,9 +9,10 @@ dotenv.config();
 const db = {};
 const basename = path.basename(module.filename);
 const connectionConfig = dbConfig[process.env.NODE_ENV];
-const { database, username, password } = connectionConfig;
+// const { database, username, password } = connectionConfig;
 
-const sequelize = new Sequelize(database, username, password, connectionConfig);
+// const sequelize = new Sequelize(database, username, password, connectionConfig);
+const sequelize = new Sequelize(process.env[connectionConfig.use_env_variable]);
 
 fs
   .readdirSync(__dirname)
