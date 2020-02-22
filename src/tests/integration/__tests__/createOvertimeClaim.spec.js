@@ -5,6 +5,8 @@ import app from '../../../app';
 jest.mock('@sendgrid/mail');
 
 const claimRequest = {
+  year: 2020,
+  monthOfClaim: 'Jan',
   claimElements: 4,
   amount: 9800,
   details: {
@@ -13,13 +15,6 @@ const claimRequest = {
     shift: 3,
     atm: 1,
     outstation: 98000
-  },
-  dates: {
-    overtime: '7/22/2019, 7/23/2019',
-    weekend: '7/22/2019, 7/23/2019',
-    shift: '7/22/2019, 7/23/2019',
-    atm: '7/22/2019, 7/23/2019',
-    outstation: '7/22/2019, 7/23/2019',
   }
 };
 

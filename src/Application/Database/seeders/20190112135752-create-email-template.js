@@ -664,7 +664,7 @@ module.exports = {
   {
     name: 'Notify New Line Manager',
     description: 'New Line Manager Notification',
-    subject: 'Notification',
+    subject: 'CleonTime Notification',
     htmlMessage: `<html lang="en" dir="ltr">
       ${headerAndFooterContent('header')}
       <body>
@@ -714,7 +714,7 @@ module.exports = {
   {
     name: 'Welcome Line Manager',
     description: 'Welcome email to newly added Line Managers',
-    subject: 'Notification',
+    subject: 'Welcome To CleonTime',
     htmlMessage: `<html lang="en" dir="ltr">
       ${headerAndFooterContent('header')}
       <body>
@@ -742,7 +742,7 @@ module.exports = {
                                 <div>
                                   <p>Hello {{lineManagerFirstName}},</p>
                                   <p>This is to notify you that you have been added to CleonTime—a Whytecleon application that automates claim request processes.</p>
-                                  <p>Subsequently, our staff [whom you are supervising] would be adding you as their line manager on CleonTime. You would be able see all their claim requests and manage them accordingly, with just a click of button.</p>
+                                  <p>Subsequently, our staff [whom you are supervising] would be adding you as their line manager on CleonTime. You would be able to see all their claim requests and manage them accordingly, with just a click of button.</p>
                                   <p>We are excited to have you on our platform!</p>
                                   <p>Thank you.</p>
                                 </div>
