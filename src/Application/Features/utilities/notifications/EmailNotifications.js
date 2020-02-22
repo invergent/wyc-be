@@ -79,6 +79,14 @@ class EmailNotifications {
     EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'Activation');
   }
 
+  static sendWelcomeEmailToLineManagers(listOfLineManagers) {
+    const newList = listOfLineManagers.map(lm => ({
+      lineManager: { firstname: lm.firstname },
+      email: lm.email
+    }));
+    EmailNotifications.sendNotificationEmailToMany(newList, 'WelcomeLineManager');
+  }
+
   static sendCanUpdateBranchEmail(listOfStaff) {
     EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'CanUpdateBranch');
   }

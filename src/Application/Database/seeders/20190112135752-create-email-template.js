@@ -710,6 +710,58 @@ module.exports = {
     </html>`,
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  {
+    name: 'Welcome Line Manager',
+    description: 'Welcome email to newly added Line Managers',
+    subject: 'Notification',
+    htmlMessage: `<html lang="en" dir="ltr">
+      ${headerAndFooterContent('header')}
+      <body>
+        <table class="cover">
+          <tr>
+            <td>
+              <table class="content-wrapper">
+                <tr>
+                  <td>
+                    <table class="header">
+                      <tr>
+                        <td>
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                        </td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="body">
+                      <tr>
+                        <td>
+                          <h2>Welcome To CleonTime</h2>
+                          <table class="paragraphs">
+                            <tr>
+                              <td>
+                                <div>
+                                  <p>Hello {{lineManagerFirstName}},</p>
+                                  <p>This is to notify you that you have been added to CleonTime—a Whytecleon application that automates claim request processes.</p>
+                                  <p>Subsequently, our staff [whom you are supervising] would be adding you as their line manager on CleonTime. You would be able see all their claim requests and manage them accordingly, with just a click of button.</p>
+                                  <p>We are excited to have you on our platform!</p>
+                                  <p>Thank you.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>`,
+    createdAt: new Date(),
+    updatedAt: new Date()
   }]),
   down: queryInterface => queryInterface.dropTable('EmailTemplate')
 };

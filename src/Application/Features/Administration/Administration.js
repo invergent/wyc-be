@@ -107,6 +107,7 @@ class Administration {
       const lineManagers = worksheetConverter(worksheet);
       const results = await LineManagerService.bulkCreateLineManagers(lineManagers);
       const createdLineManagers = results.map(result => result.dataValues);
+      notifications.emit(eventNames.WelcomeLineManager, [createdLineManagers]);
       notifications.emit(eventNames.LogActivity, [`Created ${lineManagers.length} line managers`, staffId]);
       return [201, `${lineManagers.length} supervisors created successfully.`, createdLineManagers];
     } catch (e) {
@@ -120,13 +121,14 @@ class Administration {
 
     try {
       const [resource, created] = await LineManagerService.findOrCreateLineManager(body);
+      notifications.emit(eventNames.WelcomeLineManager, [[resource]]);
       notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, staffId]);
       return created
         ? [201, 'Supervisor created successfully.', resource]
         : [409, 'supervisor already exists.', resource];
     } catch (e) {
       console.log(e);
-      return [500, 'There was an error creating branches ERR500CRTLMGR.', e];
+      return [500, 'There was an error creating supervisor ERR500CRTLMGR.', e];
     }
   }
 
