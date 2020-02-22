@@ -5,6 +5,8 @@ import InAppNotifications from './InAppNotifications';
 import ActivityLogger from './ActivityLogger';
 
 notify.register(eventNames.Activation, EmailNotifications.sendActivationEmail);
+notify.register(eventNames.WelcomeLineManager, EmailNotifications.sendWelcomeEmailToLineManagers);
+
 notify.register(eventNames.CanUpdateBranch, EmailNotifications.sendCanUpdateBranchEmail);
 notify.register(eventNames.RequestToUpdateBranch, EmailNotifications.sendBranchUpdatePermissionRequest);
 
