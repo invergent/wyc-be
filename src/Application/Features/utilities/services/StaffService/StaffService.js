@@ -38,7 +38,7 @@ class StaffService {
 
   static fetchAdmins(excludeAuditor) {
     const options = {
-      where: { staffId: { [Op.iLike]: 'Admin%' } },
+      where: { staffId: { [Op.iLike]: 'Adm%' } },
       attributes: ['id', 'staffId', 'firstname', 'lastname', ['email', 'emailAddress'], 'image'],
       include: ['role']
     };
@@ -63,7 +63,7 @@ class StaffService {
     const options = { attributes, limit: limit || 100000000, where: { staffId: {} } };
 
     if (staffId) options.where.staffId = { [Op.like]: `%${staffId}%` };
-    if (staffOnly) options.where.staffId = { ...options.where.staffId, [Op.notLike]: 'ADMIN%' };
+    if (staffOnly) options.where.staffId = { ...options.where.staffId, [Op.notLike]: 'ADM%' };
 
     return Staff.findAll(options);
   }

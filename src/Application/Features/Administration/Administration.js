@@ -323,13 +323,17 @@ class Administration {
   }
 
   static async fetchLogs(req) {
-    const { query, currentAdmin: { staffId } } = req;
+    const { query: { exportable, page }, currentAdmin: { staffId } } = req;
 
     try {
-      const logs = await ActivityService.fetchLogs(query);
-      if (+query.page === 1) {
+      const logs = await ActivityService.fetchLogs(req.query);
+
+      if (+page === 1) {
         // record view log activity only when first viewed
         notifications.emit(eventNames.LogActivity, ['Viewed logs', staffId]);
+      }
+      if (exportable) {
+        notifications.emit(eventNames.LogActivity, ['Exported logs', staffId]);
       }
       return [200, 'success', logs];
     } catch (e) {

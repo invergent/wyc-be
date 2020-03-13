@@ -15,14 +15,10 @@ class ActivityService {
   }
 
   static fetchLogOptions(query) {
-    const { staffId, period, page } = query;
-    const limit = 10;
-    const offset = (page - 1) * limit;
+    const { staffId, period, page, exportable } = query;
     const where = {};
     const options = {
       order: [['createdAt', 'DESC']],
-      limit,
-      offset,
       include: [{
         model: Staff,
         as: 'creator',
@@ -34,6 +30,10 @@ class ActivityService {
     if (period) {
       const [minDate, maxDate] = period.split('_');
       where.createdAt = { [Op.gte]: minDate, [Op.lte]: maxDate };
+    }
+    if (!exportable) {
+      options.limit = 10;
+      options.offset = (page - 1) * 10;
     }
 
     if (Object.keys(where).length) options.where = where;
