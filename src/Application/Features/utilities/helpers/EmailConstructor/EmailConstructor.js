@@ -63,7 +63,7 @@ class EmailConstructor {
       .replace(/{{staffLastName}}/g, staffLastName)
       .replace(/{{lineManagerFirstName}}/g, lineManagerFirstName)
       .replace(/{{adminFirstName}}/g, adminFirstName)
-      .replace(/{{url}}/g, 'overtime.whytecleon.ng')
+      .replace(/{{url}}/g, 'cleontime.herokuapp.com')
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amountLocale)
       .replace(/{{monthOfClaim}}/g, monthOfClaim)

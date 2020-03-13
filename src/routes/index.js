@@ -97,7 +97,7 @@ router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingl
 
 router.post('/admin/supervisors', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createSupervisors);
 router.post('/admin/supervisors/single', authenticateAdmin, checkEntries, createSingleSupervisor);
-router.delete('/admin/supervisors/:supervisorId', authenticateAdmin, onlySuperAdminAuditor, removeSingleSupervisor);
+router.delete('/admin/supervisors/:supervisorId', authenticateAdmin, removeSingleSupervisor);
 
 router.post('/admin/holidays', authenticateAdmin, customValidator, addHoliday);
 // router.put('/admin/holidays/:holidayId', authenticateAdmin, checkIdParams, customValidator, updateOrDelete);
