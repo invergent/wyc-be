@@ -9,7 +9,7 @@ const { NotificationService, ClaimService } = services;
 const { lineManagerApproved, lineManagerDeclined, EditRequested } = eventNames;
 
 class InAppNotifications {
-  static notifyStaffLineManagerApproved(staff, claimId) {
+  static notifyStaffLineManagerApproved(staff, userId, claimId) {
     return InAppNotifications.recordAndNotifyStaff(staff, claimId, lineManagerApproved);
   }
 

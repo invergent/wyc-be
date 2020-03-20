@@ -55,8 +55,15 @@ class EmailNotifications {
     EmailNotifications.sendStaffNotifications(staff);
   }
 
-  static notifyStaffLineManagerApproved(staff) {
-    EmailNotifications.sendStaffNotifications(staff, 'Approved');
+  static notifyStaffLineManagerApproved(staff, claim) {
+    const { monthOfClaim, year, amount } = claim;
+    const newStaff = {
+      ...staff,
+      monthOfClaim,
+      year,
+      amount
+    };
+    EmailNotifications.sendStaffNotifications(newStaff, 'Approved');
   }
 
   static notifyStaffLineManagerDeclined(staff) {

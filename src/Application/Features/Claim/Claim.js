@@ -66,9 +66,10 @@ class Claim {
     if (statusCode !== 200) return [statusCode, message];
     
     const staff = await StaffService.fetchStaffByPk(data.requester, ['lineManager']);
-    notifications.emit(eventNames[`lineManager${approvalType}`], [staff.toJSON()]);
+    notifications.emit(eventNames[`lineManager${approvalType}`], [staff.toJSON(), data]);
     notifications.emit(eventNames.LogActivity, [
-      `${approvalType} ${data.monthOfClaim}, ${data.year} claim for ${staff.staffId}`, staff.staffId
+      `${approvalType} ${data.monthOfClaim}, ${data.year} claim for ${staff.staffId}`,
+      req.lineManager.idNumber, data.id
     ]);
 
     return [statusCode, message, data];

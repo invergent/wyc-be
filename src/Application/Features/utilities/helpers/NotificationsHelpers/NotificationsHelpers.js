@@ -13,9 +13,9 @@ class NotificationsHelpers {
   }
 
   static createLineManagerEmailDetails(staff, notificationType) {
+    const { lineManager: { id, idNumber } } = staff;
     const emailTemplateName = templateNames[notificationType];
-    const id = staff.lineManagerId;
-    const hashedToken = krypter.authenticationEncryption('lineManager', { id });
+    const hashedToken = krypter.authenticationEncryption('lineManager', { id, idNumber });
 
     return [hashedToken, emailTemplateName];
   }
