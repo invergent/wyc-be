@@ -12,6 +12,10 @@ env_variables: #put whatever you want here then access in code via process.env.V
   CLOUD_NAME: 'invergent'
   API_KEY: '882415814135169'
   API_SECRET: 'bJPqFW_jh8O4gMSXaYt7Ha5rM_E'
+  DB_HOST: '/cloudsql/cleontime-api:us-central1:cleontime'
+  DB_NAME: 'cleontime'
+  DB_USERNAME: 'postgres'
+  DB_PASSWORD: 'pass'
 beta_settings:
   cloud_sql_instances: cleontime-api:us-central1:cleontime
 handlers:

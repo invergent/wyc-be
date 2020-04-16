@@ -1,5 +1,5 @@
 {
-  "developmentt": {
+  "development": {
     "host": "localhost",
     "port": 5432,
     "database": "wyc-dev",
@@ -7,9 +7,6 @@
     "password": null,
     "dialect": "postgres",
     "logging": true
-  },
-  "development": {
-    "use_env_variable": "DATABASE_URL"
   },
   "cloud_local": {
     "host": "localhost",
@@ -20,7 +17,7 @@
     "dialect": "postgres",
     "logging": false
   },
-  "testt": {
+  "test": {
     "host": "localhost",
     "port": 5432,
     "database": "wyc_test",
