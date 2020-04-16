@@ -1,0 +1,22 @@
+steps:
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ['install']
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ['install', 'sequelize-cli', '-g']
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ['run', 'db:migrate']
+    env:
+      - 'NODE_ENV=${_NODE_ENV}'
+      - 'SECRET=${_SECRET}'
+      - 'DB_HOST=${_DB_HOST}'
+      - 'DB_NAME=${_DB_NAME}'
+      - 'DB_USERNAME=${_DB_USERNAME}'
+      - 'DB_PASSWORD=${_DB_PASSWORD}'
+      - 'DB_DIALECT=postgres'
+      - 'DB_PORT=5432'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy', '${_DEPLOY_FILE}']
+timeout: '1600s'

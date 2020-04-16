@@ -15,11 +15,9 @@
 
 # Node.js dependencies:
 node_modules/
-src/
 .github/
 .vscode/
 coverage/
-.babelrc
 .codeclimate.yml
 .env
 .eslintrc.json

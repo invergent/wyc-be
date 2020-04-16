@@ -39,7 +39,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/confirm-reset-request?hash={{hash}}" target="_blank">Reset password</a>
+                                <a href="https://{{url}}/confirm-reset-request?hash={{hash}}" target="_blank">Reset password</a>
                               </td>
                             </tr>
                           </table>
@@ -96,7 +96,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/line-manager/verify?hash={{hash}}" target="_blank">View pending claims</a>
+                                <a href="https://{{url}}/line-manager/verify?hash={{hash}}" target="_blank">View pending claims</a>
                               </td>
                             </tr>
                           </table>
@@ -153,7 +153,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/line-manager/verify?hash={{hash}}" target="_blank">View pending claims</a>
+                                <a href="https://{{url}}/line-manager/verify?hash={{hash}}" target="_blank">View pending claims</a>
                               </td>
                             </tr>
                           </table>
@@ -210,7 +210,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/staff/pending-claim" target="_blank">View pending claims</a>
+                                <a href="https://{{url}}/staff/pending-claim" target="_blank">View pending claims</a>
                               </td>
                             </tr>
                           </table>
@@ -267,7 +267,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/staff/pending-claim" target="_blank">View pending claim</a>
+                                <a href="https://{{url}}/staff/pending-claim" target="_blank">View pending claim</a>
                               </td>
                             </tr>
                           </table>
@@ -424,7 +424,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/staff/pending-claim" target="_blank">Go to claim</a>
+                                <a href="https://{{url}}/staff/pending-claim" target="_blank">Go to claim</a>
                               </td>
                             </tr>
                           </table>
@@ -523,11 +523,11 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Hi {{staffFirstName}},</p>
-                                  <p>We are excited to welcome you to the new <a href="{{url}}/login" target="_blank">CleonTime</a> application for managing your overtime requests.</p>
+                                  <p>We are excited to welcome you to the new <a href="https://{{url}}/login" target="_blank">CleonTime</a> application for managing your overtime requests.</p>
                                   <p>Below are your login details (unique to you). Please do not share!</p>
                                   <p class="no-margin">StaffId: {{staffId}}</p>
                                   <p class="no-margin">Password: {{password}}</p>
-                                  <p>Use the login credentials to login to your account <a href="{{url}}/login" target="_blank">here</a>.</p>
+                                  <p>Use the login credentials to login to your account <a href="https://{{url}}/login" target="_blank">here</a>.</p>
                                   <p>See you inside!</p>
                                 </div>
                               </td>
@@ -586,7 +586,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/staff/profile" target="_blank">Go to profile</a>
+                                <a href="https://{{url}}/staff/profile" target="_blank">Go to profile</a>
                               </td>
                             </tr>
                           </table>
@@ -643,7 +643,7 @@ module.exports = {
                           <table class="button-wrapper">
                             <tr>
                               <td>
-                                <a href="{{url}}/admin/staff/{{staffId}}" target="_blank">Go to {{staffFirstName}}'s profile</a>
+                                <a href="https://{{url}}/admin/staff/{{staffId}}" target="_blank">Go to {{staffFirstName}}'s profile</a>
                               </td>
                             </tr>
                           </table>
@@ -742,7 +742,7 @@ module.exports = {
                                 <div>
                                   <p>Hello {{lineManagerFirstName}},</p>
                                   <p>This is to notify you that you have been added to CleonTime—a Whytecleon application that automates claim request processes.</p>
-                                  <p>Subsequently, our staff [whom you are supervising] would be adding you as their line manager on CleonTime. You would be able see all their claim requests and manage them accordingly, with just a click of button.</p>
+                                  <p>Subsequently, our staff [whom you are supervising] would be adding you as their line manager on CleonTime. You would be able to see all their claim requests and manage them accordingly, with just a click of button.</p>
                                   <p>We are excited to have you on our platform!</p>
                                   <p>Thank you.</p>
                                 </div>

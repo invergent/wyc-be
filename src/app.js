@@ -19,7 +19,9 @@ const setupApp = async () => {
   app.use(cookieParser());
 
   if (process.env.NODE_ENV !== 'test') {
-    app.use(cors({ allowedOrigins: ['localhost:4200', 'cleontime.herokuapp.com', 'overtime.whytecleon.ng'] }));
+    app.use(cors({
+      allowedOrigins: ['localhost:4200', 'cleontime.herokuapp.com', 'overtime.whytecleon.ng']
+    }));
   }
 
   app.use(fileUpload({
@@ -38,7 +40,6 @@ const setupApp = async () => {
     api_secret: process.env.API_SECRET
   });
 
-  // Subdomain definitions
   app.use('/', routes);
   app.get('*', (req, res) => res.status(200).json({ message: 'Project started' }));
 
