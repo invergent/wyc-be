@@ -2,17 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import dotenv from 'dotenv';
-import dbConfig from '../config/dbConfig.json';
+import dbConfig from '../config/dbConfig';
 
 dotenv.config();
 
 const db = {};
 const basename = path.basename(module.filename);
-const connectionConfig = dbConfig[process.env.NODE_ENV];
-// const { database, username, password } = connectionConfig;
+const { database, username, password } = dbConfig[process.env.NODE_ENV];
 
-// const sequelize = new Sequelize(database, username, password, connectionConfig);
-const sequelize = new Sequelize(process.env[connectionConfig.use_env_variable]);
+const sequelize = new Sequelize(database, username, password, dbConfig[process.env.NODE_ENV]);
 
 fs
   .readdirSync(__dirname)
