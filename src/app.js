@@ -9,9 +9,11 @@ import morgan from 'morgan';
 import Cron from './Application/Features/Cron';
 import routes from './routes';
 import CompanyService from './Application/Features/utilities/services/CompanyService';
+import StaffService from './Application/Features/utilities/services/StaffService';
 
 const app = express();
 CompanyService.fetchInfo(); // initialise company info for mailing/other operations
+StaffService.createSuperAdmin();
 
 const setupApp = async () => {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +22,12 @@ const setupApp = async () => {
 
   if (process.env.NODE_ENV !== 'test') {
     app.use(cors({
-      allowedOrigins: ['localhost:4200', 'cleontime.herokuapp.com', 'overtime.whytecleon.ng']
+      allowedOrigins: [
+        'localhost:4200',
+        'cleontime.herokuapp.com',
+        'cleontime.whytecleon.ng',
+        'cleontime-ui-test.whytecleon.ng'
+      ]
     }));
   }
 

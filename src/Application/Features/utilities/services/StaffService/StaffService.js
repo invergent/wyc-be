@@ -72,6 +72,22 @@ class StaffService {
     const options = { where: { extraMonthsPermitted: true } };
     return Staff.update({ extraMonthsPermitted: false, extraMonthsData: null }, options);
   }
+
+  static async createSuperAdmin() {
+    const role = await Roles.findOne({ where: { name: 'Super Admin' } });
+    const superAdmin = {
+      staffId: 'ADM001',
+      firstname: 'Seun',
+      lastname: 'Togan',
+      email: 'seuntogan@whytecleon.com',
+      password: '$2b$07$Zu3I0X3JrW/UNyY5yyWoAer8HqjZEpnnAuvTaqC/GCXHCW3sBh4wm',
+      roleId: role.id
+    };
+    return Staff.findOrCreate({
+      where: { email: superAdmin.email },
+      defaults: superAdmin
+    });
+  }
 }
 
 export default StaffService;

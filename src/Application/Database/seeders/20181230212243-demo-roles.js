@@ -15,22 +15,47 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'RPC',
+    name: 'Driver',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    name: 'Trade Developer',
+    name: 'Guest House',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    name: 'Service Executive (Financial)',
+    name: 'Fireman',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    name: 'Service Executive (Non-Financial)',
+    name: 'Technician',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'Specie Driver',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'Security',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'Service Executive',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'Marketing Associate',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'DPSE',
     createdAt: new Date(),
     updatedAt: new Date()
   }]),
