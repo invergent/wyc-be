@@ -2,9 +2,10 @@ service: default
 runtime: nodejs10
 env_variables:
   NODE_ENV: 'cloud_test'
+  PLATFORM_ENV: 'cloud_test'
   SECRET: 'howcanYouguess'
   RESET_SECRET: 'resetit'
-  SENDGRID_API_KEY: ''
+  SENDGRID_API_KEY: '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'
   PUSHER_APP_ID: '739747'
   PUSHER_API_KEY: 'b79fda95698b77ecf0a3'
   PUSHER_SECRET: 'adcdcfc1a2801383cd4e'
@@ -12,7 +13,7 @@ env_variables:
   CLOUD_NAME: 'invergent'
   API_KEY: '882415814135169'
   API_SECRET: 'bJPqFW_jh8O4gMSXaYt7Ha5rM_E'
-  DB_HOST: '/cloudsql/octopurs:us-central1:octopurs'
+  DB_HOST: '/cloudsql/hecp-prod:us-central1:hecp'
   DB_NAME: 'cleontime_test'
   DB_USERNAME: 'whytecleon'
   DB_PASSWORD: 'password'

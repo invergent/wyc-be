@@ -1,5 +1,11 @@
 import EmailService from '../../services/EmailService';
 
+const urls = {
+  development: 'localhost',
+  cloud_test: 'cleontime-ui-test.whytecleon.ng',
+  production: 'cleontime.whytecleon.ng'
+};
+
 class EmailConstructor {
   static async create(emailDetails) {
     const { email: staffEmailAddress, lineManager, emailTemplateName } = emailDetails;
@@ -63,7 +69,7 @@ class EmailConstructor {
       .replace(/{{staffLastName}}/g, staffLastName)
       .replace(/{{lineManagerFirstName}}/g, lineManagerFirstName)
       .replace(/{{adminFirstName}}/g, adminFirstName)
-      .replace(/{{url}}/g, 'cleontime.herokuapp.com')
+      .replace(/{{url}}/g, urls[process.env.PLATFORM_ENV])
       .replace(/{{hash}}/g, hash)
       .replace(/{{amount}}/g, amountLocale)
       .replace(/{{monthOfClaim}}/g, monthOfClaim)
