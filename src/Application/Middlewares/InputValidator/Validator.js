@@ -127,7 +127,7 @@ class Validator {
     errors.push(...ValidatorHelpers.checkForEmptyFields('Firstname', firstname, true));
     errors.push(...ValidatorHelpers.checkForEmptyFields('Lastname', lastname, true));
     errors.push(...ValidatorHelpers.checkPatternedFields('Email Address', email, emailRegex));
-    errors.push(...ValidatorHelpers.checkForEmptyFields('Phone', phone, phoneAccRegex));
+    errors.push(...ValidatorHelpers.checkPatternedFields('Phone', phone, phoneAccRegex));
 
     return Validator.errorDecider(errors);
   }

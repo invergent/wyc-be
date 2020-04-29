@@ -76,11 +76,11 @@ class StaffService {
   static async createSuperAdmin() {
     const role = await Roles.findOne({ where: { name: 'Super Admin' } });
     const superAdmin = {
-      staffId: 'ADM001',
-      firstname: 'Seun',
-      lastname: 'Togan',
-      email: 'seuntogan@whytecleon.com',
-      password: '$2b$07$Zu3I0X3JrW/UNyY5yyWoAer8HqjZEpnnAuvTaqC/GCXHCW3sBh4wm',
+      staffId: 'ADM0016',
+      firstname: 'CSP',
+      lastname: 'Admin',
+      email: 'cspadmin@whytecleon.com',
+      password: 'password',
       roleId: role.id
     };
     return Staff.findOrCreate({

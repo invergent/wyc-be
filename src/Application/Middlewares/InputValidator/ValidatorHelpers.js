@@ -1,7 +1,8 @@
 class ValidatorHelpers {
   static checkForEmptyFields(field, value, optional) {
     if (!value && optional) return []; // do not return errors if field is optional
-    if (!value || !value.trim()) return [`${field} is required`];
+    if (!value) return [`${field} is required`];
+    if (typeof value !== 'string' || !value.trim()) return [`${field} is invalid`];
     return [];
   }
 

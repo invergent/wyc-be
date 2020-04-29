@@ -65,6 +65,7 @@ class Administration {
 
   static async createAdmin(req) {
     const { body, currentAdmin: { staffId } } = req;
+    body.email = body.email.toLowerCase();
     body.password = crypto.randomBytes(3).toString('hex');
 
     try {
