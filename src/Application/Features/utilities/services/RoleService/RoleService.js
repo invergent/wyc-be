@@ -13,11 +13,16 @@ class RoleService {
     };
     if (adminsOnly) {
       options.where = {
-        name: {
-          [Op.iLike]: {
-            [Op.any]: ['%Admin%', '%Auditor%']
-          }
-        }
+        [Op.and]: [
+          {
+            name: {
+              [Op.iLike]: {
+                [Op.any]: ['%Admin%', '%Auditor%']
+              }
+            }
+          },
+          { name: { [Op.notILike]: '%Super Admin%' } }
+        ]
       };
     }
     return models.Roles.findAll(options);

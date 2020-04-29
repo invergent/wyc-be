@@ -634,7 +634,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Dear {{adminFirstName}},</p>
-                                  <p>{{staffFirstName}} is requesting permission to update the branch details on their profile.</p>
+                                  <p>{{staffFirstName}} {{staffLastName}} is requesting permission to update the branch details on their profile.</p>
                                   <p>To grant permission, log in to CleonTime, go to staff, go to {{staffFirstName}}'s profile, then click "Authorise branch update".</p>
                                 </div>
                               </td>

@@ -30,7 +30,19 @@ class ProfileUpdate {
   }
 
   static changedField(updatePayload) {
-    const fields = { phone: 'phone number', branchId: 'branch', roleId: 'role' };
+    const { firstname, lastname } = updatePayload;
+    const fields = {
+      phone: 'phone number',
+      branchId: 'branch',
+      roleId: 'role',
+      firstname: 'first name',
+      lastname: 'lastname',
+      middlename: 'middlename'
+    };
+
+    if (firstname) {
+      return `name to ${firstname} ${lastname}`;
+    }
     return Object.keys(updatePayload).reduce((acc, field) => {
       if (fields[field]) acc += fields[field];
       return acc;
