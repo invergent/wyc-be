@@ -3,7 +3,7 @@ module.exports = {
     name: 'Whytecleon Limited',
     address: 'This is the address.',
     emailAddress: 'overtime@whytecleon.com',
-    url: 'overtime.invergent-technologies.com',
+    url: 'cleontime.whytecleon.ng',
     createdAt: new Date(),
     updatedAt: new Date()
   }]),
