@@ -3,7 +3,7 @@ import { companyInfo } from '../../utils/general';
 
 class Mailer {
   constructor() {
-    this.from = 'overtime@whytecleon.ng';
+    this.from = 'claims@whytecleon.ng';
   }
 
   create(email) {
