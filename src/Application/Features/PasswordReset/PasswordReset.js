@@ -15,7 +15,7 @@ class PasswordReset {
     if (!staff) return [404, 'Staff does not exist'];
 
     notifications.emit(eventNames.ForgotPassword, [staff.toJSON()]);
-    notifications.emit(eventNames.LogActivity, ['Requested forgot password', staff.staffId]);
+    notifications.emit(eventNames.LogActivity, ['Requested forgot password', { staffId: staff.staffId }]);
     return [200, `We just sent an email to ${staff.email}`];
   }
 
@@ -52,7 +52,7 @@ class PasswordReset {
       if (message !== 'valid') return [statusCode, message];
 
       const updated = await StaffService.updateStaffInfo(staffId, { password });
-      if (updated) notifications.emit(eventNames.LogActivity, [activityNames.PasswordReset, staffId]);
+      if (updated) notifications.emit(eventNames.LogActivity, [activityNames.PasswordReset, { staffId }]);
 
       return [updated ? 200 : 500, `Password reset ${updated ? '' : 'un'}successful!`];
     } catch (e) {

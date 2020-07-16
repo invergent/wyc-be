@@ -1,11 +1,11 @@
 import { Op } from 'sequelize';
 import models from '../../../../Database/models';
 
-const { Activities, Staff } = models;
+const { Activities, Staff, LineManagers } = models;
 
 class ActivityService {
-  static logActivity(activity, staffId) {
-    return Activities.create({ activity, staffId });
+  static logActivity(activity, identifier) {
+    return Activities.create({ activity, ...identifier });
   }
 
   static fetchActivities(staffId, limit) {
@@ -22,6 +22,11 @@ class ActivityService {
       include: [{
         model: Staff,
         as: 'creator',
+        attributes: ['firstname', 'lastname']
+      },
+      {
+        model: LineManagers,
+        as: 'sCreator',
         attributes: ['firstname', 'lastname']
       }]
     };

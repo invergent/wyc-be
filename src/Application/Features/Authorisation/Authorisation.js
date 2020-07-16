@@ -19,7 +19,7 @@ class Authorisation {
       const [statusCode, message] = AuthorisationHelpers.comparePassword(password, staff);
       if (statusCode !== 200) return [statusCode, message];
 
-      notifications.emit(eventNames.LogActivity, ['Logged in', staff.staffId]);
+      notifications.emit(eventNames.LogActivity, ['Logged in', { staffId: staff.staffId }]);
 
       return AuthorisationHelpers.createStaffToken(staff, tokenType);
     } catch (e) {

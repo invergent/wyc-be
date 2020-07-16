@@ -69,7 +69,8 @@ class Claim {
     notifications.emit(eventNames[`lineManager${approvalType}`], [staff.toJSON(), data]);
     notifications.emit(eventNames.LogActivity, [
       `${approvalType} ${data.monthOfClaim}, ${data.year} claim for ${staff.staffId}`,
-      req.lineManager.idNumber, data.id
+      { supervisorId: req.lineManager.idNumber },
+      data.id
     ]);
 
     return [statusCode, message, data];
@@ -134,7 +135,7 @@ class Claim {
         const { staffId } = claimer.toJSON();
         notifications.emit(eventNames.EditRequested, [staffId, claimId]);
         notifications.emit(eventNames.LogActivity, [
-          `${idNumber} requested edit on ${staffId} ${monthOfClaim}, ${year} claim`, staffId
+          `Requested edit on ${staffId} ${monthOfClaim}, ${year} claim`, { supervisorId: idNumber }
         ]);
       }
       return [200, `Edit${updated ? '' : ' not'} requested.`, updatedClaim[0]];

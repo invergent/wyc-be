@@ -27,7 +27,7 @@ class Administration {
       const createdStaff = listOfCreatedStaff.map(eachStaff => ({ ...eachStaff, password: undefined }));
 
       notifications.emit(eventNames.Activation, [listOfCreatedStaff]);
-      notifications.emit(eventNames.LogActivity, [`Created ${createdStaff.length} staff`, adminStaffId]);
+      notifications.emit(eventNames.LogActivity, [`Created ${createdStaff.length} staff`, { staffId: adminStaffId }]);
 
       return [201, `${createdStaff.length} staff created successfully.`, createdStaff];
     } catch (e) {
@@ -51,7 +51,7 @@ class Administration {
         notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
       }
       if (created) {
-        notifications.emit(eventNames.LogActivity, [`Created ${resourceName === 'Staff' ? 'staff' : 'branch'}`, staffId]);
+        notifications.emit(eventNames.LogActivity, [`Created ${resourceName === 'Staff' ? 'staff' : 'branch'}`, { staffId }]);
       }
       resource.password = undefined;
       return created
@@ -72,7 +72,7 @@ class Administration {
       const [resource, created] = await StaffService.findOrCreateSingleStaff(body);
       if (created) {
         notifications.emit(eventNames.Activation, [[resource.toJSON()]]);
-        notifications.emit(eventNames.LogActivity, [`Created ${body.staffId}`, staffId]);
+        notifications.emit(eventNames.LogActivity, [`Created ${body.staffId}`, { staffId }]);
       }
       resource.password = undefined;
       return created
@@ -92,7 +92,7 @@ class Administration {
       const branchesArray = worksheetConverter(worksheet);
       const results = await BranchService.bulkCreateBranches(branchesArray);
       const createdBranches = results.map(result => result.dataValues);
-      notifications.emit(eventNames.LogActivity, [`Created ${createdBranches.length} branches`, staffId]);
+      notifications.emit(eventNames.LogActivity, [`Created ${createdBranches.length} branches`, { staffId }]);
       return [201, `${createdBranches.length} branches created successfully.`, createdBranches];
     } catch (e) {
       console.log(e);
@@ -109,7 +109,7 @@ class Administration {
       const results = await LineManagerService.bulkCreateLineManagers(lineManagers);
       const createdLineManagers = results.map(result => result.dataValues);
       notifications.emit(eventNames.WelcomeLineManager, [createdLineManagers]);
-      notifications.emit(eventNames.LogActivity, [`Created ${lineManagers.length} line managers`, staffId]);
+      notifications.emit(eventNames.LogActivity, [`Created ${lineManagers.length} line managers`, { staffId }]);
       return [201, `${lineManagers.length} supervisors created successfully.`, createdLineManagers];
     } catch (e) {
       console.log(e);
@@ -123,7 +123,7 @@ class Administration {
     try {
       const [resource, created] = await LineManagerService.findOrCreateLineManager(body);
       notifications.emit(eventNames.WelcomeLineManager, [[resource]]);
-      notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, staffId]);
+      notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, { staffId }]);
       return created
         ? [201, 'Supervisor created successfully.', resource]
         : [409, 'supervisor already exists.', resource];
@@ -140,7 +140,7 @@ class Administration {
       const submittedClaims = AdministrationHelpers.filterAdminClaims(rows);
 
       if (+query.page === 1) {
-        notifications.emit(eventNames.LogActivity, ['Viewed claims', staffId]);
+        notifications.emit(eventNames.LogActivity, ['Viewed claims', { staffId }]);
       }
       return [200, 'Request successful', { count, submittedClaims }];
     } catch (e) {
@@ -189,7 +189,7 @@ class Administration {
     const { currentAdmin: { staffId } } = req;
     try {
       const admins = await StaffService.fetchAdmins();
-      notifications.emit(eventNames.LogActivity, ['Viewed admins', staffId]);
+      notifications.emit(eventNames.LogActivity, ['Viewed admins', { staffId }]);
       return [200, 'Request successful', admins];
     } catch (e) {
       console.log(e);
@@ -202,7 +202,7 @@ class Administration {
     try {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['lineManager', 'role', 'branch']);
       const refinedUser = UsersHelpers.refineUserData(staff);
-      notifications.emit(eventNames.LogActivity, [`Viewed ${staffId} profile`, adminStaffId]);
+      notifications.emit(eventNames.LogActivity, [`Viewed ${staffId} profile`, { staffId: adminStaffId }]);
       return [200, 'Request successful', refinedUser];
     } catch (e) {
       console.log(e);
@@ -216,7 +216,7 @@ class Administration {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
       if (!staff) return [404, 'Staff not found'];
       await staff.destroy();
-      notifications.emit(eventNames.LogActivity, [`Deleted ${staffId}`, adminStaffId]);
+      notifications.emit(eventNames.LogActivity, [`Deleted ${staffId}`, { staffId: adminStaffId }]);
       return [200, 'Staff removed!'];
     } catch (e) {
       console.log(e);
@@ -230,7 +230,7 @@ class Administration {
       const staff = await LineManagerService.findLineManagerByPk(supervisorId);
       if (!staff) return [404, 'Supervisor not found'];
       await staff.destroy();
-      notifications.emit(eventNames.LogActivity, [`Deleted ${staff.idNumber}`, staffId]);
+      notifications.emit(eventNames.LogActivity, [`Deleted ${staff.idNumber}`, { staffId }]);
       return [200, 'Supervisor removed!'];
     } catch (e) {
       console.log(e);
@@ -266,7 +266,7 @@ class Administration {
 
     try {
       const updated = await StaffService.updateStaffInfo(staffId, { extraMonthsPermitted, extraMonthsData });
-      notifications.emit(eventNames.LogActivity, [`Authorised extra months for ${staffId}`, adminStaffId]);
+      notifications.emit(eventNames.LogActivity, [`Authorised extra months for ${staffId}`, { staffId: adminStaffId }]);
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
     } catch (e) {
       console.log(e);
@@ -282,7 +282,7 @@ class Administration {
       if (staff.changedPassword) return [403, 'Password already changed'];
   
       notifications.emit(eventNames.Activation, [[staff]]);
-      notifications.emit(eventNames.LogActivity, [`Resent login credentials for ${staffId}`, adminStaffId]);
+      notifications.emit(eventNames.LogActivity, [`Resent login credentials for ${staffId}`, { staffId: adminStaffId }]);
       return [200, 'Activation email resent!'];
     } catch (e) {
       console.log(e);
@@ -298,7 +298,7 @@ class Administration {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
 
       notifications.emit(eventNames.CanUpdateBranch, [[staff]]);
-      notifications.emit(eventNames.LogActivity, [`Authorised branch edit for ${staffId}`, adminStaffId]);
+      notifications.emit(eventNames.LogActivity, [`Authorised branch edit for ${staffId}`, { staffId: adminStaffId }]);
       return [updated ? 200 : 500, `Permission${updated ? '' : ' not'} granted!`];
     } catch (e) {
       console.log(e);
@@ -315,7 +315,7 @@ class Administration {
       const staff = await StaffService.findStaffByStaffIdOrEmail(staffId);
 
       notifications.emit(eventNames.RequestToUpdateBranch, [admins, staff]);
-      notifications.emit(eventNames.LogActivity, ['Requested branch edit', staffId]);
+      notifications.emit(eventNames.LogActivity, ['Requested branch edit', { staffId }]);
       return [200, 'Permission email sent!'];
     } catch (e) {
       console.log(e);
@@ -328,13 +328,12 @@ class Administration {
 
     try {
       const logs = await ActivityService.fetchLogs(req.query);
-
       if (+page === 1) {
         // record view log activity only when first viewed
-        notifications.emit(eventNames.LogActivity, ['Viewed logs', staffId]);
+        notifications.emit(eventNames.LogActivity, ['Viewed logs', { staffId }]);
       }
       if (exportable) {
-        notifications.emit(eventNames.LogActivity, ['Exported logs', staffId]);
+        notifications.emit(eventNames.LogActivity, ['Exported logs', { staffId }]);
       }
       return [200, 'success', logs];
     } catch (e) {

@@ -19,7 +19,7 @@ class ProfileUpdate {
       if (body.branchId && (staff.lineManagerId !== body.lineManagerId)) {
         notifications.emit(eventNames.ChangedLineManager, [staff.toJSON()]);
       }
-      notifications.emit(eventNames.LogActivity, [`Updated ${ProfileUpdate.changedField(body)}`, requester.staffId]);
+      notifications.emit(eventNames.LogActivity, [`Updated ${ProfileUpdate.changedField(body)}`, { staffId: requester.staffId }]);
 
       
       return [updated ? 200 : 500, `Profile ${updated ? '' : 'not '}updated!`];

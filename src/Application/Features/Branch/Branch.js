@@ -13,7 +13,7 @@ class Branch {
       if (!branch) return [404, 'Branch does not exist.'];
     
       await StaffService.updateStaffInfo(staffId, { branchId });
-      notifications.emit(eventNames.LogActivity, [activityNames.ChangeBranch, staffId, branch]);
+      notifications.emit(eventNames.LogActivity, [activityNames.ChangeBranch, { staffId }, branch]);
       return [200, 'Branch updated successfully.', branch];
     } catch (e) {
       console.log(e);
