@@ -23,7 +23,7 @@ class ChangePassword {
       const updated = await StaffService.updateStaffInfo(requester.staffId, updatePayload);
 
       if (updated) {
-        notifications.emit(eventNames.LogActivity, [activityNames.ChangePassword, requester.staffId]);
+        notifications.emit(eventNames.LogActivity, [activityNames.ChangePassword, { staffId: requester.staffId }]);
       }
 
       return [updated ? 200 : 500, `Password ${updated ? '' : 'not '}changed!`];

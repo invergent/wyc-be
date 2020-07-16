@@ -12,7 +12,7 @@ class Holidays {
         defaults: req.body
       });
       if (created) {
-        notifications.emit(eventNames.LogActivity, [`Added ${fullDate} as holiday`, staffId]);
+        notifications.emit(eventNames.LogActivity, [`Added ${fullDate} as holiday`, { staffId }]);
         return [201, 'Holiday added!', holiday];
       }
       return [409, 'Holiday already exists', holiday];
@@ -32,7 +32,7 @@ class Holidays {
       if (!holiday) return [200, 'Holiday not found.'];
       
       await holiday.destroy();
-      notifications.emit(eventNames.LogActivity, [`Removed ${fullDate} as holiday`, staffId]);
+      notifications.emit(eventNames.LogActivity, [`Removed ${fullDate} as holiday`, { staffId }]);
       return [200, 'Holiday removed!'];
     } catch (error) {
       console.log(error);

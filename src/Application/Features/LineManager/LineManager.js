@@ -16,7 +16,7 @@ class LineManager {
       await StaffService.updateStaffInfo(staffId, payload);
     
       notifications.emit(
-        eventNames.LogActivity, [`${created ? 'Added' : 'Updated'} lineManager`, staffId, lineManager]
+        eventNames.LogActivity, [`${created ? 'Added' : 'Updated'} lineManager`, { staffId }, lineManager]
       );
     
       return [

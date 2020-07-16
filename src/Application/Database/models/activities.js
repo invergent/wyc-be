@@ -6,11 +6,15 @@ const activities = (sequelize, DataTypes) => {
     },
     staffId: {
       type: DataTypes.STRING
+    },
+    supervisorId: {
+      type: DataTypes.STRING
     }
   }, { freezeTableName: true });
 
   Activities.associate = (models) => {
     Activities.belongsTo(models.Staff, { as: 'creator', foreignKey: 'staffId', targetKey: 'staffId' });
+    Activities.belongsTo(models.LineManagers, { as: 'sCreator', foreignKey: 'supervisorId', targetKey: 'idNumber' });
   };
 
   return Activities;

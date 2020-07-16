@@ -16,7 +16,7 @@ class Settings {
       if (updated && updateCron) Cron.Scheduler.updateCronJob(scheduleType, settings[0]);
 
       if (updated) {
-        notifications.emit(eventNames.LogActivity, ['Updated settings', staffId]);
+        notifications.emit(eventNames.LogActivity, ['Updated settings', { staffId }]);
         return [200, 'Update successful', settings[0]];
       }
       return [500, 'Schedule was not updated.'];

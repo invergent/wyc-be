@@ -16,7 +16,7 @@ class Export {
     try {
       const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData(query);
       const pathToDocument = await Export.createExcelDocument(populatedWorkbook, docType);
-      notifications.emit(eventNames.LogActivity, [`Exported claims [${docType}]`, staffId]);
+      notifications.emit(eventNames.LogActivity, [`Exported claims [${docType}]`, { staffId }]);
       return [pathToDocument, `cleontimeReport.${docType}`];
     } catch (e) {
       console.log(e);
