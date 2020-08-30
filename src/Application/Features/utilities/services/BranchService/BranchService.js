@@ -15,6 +15,10 @@ class BranchService {
     return BasicQuerier.findAll('Branch', { include: 'supervisors' });
   }
 
+  static updateBranch(payload, branchId) {
+    return BasicQuerier.update('Branch', payload, branchId);
+  }
+
   static findOrCreateSingleBranch(branch) {
     return models.Branch.findOrCreate({
       where: { solId: branch.solId },

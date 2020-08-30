@@ -60,6 +60,10 @@ class ValidatorHelpers {
     let methodName;
 
     switch (true) {
+      case (path.includes('update')):
+        // use the same method for validating a single branch creation
+        methodName = 'single';
+        break;
       case (path.includes('supervisor')):
         methodName = 'supervisor';
         break;

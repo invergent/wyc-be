@@ -21,8 +21,8 @@ class Controller {
     return Responder.respondWithCookie(req, res, Authorisation.authoriseLineManager);
   }
 
-  static async updateBranch(req, res) {
-    return Responder.respond(req, res, Branch.update);
+  static async updateStaffBranch(req, res) {
+    return Responder.respond(req, res, Branch.updateStaffBranch);
   }
 
   static async addOrChangeLineManager(req, res) {
@@ -136,6 +136,14 @@ class Controller {
 
   static async fetchBranches(req, res) {
     return Responder.respond(req, res, Branch.fetchBranches);
+  }
+
+  static async updateBranch(req, res) {
+    return Responder.respond(req, res, Branch.updateBranch);
+  }
+
+  static async removeBranch(req, res) {
+    return Responder.respond(req, res, Branch.removeBranch);
   }
 
   static async fetchRoles(req, res) {

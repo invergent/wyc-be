@@ -37,6 +37,8 @@ export const activityNames = Object.freeze({
   PasswordReset: 'Requested a PasswordReset.',
   ChangePassword: 'Updated password',
   ChangeBranch: 'Changed branch to {{branchName}}',
+  UpdateBranch: 'Changed branch to {{branchName}} ({{solId}})',
+  DeleteBranch: 'Deleted branch {{branchName}} ({{solId}})',
   NewClaim: 'Created a new claim',
   Updated: 'Updated claim',
   EditRequested: 'Edit requested',
