@@ -11,7 +11,7 @@ const { validateClaimAccess } = ClaimAccessControl;
 const { validateExcelValues } = Administration;
 const {
   forgotPassword, authoriseStaff, authoriseAdmin, authoriseLineManager, changePassword,
-  updateBranch, confirmPasswordResetRequest, resetPassword, addOrChangeLineManager,
+  updateStaffBranch, confirmPasswordResetRequest, resetPassword, addOrChangeLineManager,
   createOvertimeClaim, pendingClaimsForlineManagers, approveClaim, declineClaim, cancelClaim,
   submittedClaims, exportDoc, updateSchedules, createStaff, createBranches, fetchSingleClaim,
   staffClaimStats, staffActivities, staffProfileData, staffClaimHistory, uploadImage,
@@ -20,7 +20,7 @@ const {
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
   authoriseBranchEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin, createSingleSupervisor,
-  createSupervisors, removeSingleSupervisor, requestBranchEdit
+  createSupervisors, removeSingleSupervisor, requestBranchEdit, updateBranch, removeBranch
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -65,7 +65,7 @@ router.get('/users/profile', authenticateAdminOrStaff, staffProfileData);
 router.put('/users/profile', authenticateAdminOrStaff, customValidator, updateProfileInfo);
 router.post('/users/profile/image', authenticateAdminOrStaff, checkProps, checkFileType, uploadImage);
 router.post('/users/profile/line-manager', authenticateStaff, checkProps, checkEntries, addOrChangeLineManager);
-router.put('/users/profile/branch', authenticateStaff, checkBranchId, updateBranch);
+router.put('/users/profile/branch', authenticateStaff, checkBranchId, updateStaffBranch);
 router.post('/users/profile/reset', authenticatePasswordReset, checkProps, checkEntries, resetPassword);
 router.put('/users/profile/edit-branch/request', authenticateStaff, requestBranchEdit);
 
@@ -94,6 +94,8 @@ router.post('/admin/staff/edit-branch/authorise', authenticateAdmin, customValid
 
 router.post('/admin/branch', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createBranches);
 router.post('/admin/branch/single', authenticateAdmin, checkEntries, createSingleBranchOrStaff);
+router.put('/admin/branch/:solId/update', authenticateAdmin, checkEntries, updateBranch);
+router.delete('/admin/branch/:branchId', authenticateAdmin, removeBranch);
 
 router.post('/admin/supervisors', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createSupervisors);
 router.post('/admin/supervisors/single', authenticateAdmin, checkEntries, createSingleSupervisor);
