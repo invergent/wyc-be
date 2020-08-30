@@ -3,7 +3,7 @@ import ActivityService from '../services/ActivityService';
 class ActivityLogger {
   static log(activity, identifier, data) {
     if (activity.includes('lineManager')) activity = ActivityLogger.refineChangeLineManagerLog(activity, data);
-    if (activity.includes('{{branchName}}')) activity = ActivityLogger.refineChangeBranchLog(data);
+    if (activity.includes('{{branchName}}')) activity = ActivityLogger.refineChangeBranchLog(data, activity);
     return ActivityService.logActivity(activity, identifier);
   }
 
@@ -17,8 +17,11 @@ class ActivityLogger {
     return `Changed line manager to ${fs} ${ls}`;
   }
 
-  static refineChangeBranchLog(data) {
-    return `Updated branch to ${data.name}`;
+  static refineChangeBranchLog(data, activity) {
+    const { name, solId } = data;
+    return activity
+      .replace(/{{branchName}}/g, name)
+      .replace(/{{solId}}/g, solId);
   }
 }
 

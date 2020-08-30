@@ -12,7 +12,7 @@ import routes from './routes';
 import CompanyService from './Application/Features/utilities/services/CompanyService';
 import StaffService from './Application/Features/utilities/services/StaffService';
 
-const devWhitelist = ['localhost:4200'];
+const devWhitelist = ['localhost:4200', 'example.com:4200'];
 const prodWhitelist = [
   'cleontime.herokuapp.com', 'cleontime.whytecleon.ng', 'cleontime-ui-test.whytecleon.ng',
   'cleontime-api-test.whytecleon.ng', 'cleontime-api.whytecleon.ng'
