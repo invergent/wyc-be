@@ -6,8 +6,9 @@ class RoleService {
     const options = {
       where: {
         [Op.and]: [
-          { name: { [Op.notILike]: '%Admin%' } },
-          { name: { [Op.notILike]: '%Auditor%' } }
+          { name: { [Op.notILike]: 'Super Admin' } },
+          { name: { [Op.notILike]: 'Admin' } },
+          { name: { [Op.notILike]: 'Auditor' } }
         ]
       }
     };
@@ -17,11 +18,11 @@ class RoleService {
           {
             name: {
               [Op.iLike]: {
-                [Op.any]: ['%Admin%', '%Auditor%']
+                [Op.any]: ['Admin', 'Auditor']
               }
             }
           },
-          { name: { [Op.notILike]: '%Super Admin%' } }
+          { name: { [Op.notILike]: 'Super Admin' } }
         ]
       };
     }
