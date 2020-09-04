@@ -102,6 +102,7 @@ class EmailNotifications {
     const newList = listOfAdmins.map(admin => ({
       adminFirstName: admin.firstname,
       firstname: staff.firstname,
+      lastname: staff.lastname,
       staffId: staff.staffId,
       email: admin.emailAddress
     }));
