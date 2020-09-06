@@ -77,7 +77,7 @@ class AdministrationHelpers {
       const claimDetails = Object.keys(parseDetails).reduce((acc, item) => {
         if (item === 'outstation') {
           acc[item] = parseDetails[item];
-        } else if (parseDetails[item].selectedDates) {
+        } else if (parseDetails[item] && parseDetails[item].selectedDates) {
           acc[item] = parseDetails[item].selectedDates.length;
         }
         return acc;
