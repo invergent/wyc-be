@@ -99,7 +99,7 @@ class Claim {
     }
     
     try {
-      const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId, newExtraMonthsData);
+      const [updated, updatedClaim] = await ClaimService.cancelClaim(claimId);
       if (updated) {
         const { monthOfClaim, year } = updatedClaim[0];
         notifications.emit(eventNames.Cancelled, [claim.claimer, claimId, `Cancelled ${monthOfClaim}, ${year} claim`]);
@@ -118,7 +118,7 @@ class Claim {
 
     return {
       extraMonthsData: {
-        permittedMonths: [...permittedMonths, applyingMonth].sort(),
+        permittedMonths: [...permittedMonths.filter(month => month !== applyingMonth), applyingMonth].sort(),
         appliedMonths: appliedMonths.filter(month => month !== applyingMonth)
       }
     };
