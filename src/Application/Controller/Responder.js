@@ -15,8 +15,14 @@ class Responder {
       return res.status(statusCode).json({ message });
     }
 
-    res.cookie(tokenType, data.hashedToken,
-      { expires: new Date(Date.now() + 3600000), httpOnly: true });
+    res.cookie(
+      tokenType, data.hashedToken,
+      {
+        expires: new Date(Date.now() + 3600000),
+        domain: 'whytecleon.ng',
+        httpOnly: true
+      }
+    );
     return res.status(statusCode).json({ message, data });
   }
 
