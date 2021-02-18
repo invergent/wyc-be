@@ -1,7 +1,7 @@
 import EmailService from '../../services/EmailService';
 
 const urls = {
-  development: 'localhost',
+  development: 'example.com:4200',
   cloud_test: 'cleontime-ui-test.whytecleon.ng',
   production: 'cleontime.whytecleon.ng'
 };

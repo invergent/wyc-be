@@ -14,7 +14,7 @@ const {
   updateStaffBranch, confirmPasswordResetRequest, resetPassword, addOrChangeLineManager,
   createOvertimeClaim, pendingClaimsForlineManagers, approveClaim, declineClaim, cancelClaim,
   submittedClaims, exportDoc, updateSchedules, createStaff, createBranches, fetchSingleClaim,
-  staffClaimStats, staffActivities, staffProfileData, staffClaimHistory, uploadImage,
+  staffClaimStats, staffActivities, staffProfileData, staffProfileDataShared, staffClaimHistory, uploadImage,
   updateProfileInfo, fetchLineManagers, fetchBranches, fetchRoles, fetchNotifications,
   markNotificationsAsReadAndViewed, chartStatistics, fetchStaff, createSingleBranchOrStaff,
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
@@ -27,7 +27,7 @@ const {
   checkDocType, checkOvertimeValues, checkFileType, customValidator, checkScheduleProps
 } = InputValidator;
 const {
-  authenticateAdmin, authenticateStaff, authenticateLineManager, verifyLineManager,
+  authenticateAdmin, authenticateStaff, authenticateLineManager, verifyLineManager, verifyServiceRequest,
   destroyToken, authenticatePasswordReset, authenticateAdminOrStaff, onlySuperAdminAuditor
 } = Authenticator;
 
@@ -68,6 +68,7 @@ router.post('/users/profile/line-manager', authenticateStaff, checkProps, checkE
 router.put('/users/profile/branch', authenticateStaff, checkBranchId, updateStaffBranch);
 router.post('/users/profile/reset', authenticatePasswordReset, checkProps, checkEntries, resetPassword);
 router.put('/users/profile/edit-branch/request', authenticateStaff, requestBranchEdit);
+router.get('/users/profile/shared', verifyServiceRequest, staffProfileDataShared);
 
 
 router.get('/admin/claims', authenticateAdmin, submittedClaims);

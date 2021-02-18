@@ -48,6 +48,19 @@ class Staff {
     }
   }
 
+  static async profileDataShared(req) {
+    const { query: { staffId }, serviceToken } = req;
+    if (serviceToken !== process.env.SECRET) return [401, 'Unauthorised'];
+    try {
+      const staffData = await StaffService.findStaffByStaffIdOrEmail(staffId);
+      const refinedStaffData = UsersHelpers.refineUserDataShared(staffData);
+      return [200, 'Request successful', refinedStaffData];
+    } catch (e) {
+      console.log(e);
+      return [500, 'An error occurred ERR500PROFIL.'];
+    }
+  }
+
   static async claimHistory(req) {
     const { currentStaff: { id } } = req;
     try {

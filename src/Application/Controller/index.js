@@ -118,6 +118,10 @@ class Controller {
     return Responder.respond(req, res, Users.Staff.profileData);
   }
 
+  static async staffProfileDataShared(req, res) {
+    return Responder.respond(req, res, Users.Staff.profileDataShared);
+  }
+
   static async staffClaimHistory(req, res) {
     return Responder.respond(req, res, Users.Staff.claimHistory);
   }

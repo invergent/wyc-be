@@ -83,8 +83,8 @@ class ClaimService {
     const today = new Date();
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth();
-    const itsJanuary = currentMonth === 0;
-    const options = { where: { year: itsJanuary ? (currentYear - 1) : currentYear } };
+    const showLastYear = currentMonth < 2;
+    const options = { where: { year: showLastYear ? (currentYear - 1) : currentYear } };
     return ClaimsStatistics.findOne(options);
   }
 
