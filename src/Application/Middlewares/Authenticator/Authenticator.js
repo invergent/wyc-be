@@ -55,6 +55,21 @@ class Authenticator {
     return Authenticator.decrypt(req, res, next, 'lineManager', hash);
   }
 
+  static verifyServiceRequest(req, res, next) {
+    const { query: { token } } = req;
+    if (!token) {
+      return res.status(401).json({ message: 'Your request was unauthorised. Access denied.' });
+    }
+    try {
+      const decoded = krypter.authenticationDecryption(token);
+      req.serviceToken = decoded.secret;
+      return next();
+    } catch (error) {
+      console.log(error);
+      return res.status(401).json({ message: 'Service authentication error.' });
+    }
+  }
+
   static decrypt(req, res, next, requester, token) {
     const errorCode = authErrorCodes[requester];
     const currentUserRole = authRoleName[requester];

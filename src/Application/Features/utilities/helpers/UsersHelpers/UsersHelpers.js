@@ -46,6 +46,24 @@ class UsersHelpers {
     };
   }
 
+  static refineUserDataShared(user) {
+    const {
+      staffId, firstname, lastname, middlename, email: officeEmail, image, roleId, branchId
+    } = user;
+
+    return {
+      staffId,
+      type: 'Employee',
+      firstname,
+      lastname,
+      middlename,
+      officeEmail,
+      imageUrl: image,
+      jobFunctionId: roleId,
+      branchId
+    };
+  }
+
   static refineUserClaim(user) {
     const {
       staffId, firstname, lastname, image, Claims
