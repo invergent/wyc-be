@@ -1,7 +1,7 @@
 import services from '../utilities/services';
 import AuthorisationHelpers from '../utilities/helpers/AuthorisationHelpers';
 import notifications from '../utilities/notifications';
-import { eventNames, activityNames } from '../utilities/utils/types';
+import { eventNames } from '../utilities/utils/types';
 
 const { StaffService } = services;
 

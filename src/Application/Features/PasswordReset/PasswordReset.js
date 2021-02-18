@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import helpers from '../utilities/helpers';
 import services from '../utilities/services';
 import notifications from '../utilities/notifications';
@@ -51,7 +52,7 @@ class PasswordReset {
       const [statusCode, message] = await PasswordResetHelper.findAndValidateResetRequest(staffId, hash);
       if (message !== 'valid') return [statusCode, message];
 
-      const updated = await StaffService.updateStaffInfo(staffId, { password });
+      const updated = await StaffService.updateStaffInfo(staffId, { password: bcrypt.hashSync(password, 8) });
       if (updated) notifications.emit(eventNames.LogActivity, [activityNames.PasswordReset, { staffId }]);
 
       return [updated ? 200 : 500, `Password reset ${updated ? '' : 'un'}successful!`];
