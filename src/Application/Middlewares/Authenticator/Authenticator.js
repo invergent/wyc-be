@@ -85,8 +85,14 @@ class Authenticator {
   }
 
   static destroyToken(req, res) {
-    res.clearCookie('staffToken');
-    res.clearCookie('adminToken');
+    res.clearCookie('staffToken', {
+      domain: process.env.NODE_ENV === 'development' ? 'example.com' : 'whytecleon.ng',
+      httpOnly: true
+    });
+    res.clearCookie('adminToken', {
+      domain: process.env.NODE_ENV === 'development' ? 'example.com' : 'whytecleon.ng',
+      httpOnly: true
+    });
     return res.status(200).json({ message: 'Token destroyed successfully.' });
   }
 }
