@@ -20,7 +20,8 @@ const {
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
   authoriseBranchEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin, createSingleSupervisor,
-  createSupervisors, updateSingleSupervisor, removeSingleSupervisor, requestBranchEdit, updateBranch, removeBranch
+  createSupervisors, updateSingleSupervisor, removeSingleSupervisor, requestBranchEdit, updateBranch,
+  removeBranch, getClaimYears
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -74,6 +75,7 @@ router.get('/users/profile/shared', verifyServiceRequest, staffProfileDataShared
 router.get('/admin/claims', authenticateAdmin, submittedClaims);
 router.get('/admin/claims/dashboard-statistics', authenticateAdmin, dashboardStats);
 router.get('/admin/claims/chart-statistics', authenticateAdmin, chartStatistics);
+router.get('/admin/claims/years', authenticateAdmin, getClaimYears);
 router.get('/admin/claims/:claimId', authenticateAdmin, fetchSingleClaim);
 router.get('/admin/claims/export/:docType', authenticateAdmin, checkDocType, exportDoc);
 

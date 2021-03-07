@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import models from '../../../../Database/models';
 import ClaimApprovalHistoryService from '../ClaimApprovalHistoryService';
 import GenericHelpers from '../../helpers/GenericHelpers';
@@ -95,6 +95,10 @@ class ClaimService {
 
   static createChartStatistics(statPayload) {
     return ClaimsStatistics.create(statPayload);
+  }
+
+  static getClaimYears() {
+    return Claims.findAll({ attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('year')), 'year']] });
   }
 }
 
