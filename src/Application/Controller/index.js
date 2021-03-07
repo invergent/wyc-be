@@ -150,6 +150,10 @@ class Controller {
     return Responder.respond(req, res, Branch.removeBranch);
   }
 
+  static async getClaimYears(req, res) {
+    return Responder.respond(req, res, Administration.getClaimYears);
+  }
+
   static async fetchRoles(req, res) {
     return Responder.respond(req, res, Roles.fetchRoles);
   }

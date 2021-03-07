@@ -199,6 +199,17 @@ class Administration {
     }
   }
 
+  static async getClaimYears() {
+    try {
+      const yearResult = await ClaimService.getClaimYears();
+      const years = yearResult.map(item => item.year);
+      return [200, 'Request successful', years];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem fetching claims ERR500FETSTF.'];
+    }
+  }
+
   static async fetchSingleStaff(req) {
     const { params: { staffId }, currentAdmin: { staffId: adminStaffId } } = req;
     try {
