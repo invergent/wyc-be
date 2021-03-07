@@ -20,7 +20,7 @@ const {
   companySettings, requestEdit, updateOvertimeClaim, addHoliday, remove, fetchSingleStaff,
   fetchAllHolidays, authoriseMultipleClaimsApplication, resendLoginCredentials, removeSingleStaff,
   authoriseBranchEdit, fetchLogs, dashboardStats, fetchAdmins, createAdmin, createSingleSupervisor,
-  createSupervisors, removeSingleSupervisor, requestBranchEdit, updateBranch, removeBranch
+  createSupervisors, updateSingleSupervisor, removeSingleSupervisor, requestBranchEdit, updateBranch, removeBranch
 } = Controller;
 const {
   checkProps, checkEntries, checkBranchId, /* checkIdParams, */ validateForgotPasswordRequest, checkOvertimeProps,
@@ -28,7 +28,7 @@ const {
 } = InputValidator;
 const {
   authenticateAdmin, authenticateStaff, authenticateLineManager, verifyLineManager, verifyServiceRequest,
-  destroyToken, authenticatePasswordReset, authenticateAdminOrStaff, onlySuperAdminAuditor
+  destroyToken, authenticatePasswordReset, authenticateAdminOrStaff, onlySuperAdminAuditor, superAdmin
 } = Authenticator;
 
 router.post('/signin', checkProps, checkEntries, authoriseStaff);
@@ -100,6 +100,7 @@ router.delete('/admin/branch/:branchId', authenticateAdmin, removeBranch);
 
 router.post('/admin/supervisors', authenticateAdmin, checkProps, checkFileType, validateExcelValues, createSupervisors);
 router.post('/admin/supervisors/single', authenticateAdmin, checkEntries, createSingleSupervisor);
+router.put('/admin/supervisors/:supervisorId', authenticateAdmin, superAdmin, checkEntries, updateSingleSupervisor);
 router.delete('/admin/supervisors/:supervisorId', authenticateAdmin, removeSingleSupervisor);
 
 router.post('/admin/holidays', authenticateAdmin, customValidator, addHoliday);

@@ -38,4 +38,6 @@ notify.register(eventNames.Reminder, EmailNotifications.remindStaffOfPendingClai
 // Activity logger events
 notify.register(eventNames.LogActivity, ActivityLogger.log);
 
+notify.register(eventNames.UpdateOnAppraisal, EmailNotifications.updateOnAppraisal);
+
 export default notify;

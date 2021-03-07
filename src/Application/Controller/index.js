@@ -178,6 +178,10 @@ class Controller {
     return Responder.respond(req, res, Administration.createSupervisors);
   }
 
+  static async updateSingleSupervisor(req, res) {
+    return Responder.respond(req, res, Administration.updateSingleSupervisor);
+  }
+
   static async removeSingleSupervisor(req, res) {
     return Responder.respond(req, res, Administration.removeSingleSupervisor);
   }
