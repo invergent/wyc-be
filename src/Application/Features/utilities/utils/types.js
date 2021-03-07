@@ -30,7 +30,8 @@ export const eventNames = Object.freeze({
   CanUpdateBranch: 'CanUpdateBranch',
   RequestToUpdateBranch: 'RequestToUpdateBranch',
   ChangedLineManager: 'ChangedLineManager',
-  WelcomeLineManager: 'WelcomeLineManager'
+  WelcomeLineManager: 'WelcomeLineManager',
+  UpdateOnAppraisal: 'UpdateOnAppraisal'
 });
 
 export const activityNames = Object.freeze({

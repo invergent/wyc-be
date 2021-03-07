@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import helpers from '../helpers';
 import services from '../services';
 import { templateNames } from '../utils/types';
@@ -121,6 +123,22 @@ class EmailNotifications {
 
     // update completed claim histories
     ClaimApprovalHistoryService.createApprovalHistoryOnCompletion(filteredListOfStaff);
+  }
+
+  static async updateOnAppraisal(supervisor) {
+    const url = {
+      development: 'http://example.com:9001/v1/supervisors/update',
+      cloud_test: 'https://appraisal-test.apis.whytecleon.ng/v1/supervisors/update',
+      production: 'https://appraisal.apis.whytecleon.ng/v1/supervisors/update'
+    }[process.env.NODE_ENV];
+
+    const payload = {
+      secret: process.env.SECRET,
+      supervisor
+    };
+
+    const response = await axios.default.put(url, payload);
+    console.log(response);
   }
 
   static sender(emails) {

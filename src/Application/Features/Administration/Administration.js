@@ -122,11 +122,13 @@ class Administration {
 
     try {
       const [resource, created] = await LineManagerService.findOrCreateLineManager(body);
-      notifications.emit(eventNames.WelcomeLineManager, [[resource]]);
-      notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, { staffId }]);
-      return created
-        ? [201, 'Supervisor created successfully.', resource]
-        : [409, 'supervisor already exists.', resource];
+      if (created) {
+        notifications.emit(eventNames.WelcomeLineManager, [[resource]]);
+        notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, { staffId }]);
+        notifications.emit(eventNames.UpdateOnAppraisal, [resource]);
+        return [201, 'Supervisor created successfully.', resource];
+      }
+      return [409, 'supervisor already exists.', resource];
     } catch (e) {
       console.log(e);
       return [500, 'There was an error creating supervisor ERR500CRTLMGR.', e];
@@ -221,6 +223,28 @@ class Administration {
     } catch (e) {
       console.log(e);
       return [500, 'There was a problem removing staff ERR500RMVSTF.'];
+    }
+  }
+
+  static async updateSingleSupervisor(req) {
+    const {
+      body: {
+        idNumber, solId, firstname, lastname, email, phone
+      },
+      currentAdmin: { staffId }
+    } = req;
+
+    const payload = {
+      idNumber, solId, firstname, lastname, email, phone
+    };
+    try {
+      const [updated, [lineManager]] = await LineManagerService.updateLineManager(payload);
+      notifications.emit(eventNames.LogActivity, [`Updated ${lineManager.idNumber}`, { staffId }]);
+      notifications.emit(eventNames.UpdateOnAppraisal, [lineManager]);
+      return [200, 'Supervisor removed!'];
+    } catch (e) {
+      console.log(e);
+      return [500, 'There was a problem removing staff ERR500UPDSUP.'];
     }
   }
 

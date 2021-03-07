@@ -20,6 +20,10 @@ class LineManagerService {
     return LineManagers.findByPk(id);
   }
 
+  static updateLineManager(payload) {
+    return LineManagers.update(payload, { where: { idNumber: payload.idNumber }, returning: true });
+  }
+
   static bulkCreateLineManagers(lineManagers) {
     return BasicQuerier.bulkCreate('LineManagers', lineManagers);
   }
