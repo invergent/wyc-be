@@ -52,7 +52,7 @@ class Staff {
     const { query: { staffId }, serviceToken } = req;
     if (serviceToken !== process.env.SECRET) return [401, 'Unauthorised'];
     try {
-      const staffData = await StaffService.findStaffByStaffIdOrEmail(staffId);
+      const staffData = await StaffService.findStaffByStaffIdOrEmail(staffId, ['branch', 'lineManager']);
       const refinedStaffData = UsersHelpers.refineUserDataShared(staffData);
       return [200, 'Request successful', refinedStaffData];
     } catch (e) {
