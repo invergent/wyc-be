@@ -48,19 +48,35 @@ class UsersHelpers {
 
   static refineUserDataShared(user) {
     const {
-      staffId, firstname, lastname, middlename, email: officeEmail, image, roleId, branchId
+      staffId, firstname, lastname, middlename, email: officeEmail, image,
+      branch: { name: branchName, solId },
+      lineManager
     } = user;
+
+    let supervisor = null;
+    if (lineManager) {
+      supervisor = {
+        staffId: lineManager.idNumber,
+        type: 'External supervisor',
+        branchName,
+        solId,
+        firstname: lineManager.firstname,
+        lastname: lineManager.lastname,
+        officeEmail: lineManager.email
+      };
+    }
 
     return {
       staffId,
-      type: 'Employee',
+      type: staffId.includes('ADM') ? 'Admin' : 'Employee',
       firstname,
       lastname,
       middlename,
       officeEmail,
       imageUrl: image,
-      jobFunctionId: roleId,
-      branchId
+      branchName,
+      solId,
+      lineManager: supervisor
     };
   }
 
