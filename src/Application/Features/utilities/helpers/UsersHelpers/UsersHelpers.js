@@ -48,9 +48,7 @@ class UsersHelpers {
 
   static refineUserDataShared(user) {
     const {
-      staffId, firstname, lastname, middlename, email: officeEmail, image,
-      branch: { name: branchName, solId },
-      lineManager
+      staffId, firstname, lastname, middlename, email: officeEmail, image, branch, lineManager
     } = user;
 
     let supervisor = null;
@@ -58,8 +56,8 @@ class UsersHelpers {
       supervisor = {
         staffId: lineManager.idNumber,
         type: 'External supervisor',
-        branchName,
-        solId,
+        branchName: branch && branch.name,
+        solId: branch && branch.solId,
         firstname: lineManager.firstname,
         lastname: lineManager.lastname,
         officeEmail: lineManager.email
@@ -74,8 +72,8 @@ class UsersHelpers {
       middlename,
       officeEmail,
       imageUrl: image,
-      branchName,
-      solId,
+      branchName: branch && branch.name,
+      solId: branch && branch.solId,
       lineManager: supervisor
     };
   }
