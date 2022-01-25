@@ -71,7 +71,7 @@ class UsersHelpers {
       lastname,
       middlename,
       officeEmail,
-      imageUrl: image,
+      imageUrl: image.includes('dummy-profile') ? null : image,
       branchName: branch && branch.name,
       solId: branch && branch.solId,
       lineManager: supervisor
