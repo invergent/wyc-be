@@ -125,7 +125,7 @@ class Administration {
       if (created) {
         notifications.emit(eventNames.WelcomeLineManager, [[resource]]);
         notifications.emit(eventNames.LogActivity, [`Created ${body.idNumber}`, { staffId }]);
-        notifications.emit(eventNames.UpdateOnAppraisal, [resource]);
+        // notifications.emit(eventNames.UpdateOnAppraisal, [resource]);
         return [201, 'Supervisor created successfully.', resource];
       }
       return [409, 'supervisor already exists.', resource];
@@ -251,7 +251,7 @@ class Administration {
     try {
       const [updated, [lineManager]] = await LineManagerService.updateLineManager(payload);
       notifications.emit(eventNames.LogActivity, [`Updated ${lineManager.idNumber}`, { staffId }]);
-      notifications.emit(eventNames.UpdateOnAppraisal, [lineManager]);
+      // notifications.emit(eventNames.UpdateOnAppraisal, [lineManager]);
       return [200, 'Supervisor removed!'];
     } catch (e) {
       console.log(e);

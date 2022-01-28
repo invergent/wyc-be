@@ -3,6 +3,7 @@ import { eventNames } from '../utils/types';
 import EmailNotifications from './EmailNotifications';
 import InAppNotifications from './InAppNotifications';
 import ActivityLogger from './ActivityLogger';
+import APISyncHandlers from './APISyncHandlers';
 
 notify.register(eventNames.Activation, EmailNotifications.sendActivationEmail);
 notify.register(eventNames.WelcomeLineManager, EmailNotifications.sendWelcomeEmailToLineManagers);
@@ -38,6 +39,6 @@ notify.register(eventNames.Reminder, EmailNotifications.remindStaffOfPendingClai
 // Activity logger events
 notify.register(eventNames.LogActivity, ActivityLogger.log);
 
-notify.register(eventNames.UpdateOnAppraisal, EmailNotifications.updateOnAppraisal);
+notify.register(eventNames.UpdateOnAppraisal, APISyncHandlers.updateStaffSupervisorOnAppraisal);
 
 export default notify;

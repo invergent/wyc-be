@@ -16,8 +16,10 @@ class LineManagerService {
     return LineManagers.findAll();
   }
 
-  static findLineManagerByPk(id) {
-    return LineManagers.findByPk(id);
+  static findLineManagerByPk(id, include) {
+    const queryOptions = {};
+    if (include) queryOptions.include = include;
+    return LineManagers.findByPk(id, queryOptions);
   }
 
   static updateLineManager(payload) {
