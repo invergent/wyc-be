@@ -13,11 +13,11 @@ class ChangePassword {
 
     try {
       const staff = await StaffService.findStaffByStaffIdOrEmail(requester.staffId);
-      const [isCorrect, firstLogin] = await ChangePassword
+      const isCorrect = await ChangePassword
         .currentPasswordIsCorrect(currentPassword, staff.password);
       if (!isCorrect) return [401, 'Password is incorrect'];
 
-      if (firstLogin) updatePayload.changedPassword = true;
+      updatePayload.changedPassword = true;
       updatePayload.password = bcrypt.hashSync(newPassword, 8);
 
       const updated = await StaffService.updateStaffInfo(requester.staffId, updatePayload);
@@ -34,10 +34,7 @@ class ChangePassword {
   }
 
   static currentPasswordIsCorrect(currentPasswordFromUser, currentPasswordFromDB) {
-    if (currentPasswordFromUser === currentPasswordFromDB) {
-      return [true, true];
-    }
-    return [bcrypt.compareSync(currentPasswordFromUser, currentPasswordFromDB)];
+    return (currentPasswordFromUser === currentPasswordFromDB) || bcrypt.compareSync(currentPasswordFromUser, currentPasswordFromDB);
   }
 }
 

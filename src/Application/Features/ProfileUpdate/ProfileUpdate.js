@@ -17,6 +17,8 @@ class ProfileUpdate {
       const updated = await StaffService.updateStaffInfo(requester.staffId, body);
 
       if (body.branchId && (staff.lineManagerId !== body.lineManagerId)) {
+        const payload = { staffId: requester.staffId, lineManagerId: body.lineManagerId };
+        notifications.emit(eventNames.UpdateOnAppraisal, [payload]);
         notifications.emit(eventNames.ChangedLineManager, [staff.toJSON()]);
       }
       notifications.emit(eventNames.LogActivity, [`Updated ${ProfileUpdate.changedField(body)}`, { staffId: requester.staffId }]);

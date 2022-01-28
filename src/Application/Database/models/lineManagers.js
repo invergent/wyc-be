@@ -31,6 +31,7 @@ const lineManagers = (sequelize, DataTypes) => {
 
   LineManagers.associate = (models) => {
     LineManagers.hasMany(models.Staff, { as: 'subordinates', foreignKey: 'lineManagerId' });
+    LineManagers.belongsTo(models.Branch, { as: 'supervisorBranch', foreignKey: 'solId', targetKey: 'solId' });
   };
   return LineManagers;
 };
