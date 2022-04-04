@@ -13,7 +13,7 @@ env_variables:
   CLOUD_NAME: 'invergent'
   API_KEY: '882415814135169'
   API_SECRET: 'bJPqFW_jh8O4gMSXaYt7Ha5rM_E'
-  DB_HOST: '/cloudsql/hecp-prod:us-central1:hecp'
+  DB_HOST: '/cloudsql/wic-apis:us-central1:wic'
   DB_NAME: 'cleontime_test'
   DB_USERNAME: 'whytecleon'
   DB_PASSWORD: 'password'
