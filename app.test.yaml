@@ -1,4 +1,4 @@
-service: default
+service: cleontime-api-test
 runtime: nodejs10
 env_variables:
   NODE_ENV: 'cloud_test'
