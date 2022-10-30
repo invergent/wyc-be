@@ -22,7 +22,7 @@ const app = express();
 CompanyService.fetchInfo(); // initialise company info for mailing/other operations
 StaffService.createSuperAdmin();
 
-// app.use(helmet());
+app.use(helmet());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

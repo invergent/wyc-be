@@ -18,10 +18,8 @@ class APISyncHandlers {
       supervisor: lineManager,
       branchName: lineManager.supervisorBranch.name
     };
-    console.log(payload);
 
-    const response = await axios.default.put(url, payload);
-    console.log(response);
+    return axios.default.put(url, payload);
   }
 }
 
