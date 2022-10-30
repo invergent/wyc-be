@@ -19,7 +19,7 @@ class Responder {
       tokenType, data.hashedToken,
       {
         expires: new Date(Date.now() + 3600000),
-        domain: process.env.NODE_ENV === 'development' ? 'example.com' : 'whytecleon.ng',
+        domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'whytecleon.ng',
         httpOnly: true
       }
     );

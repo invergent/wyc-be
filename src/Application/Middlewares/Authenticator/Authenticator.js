@@ -43,6 +43,7 @@ class Authenticator {
   }
 
   static authenticateAdminOrStaff(req, res, next) {
+    console.log(req.cookies);
     if (req.cookies.staffToken) return Authenticator.authenticateStaff(req, res, next);
     if (req.cookies.adminToken) return Authenticator.authenticateAdmin(req, res, next);
     return res.status(401).json({ message: errorToStaff });
@@ -95,11 +96,11 @@ class Authenticator {
 
   static destroyToken(req, res) {
     res.clearCookie('staffToken', {
-      domain: process.env.NODE_ENV === 'development' ? 'example.com' : 'whytecleon.ng',
+      domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'whytecleon.ng',
       httpOnly: true
     });
     res.clearCookie('adminToken', {
-      domain: process.env.NODE_ENV === 'development' ? 'example.com' : 'whytecleon.ng',
+      domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'whytecleon.ng',
       httpOnly: true
     });
     return res.status(200).json({ message: 'Token destroyed successfully.' });

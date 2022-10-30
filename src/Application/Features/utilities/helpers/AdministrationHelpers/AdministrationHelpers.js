@@ -69,9 +69,11 @@ class AdministrationHelpers {
           firstname, lastname, middlename, staffId, accountNumber, image,
           branch: { solId, name: branch },
           role: { name: role },
-          lineManager: { firstname: lmFirstname, lastname: lmLastname, email: lmEmail }
+          lineManager
         },
       } = result;
+
+      const { firstname: lmFirstname, lastname: lmLastname, email: lmEmail } = lineManager || {};
 
       const parseDetails = details.total ? details : JSON.parse(details);
       const claimDetails = Object.keys(parseDetails).reduce((acc, item) => {
@@ -96,7 +98,7 @@ class AdministrationHelpers {
         year,
         monthOfClaim,
         role,
-        approvedby: `${lmFirstname} ${lmLastname}`,
+        approvedby: lmFirstname && lmLastname ? `${lmFirstname} ${lmLastname}` : null,
         approverEmail: lmEmail
       };
     });
